@@ -18,6 +18,9 @@ import java.awt.SystemColor;
 import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import javax.swing.JLayeredPane;
+import javax.swing.ImageIcon;
 
 public class InterfaceG extends JFrame {
 
@@ -56,7 +59,7 @@ public class InterfaceG extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 28, 776, 428);
+		panel.setBounds(12, 28, 776, 460);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -88,6 +91,16 @@ public class InterfaceG extends JFrame {
 		JLabel lblSistemaParaApoiar = new JLabel("Sistema para apoiar a Especificação de Requisitos de Software");
 		lblSistemaParaApoiar.setBounds(180, 100, 470, 15);
 		panel.add(lblSistemaParaApoiar);
+		
+		JLabel facomLogo = new JLabel("");
+		facomLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/facomlogo.png")));
+		facomLogo.setBounds(340, 325, 50, 51);
+		panel.add(facomLogo);
+		
+		JLabel ufmsLogo = new JLabel("");
+		ufmsLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/newlogo.png")));
+		ufmsLogo.setBounds(420, 325, 50, 51);
+		panel.add(ufmsLogo);
 		btnVerMeusProjetos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//colocar ação do botao ver meus projetos aqui 
