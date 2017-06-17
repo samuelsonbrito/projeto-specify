@@ -1,24 +1,27 @@
 package software;
 
 public class Projeto {
-	private int id; 
-	private String nome; 
-	private String dataInicio;  //ver depois para dividir em dia, mes, ano no banco de dados 
-	private String dataAproxTermino;  //ver depois para dividir em dia, mes, ano no banco de dados 
+	private int id;
+	private String nome;
+	private String dataInicio; // ver depois para dividir em dia, mes, ano no
+								// banco de dados
+	private String dataAproxTermino; // ver depois para dividir em dia, mes, ano
+										// no banco de dados
 	private String descricao;
-	private String recursosFinanceiros; 
-	
-	public Projeto(){
-		//construtor vazio 
+	private String recursosFinanceiros;
+
+	public Projeto() {
+		// construtor vazio
 	}
-	
-	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao, String recursosFinanceiros ){
-		this.id=id; 
-		this.nome=nome;
-		this.dataInicio=dataInicio;
-		this.dataAproxTermino=dataAproxTermino;
-		this.descricao=descricao;
-		this.recursosFinanceiros=recursosFinanceiros; 
+
+	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
+			String recursosFinanceiros) {
+		this.id = id;
+		this.nome = nome;
+		this.dataInicio = dataInicio;
+		this.dataAproxTermino = dataAproxTermino;
+		this.descricao = descricao;
+		this.recursosFinanceiros = recursosFinanceiros;
 	}
 
 	public String getNome() {
@@ -60,7 +63,5 @@ public class Projeto {
 	public String getDataInicio() {
 		return dataInicio;
 	}
-	
-	
 
 }
