@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.JLayeredPane;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class InterfaceG extends JFrame {
 
@@ -47,6 +48,7 @@ public class InterfaceG extends JFrame {
 	 * Create the frame.
 	 */
 	public InterfaceG() {
+		setTitle("Nome do software aqui");
 		projeto=new Projeto();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,45 +65,47 @@ public class InterfaceG extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnCadastrarNovoProjeto = new JButton("Cadastrar novo projeto");
-		btnCadastrarNovoProjeto.setBounds(200, 138, 400, 40);
-		panel.add(btnCadastrarNovoProjeto);
-		btnCadastrarNovoProjeto.addActionListener(new ActionListener() {
+		JButton btnMeusProjetos = new JButton("Meus projetos");
+		btnMeusProjetos.setToolTipText("Incluir, alterar, excluir e ver meus projetos");
+		btnMeusProjetos.setBounds(180, 134, 400, 40);
+		panel.add(btnMeusProjetos);
+		btnMeusProjetos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			//colocar acao do botao cadastrar novo projeto aqui 				
 			}
 		});
-		btnCadastrarNovoProjeto.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		btnMeusProjetos.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		
-		JButton btnVerMeusProjetos = new JButton("Ver meus projetos");
-		btnVerMeusProjetos.setBounds(200, 195, 400, 40);
-		panel.add(btnVerMeusProjetos);
+		JButton btnSobreP = new JButton("Sobre");
+		btnSobreP.setToolTipText("Sobre o (nome do programa aqui)");
+		btnSobreP.setBounds(180, 191, 400, 40);
+		panel.add(btnSobreP);
 		
-		JButton btnSobre = new JButton("Sobre");
-		btnSobre.setBounds(200, 252, 400, 40);
-		panel.add(btnSobre);
-		btnSobre.setToolTipText("Sobre o (nome do software aqui)");
+		JButton btnSair = new JButton("Sair");
+		btnSair.setBounds(180, 248, 400, 40);
+		panel.add(btnSair);
+		btnSair.setToolTipText("");
 		
 		JLabel lblNomeDoSoftware = new JLabel("Nome do software aqui");
-		lblNomeDoSoftware.setBounds(200, 70, 400, 19);
+		lblNomeDoSoftware.setBounds(180, 66, 400, 19);
 		panel.add(lblNomeDoSoftware);
 		lblNomeDoSoftware.setFont(new Font("Monospaced", lblNomeDoSoftware.getFont().getStyle(), lblNomeDoSoftware.getFont().getSize() + 4));
 		lblNomeDoSoftware.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblSistemaParaApoiar = new JLabel("Sistema para apoiar a Especificação de Requisitos de Software");
-		lblSistemaParaApoiar.setBounds(180, 100, 470, 15);
+		lblSistemaParaApoiar.setBounds(160, 96, 470, 15);
 		panel.add(lblSistemaParaApoiar);
 		
 		JLabel facomLogo = new JLabel("");
-		facomLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/facomlogo.png")));
-		facomLogo.setBounds(340, 325, 50, 51);
+		facomLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/facomlogo.png"))); //tentar direcionar para site depois
+		facomLogo.setBounds(320, 321, 50, 51);
 		panel.add(facomLogo);
 		
 		JLabel ufmsLogo = new JLabel("");
-		ufmsLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/newlogo.png")));
-		ufmsLogo.setBounds(420, 325, 50, 51);
+		ufmsLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/newlogo.png"))); //tentar direcionar para site depois 
+		ufmsLogo.setBounds(400, 321, 50, 51);
 		panel.add(ufmsLogo);
-		btnVerMeusProjetos.addActionListener(new ActionListener() {
+		btnSobreP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//colocar ação do botao ver meus projetos aqui 
 			}
