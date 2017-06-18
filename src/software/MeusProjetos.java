@@ -28,6 +28,7 @@ public class MeusProjetos extends JFrame {
 				try {
 					MeusProjetos frame = new MeusProjetos();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

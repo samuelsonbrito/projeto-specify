@@ -22,9 +22,12 @@ import java.awt.FlowLayout;
 import javax.swing.JLayeredPane;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.JToolBar;
 import java.awt.Cursor;
 import java.awt.ComponentOrientation;
+import javax.swing.JDesktopPane;
 
 public class TelaInicioInterface extends JFrame {
 
@@ -40,6 +43,7 @@ public class TelaInicioInterface extends JFrame {
 				try {
 					TelaInicioInterface frame = new TelaInicioInterface();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,7 +54,12 @@ public class TelaInicioInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public TelaInicioInterface() {
+		
+
+	    
+		
 		setResizable(false);
 		setFocusTraversalPolicyProvider(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -72,6 +81,8 @@ public class TelaInicioInterface extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		
+		
 		JButton btnMeusProjetos = new JButton("Meus projetos");
 		btnMeusProjetos.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnMeusProjetos.setToolTipText("Incluir, alterar, excluir e ver meus projetos");
@@ -79,7 +90,14 @@ public class TelaInicioInterface extends JFrame {
 		panel.add(btnMeusProjetos);
 		btnMeusProjetos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//colocar acao do botao cadastrar novo projeto aqui 				
+			//colocar acao do botao meus projetos aqui 
+			
+				MeusProjetos myProjects = new MeusProjetos();
+				myProjects.setVisible(true);
+				myProjects.setLocationRelativeTo(null);
+				myProjects.setExtendedState(MAXIMIZED_BOTH);
+				dispose();
+				
 			}
 		});
 		btnMeusProjetos.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
@@ -127,8 +145,10 @@ public class TelaInicioInterface extends JFrame {
 		
 		JLabel bgFundo2 = new JLabel("");
 		bgFundo2.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/diamond-bg.png")));
-		bgFundo2.setBounds(0, 0, 606, 472);
+		bgFundo2.setBounds(0, 0, 576, 465);
 		panel.add(bgFundo2);
+		
+		
 		
 		JLabel bgFundo = new JLabel("");
 		bgFundo.setBounds(0, 0, 606, 523);
