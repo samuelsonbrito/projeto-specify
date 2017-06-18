@@ -26,7 +26,7 @@ import javax.swing.JToolBar;
 import java.awt.Cursor;
 import java.awt.ComponentOrientation;
 
-public class InterfaceG extends JFrame {
+public class TelaInicioInterface extends JFrame {
 
 	private JPanel contentPane;
 	//private Projeto projeto;
@@ -38,7 +38,7 @@ public class InterfaceG extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceG frame = new InterfaceG();
+					TelaInicioInterface frame = new TelaInicioInterface();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +50,7 @@ public class InterfaceG extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceG() {
+	public TelaInicioInterface() {
 		setResizable(false);
 		setFocusTraversalPolicyProvider(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -116,24 +116,24 @@ public class InterfaceG extends JFrame {
 		panel.add(lblSistemaParaApoiar);
 		
 		JLabel facomLogo = new JLabel("");
-		facomLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/facomlogo.png"))); //tentar direcionar para site depois
+		facomLogo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/facomlogo.png"))); //tentar direcionar para site depois
 		facomLogo.setBounds(226, 327, 50, 51);
 		panel.add(facomLogo);
 		
 		JLabel ufmsLogo = new JLabel("");
-		ufmsLogo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/newlogo.png"))); //tentar direcionar para site depois 
+		ufmsLogo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/newlogo.png"))); //tentar direcionar para site depois 
 		ufmsLogo.setBounds(306, 327, 50, 51);
 		panel.add(ufmsLogo);
 		
 		JLabel bgFundo2 = new JLabel("");
-		bgFundo2.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/diamond-bg.png")));
+		bgFundo2.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/diamond-bg.png")));
 		bgFundo2.setBounds(0, 0, 606, 472);
 		panel.add(bgFundo2);
 		
 		JLabel bgFundo = new JLabel("");
 		bgFundo.setBounds(0, 0, 606, 523);
 		contentPane.add(bgFundo);
-		bgFundo.setIcon(new ImageIcon(InterfaceG.class.getResource("/images/diamond-bg.png")));
+		bgFundo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/diamond-bg.png")));
 		btnSobreP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//colocar ação do botao ver meus projetos aqui 
