@@ -68,14 +68,14 @@ public class TelaInicioInterface extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(12, 23, 576, 424);
+		panel.setBounds(12, 23, 576, 465);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JButton btnMeusProjetos = new JButton("Meus projetos");
 		btnMeusProjetos.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnMeusProjetos.setToolTipText("Incluir, alterar, excluir e ver meus projetos");
-		btnMeusProjetos.setBounds(86, 140, 400, 40);
+		btnMeusProjetos.setBounds(116, 159, 340, 40);
 		panel.add(btnMeusProjetos);
 		btnMeusProjetos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -87,7 +87,7 @@ public class TelaInicioInterface extends JFrame {
 		JButton btnSobreP = new JButton("Sobre");
 		btnSobreP.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnSobreP.setToolTipText("Sobre o (nome do programa aqui)");
-		btnSobreP.setBounds(86, 197, 400, 40);
+		btnSobreP.setBounds(116, 216, 340, 40);
 		panel.add(btnSobreP);
 		
 		JButton btnSair = new JButton("Sair");
@@ -97,7 +97,7 @@ public class TelaInicioInterface extends JFrame {
 				//colocar ação para fechar o programa aqui 
 			}
 		});
-		btnSair.setBounds(86, 254, 400, 40);
+		btnSair.setBounds(116, 273, 340, 40);
 		panel.add(btnSair);
 		btnSair.setToolTipText("");
 		
@@ -117,12 +117,12 @@ public class TelaInicioInterface extends JFrame {
 		
 		JLabel facomLogo = new JLabel("");
 		facomLogo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/facomlogo.png"))); //tentar direcionar para site depois
-		facomLogo.setBounds(226, 327, 50, 51);
+		facomLogo.setBounds(222, 390, 50, 51);
 		panel.add(facomLogo);
 		
 		JLabel ufmsLogo = new JLabel("");
 		ufmsLogo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/newlogo.png"))); //tentar direcionar para site depois 
-		ufmsLogo.setBounds(306, 327, 50, 51);
+		ufmsLogo.setBounds(302, 390, 50, 51);
 		panel.add(ufmsLogo);
 		
 		JLabel bgFundo2 = new JLabel("");
