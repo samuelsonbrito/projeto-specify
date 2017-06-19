@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
 
 public class MeusProjetos extends JFrame {
 
@@ -52,6 +53,14 @@ public class MeusProjetos extends JFrame {
 		JMenu mnArquivo = new JMenu("Arquivo");
 		mnArquivo.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/folder.png")));
 		menuBar.add(mnArquivo);
+		
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		mnArquivo.add(mntmSair);
 		
 		JMenu mnEditar = new JMenu("Editar");
 		menuBar.add(mnEditar);

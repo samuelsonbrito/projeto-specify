@@ -61,8 +61,8 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblCadastreSeuNovo = new JLabel("Cadastre seu novo requisito");
-		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 14));
-		lblCadastreSeuNovo.setBounds(170, 40, 250, 15);
+		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
+		lblCadastreSeuNovo.setBounds(150, 40, 500, 15);
 		contentPane.add(lblCadastreSeuNovo);
 		
 		JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");

@@ -3,7 +3,7 @@ package software;
 public class Projeto {
 	private int id;
 	private String nome;
-	private String dataInicio; // ver depois para dividir em dia, mes, ano no
+	private String dataInicio; // ver depois para dividir em dia, mes, ano no 
 								// banco de dados
 	private String dataAproxTermino; // ver depois para dividir em dia, mes, ano
 										// no banco de dados

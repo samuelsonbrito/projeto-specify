@@ -143,8 +143,8 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		lblCadastreSeuNovo = new JLabel("Cadastre seu novo projeto");
-		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 14));
-		lblCadastreSeuNovo.setBounds(159, 30, 200, 30);
+		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
+		lblCadastreSeuNovo.setBounds(150, 30, 500, 30);
 		contentPane.add(lblCadastreSeuNovo);
 	}
 }
