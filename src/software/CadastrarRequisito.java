@@ -2,6 +2,7 @@ package software;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class CadastrarRequisito extends JFrame {
 
@@ -59,84 +61,94 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblCadastreSeuNovo = new JLabel("Cadastre seu novo requisito");
+		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 14));
 		lblCadastreSeuNovo.setBounds(170, 40, 250, 15);
 		contentPane.add(lblCadastreSeuNovo);
 		
 		JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");
-		lblProjetoAoQual.setBounds(110, 110, 400, 15);
+		lblProjetoAoQual.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblProjetoAoQual.setBounds(61, 84, 400, 15);
 		contentPane.add(lblProjetoAoQual);
 		
 		txtListaDosProjetos = new JTextField();
 		txtListaDosProjetos.setHorizontalAlignment(SwingConstants.CENTER);
-		txtListaDosProjetos.setText("uma lista dos projetos deve aparecer aqui ");
-		txtListaDosProjetos.setBounds(138, 130, 300, 19);
+		txtListaDosProjetos.setText("uma lista dos projetos ja cadastrados deve aparecer aqui ");
+		txtListaDosProjetos.setBounds(65, 103, 400, 19);
 		contentPane.add(txtListaDosProjetos);
 		txtListaDosProjetos.setColumns(10);
 		
 		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(180, 199, 70, 15);
+		lblId.setBounds(185, 151, 70, 15);
 		contentPane.add(lblId);
 		
 		recebeID = new JTextField();
-		recebeID.setBounds(210, 197, 200, 19);
+		recebeID.setBounds(215, 149, 200, 19);
 		contentPane.add(recebeID);
 		recebeID.setColumns(10);
 		
 		JLabel lblSujeito = new JLabel("Sujeito: ");
-		lblSujeito.setBounds(144, 230, 70, 15);
+		lblSujeito.setFont(new Font("TakaoPGothic", Font.BOLD, 12));	
+		lblSujeito.setBounds(154, 182, 70, 15);
 		contentPane.add(lblSujeito);
 		
 		recebeSujeito = new JTextField();
-		recebeSujeito.setBounds(210, 227, 200, 19);
+		recebeSujeito.setBounds(215, 179, 200, 19);
 		contentPane.add(recebeSujeito);
 		recebeSujeito.setColumns(10);
 		
 		JLabel lblAoEouRestrio = new JLabel("Ação e/ou restrição:");
-		lblAoEouRestrio.setBounds(57, 260, 300, 15);
+		lblAoEouRestrio.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblAoEouRestrio.setBounds(68, 212, 300, 15);
 		contentPane.add(lblAoEouRestrio);
 		
 		recebeAcaoRestri = new JTextField();
-		recebeAcaoRestri.setBounds(210, 258, 200, 19);
+		recebeAcaoRestri.setBounds(215, 210, 200, 19);
 		contentPane.add(recebeAcaoRestri);
 		recebeAcaoRestri.setColumns(10);
 		
 		JLabel lblValorOuRazo = new JLabel("Valor ou razão: ");
-		lblValorOuRazo.setBounds(90, 287, 300, 15);
+		lblValorOuRazo.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblValorOuRazo.setBounds(104, 239, 300, 15);
 		contentPane.add(lblValorOuRazo);
 		
 		recebeValorRazao = new JTextField();
-		recebeValorRazao.setBounds(210, 287, 200, 19);
+		recebeValorRazao.setBounds(215, 239, 200, 19);
 		contentPane.add(recebeValorRazao);
 		recebeValorRazao.setColumns(10);
 		
 		JLabel lblGrauDePrioridade = new JLabel("Grau de prioridade:");
-		lblGrauDePrioridade.setBounds(59, 345, 300, 15);
+		lblGrauDePrioridade.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblGrauDePrioridade.setBounds(76, 297, 300, 15);
 		contentPane.add(lblGrauDePrioridade);
 		
 		recebeGrauPrio = new JTextField();
-		recebeGrauPrio.setBounds(210, 343, 200, 19);
+		recebeGrauPrio.setBounds(215, 295, 200, 19);
 		contentPane.add(recebeGrauPrio);
 		recebeGrauPrio.setColumns(10);
 		
 		JLabel lblGrauDeDificuldade = new JLabel("Grau de dificuldade: ");
-		lblGrauDeDificuldade.setBounds(56, 314, 300, 15);
+		lblGrauDeDificuldade.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblGrauDeDificuldade.setBounds(70, 266, 300, 15);
 		contentPane.add(lblGrauDeDificuldade);
 		
 		JLabel lblEstimativa = new JLabel("Estimativa: ");
-		lblEstimativa.setBounds(120, 372, 200, 15);
+		lblEstimativa.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		lblEstimativa.setBounds(130, 324, 200, 15);
 		contentPane.add(lblEstimativa);
 		
 		recebeGrauDifi = new JTextField();
-		recebeGrauDifi.setBounds(210, 312, 200, 19);
+		recebeGrauDifi.setBounds(215, 264, 200, 19);
 		contentPane.add(recebeGrauDifi);
 		recebeGrauDifi.setColumns(10);
 		
 		recebeEstimativa = new JTextField();
-		recebeEstimativa.setBounds(210, 372, 200, 19);
+		recebeEstimativa.setBounds(215, 324, 200, 19);
 		contentPane.add(recebeEstimativa);
 		recebeEstimativa.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/disk.png")));
+		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//flata colocar as paradas aqui 
@@ -144,20 +156,24 @@ public class CadastrarRequisito extends JFrame {
 				dispose();
 			}
 		});
-		btnSalvar.setBounds(220, 425, 117, 25);
+		btnSalvar.setBounds(225, 377, 117, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/cancel.png")));
+		btnCancelar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(350, 425, 117, 25);
+		btnCancelar.setBounds(355, 377, 117, 25);
 		contentPane.add(btnCancelar);
 		
 		JButton btnAjuda = new JButton("Ajuda");
-		btnAjuda.setBounds(90, 425, 117, 25);
+		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
+		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		btnAjuda.setBounds(95, 377, 117, 25);
 		contentPane.add(btnAjuda);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
