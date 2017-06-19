@@ -113,7 +113,7 @@ public class TelaInicioInterface extends JFrame {
 		btnSair.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//colocar ação para fechar o programa aqui 
+				dispose();
 			}
 		});
 		btnSair.setBounds(116, 273, 340, 40);

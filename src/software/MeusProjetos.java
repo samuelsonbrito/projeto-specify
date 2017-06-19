@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MeusProjetos extends JFrame {
 
@@ -61,10 +63,26 @@ public class MeusProjetos extends JFrame {
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
 		JButton btnNovoProjeto = new JButton("Novo projeto");
+		btnNovoProjeto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//ação botao novo projeto 
+				
+				CadastrarProjeto novoprojeto= new CadastrarProjeto();
+				novoprojeto.setVisible(true);
+				novoprojeto.setLocationRelativeTo(null);
+			}
+		});
 		btnNovoProjeto.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
 		toolBar.add(btnNovoProjeto);
 		
 		JButton btnNovoRequisito = new JButton("Novo requisito");
+		btnNovoRequisito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarRequisito novoRequisito=new CadastrarRequisito();
+				novoRequisito.setVisible(true);
+				novoRequisito.setLocationRelativeTo(null);
+			}
+		});
 		btnNovoRequisito.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/page_add.png")));
 		toolBar.add(btnNovoRequisito);
 	}
