@@ -16,6 +16,10 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class MeusProjetos extends JFrame {
 
@@ -31,6 +35,8 @@ public class MeusProjetos extends JFrame {
 					MeusProjetos frame = new MeusProjetos();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
+					//frame.setExtendedState(MAXIMIZED_BOTH);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,11 +71,12 @@ public class MeusProjetos extends JFrame {
 		JMenu mnEditar = new JMenu("Editar");
 		menuBar.add(mnEditar);
 		contentPane = new JPanel();
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		toolBar.setBounds(0, 0, 718, 32);
+		contentPane.add(toolBar);
 		
 		JButton btnNovoProjeto = new JButton("Novo projeto");
 		btnNovoProjeto.addActionListener(new ActionListener() {
@@ -94,5 +101,22 @@ public class MeusProjetos extends JFrame {
 		});
 		btnNovoRequisito.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/page_add.png")));
 		toolBar.add(btnNovoRequisito);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabbedPane.setBackground(Color.DARK_GRAY);
+		tabbedPane.setBounds(10, 35, 198, 370);
+		//tabbedPane.add(null, BorderLayout.NORTH);
+
+		contentPane.add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		panel.setForeground(Color.PINK);
+		panel.setBackground(UIManager.getColor("TabbedPane.light"));
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignOnBaseline(true);
+		flowLayout.setAlignment(FlowLayout.TRAILING);
+		tabbedPane.addTab("Projetos", null, panel, null);
+		tabbedPane.setBackgroundAt(0, UIManager.getColor("SplitPane.darkShadow"));
 	}
 }
