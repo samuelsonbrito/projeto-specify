@@ -31,6 +31,7 @@ public class CadastrarRequisito extends JFrame {
 	private JTextField recebeGrauPrio;
 	private JTextField recebeGrauDifi;
 	private JTextField recebeEstimativa;
+	private Requisito nreq; 
 
 	/**
 	 * Launch the application.
@@ -52,6 +53,7 @@ public class CadastrarRequisito extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastrarRequisito() {
+		nreq = new Requisito();
 		setTitle("Cadastrar requisito");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 554, 500);
@@ -151,7 +153,18 @@ public class CadastrarRequisito extends JFrame {
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//flata colocar as paradas aqui 
+				int rbID=Integer.parseInt(recebeID.getText());
+				nreq.setId(rbID);
+				nreq.setSujeito(recebeSujeito.getText());
+				nreq.setAcaoRestricao(recebeAcaoRestri.getText());
+				nreq.setValorRazao(recebeValorRazao.getText());
+				int sgpi=Integer.parseInt(recebeGrauPrio.getText());
+				nreq.setGrauPrioridade(sgpi);
+				int sgd=Integer.parseInt(recebeGrauDifi.getText());
+				nreq.setGrauDificuldade(sgd);
+				int se=Integer.parseInt(recebeEstimativa.getText());
+				nreq.setEstimativa(se);
+				
 				JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
 				dispose();
 			}

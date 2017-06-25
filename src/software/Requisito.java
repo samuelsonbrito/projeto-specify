@@ -9,6 +9,10 @@ public class Requisito {
 	private int grauDificuldade; 
 	private int estimativa;
 	
+	public Requisito(){
+		
+	}
+	
 	public Requisito(int id, String sujeito, String acaoRestricao, String valorRazao, int grauPrioridade, int grauDificuldade, int estimativa) {
 		super();
 		this.id = id;
