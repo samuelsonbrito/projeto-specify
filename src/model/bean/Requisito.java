@@ -1,4 +1,4 @@
-package software;
+package model.bean;
 
 public class Requisito {
 	private int id;

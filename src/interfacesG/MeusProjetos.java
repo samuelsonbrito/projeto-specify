@@ -1,4 +1,4 @@
-package software;
+package interfacesG;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

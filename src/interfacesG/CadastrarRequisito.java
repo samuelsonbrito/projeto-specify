@@ -1,4 +1,4 @@
-package software;
+package interfacesG;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,9 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.bean.Requisito;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
