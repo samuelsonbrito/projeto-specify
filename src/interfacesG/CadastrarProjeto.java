@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.bean.Projeto;
+import model.dao.ProjetoDAO;
 
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblRecursosFinanceiros;
 	private JTextField recebeRecursoFinanceiro;
 	private JLabel lblCadastreSeuNovo;
+	private JTextField recebeNumero;
 
 	/**
 	 * Launch the application.
@@ -66,51 +68,51 @@ public class CadastrarProjeto extends JFrame {
 		
 		JLabel lblInsiraONome = new JLabel("Insira o nome do projeto:");
 		lblInsiraONome.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblInsiraONome.setBounds(92, 105, 200, 15);
+		lblInsiraONome.setBounds(92, 137, 200, 15);
 		contentPane.add(lblInsiraONome);
 		
 		recebeNomeProjeto = new JTextField();
-		recebeNomeProjeto.setBounds(271, 103, 200, 20);
+		recebeNomeProjeto.setBounds(271, 135, 200, 20);
 		contentPane.add(recebeNomeProjeto);
 		recebeNomeProjeto.setColumns(10);
 		
 		JLabel lblInsiraAData = new JLabel("Data de inicio: ");
 		lblInsiraAData.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblInsiraAData.setBounds(159, 147, 200, 15);
+		lblInsiraAData.setBounds(159, 179, 200, 15);
 		contentPane.add(lblInsiraAData);
 		
 		recebeDataInicio = new JTextField();
-		recebeDataInicio.setBounds(271, 147, 200, 20);
+		recebeDataInicio.setBounds(271, 179, 200, 20);
 		contentPane.add(recebeDataInicio);
 		recebeDataInicio.setColumns(10);
 		
 		JLabel lblDataAproximadaPara = new JLabel("Data aproximada para término:");
 		lblDataAproximadaPara.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblDataAproximadaPara.setBounds(55, 190, 250, 15);
+		lblDataAproximadaPara.setBounds(55, 222, 250, 15);
 		contentPane.add(lblDataAproximadaPara);
 		
 		recebeDataTermino = new JTextField();
-		recebeDataTermino.setBounds(271, 188, 200, 20);
+		recebeDataTermino.setBounds(271, 220, 200, 20);
 		contentPane.add(recebeDataTermino);
 		recebeDataTermino.setColumns(10);
 		
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");
 		lblDescrioDoProjeto.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblDescrioDoProjeto.setBounds(115, 225, 200, 15);
+		lblDescrioDoProjeto.setBounds(115, 257, 200, 15);
 		contentPane.add(lblDescrioDoProjeto);
 		
 		recebeDescricao = new JTextField();
-		recebeDescricao.setBounds(271, 225, 200, 60);
+		recebeDescricao.setBounds(271, 257, 200, 60);
 		contentPane.add(recebeDescricao);
 		recebeDescricao.setColumns(10);
 		
 		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:");
 		lblRecursosFinanceiros.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblRecursosFinanceiros.setBounds(64, 300, 250, 15);
+		lblRecursosFinanceiros.setBounds(64, 332, 250, 15);
 		contentPane.add(lblRecursosFinanceiros);
 		
 		recebeRecursoFinanceiro = new JTextField();
-		recebeRecursoFinanceiro.setBounds(271, 301, 200, 20);
+		recebeRecursoFinanceiro.setBounds(271, 333, 200, 20);
 		contentPane.add(recebeRecursoFinanceiro);
 		recebeRecursoFinanceiro.setColumns(10);
 		
@@ -121,16 +123,21 @@ public class CadastrarProjeto extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ação salvar projeto
+				
+				ProjetoDAO dao = new ProjetoDAO();
+				cprojeto.setNumero(Integer.parseInt(recebeNumero.getText()));
 				cprojeto.setNome(recebeNomeProjeto.getText());
-				cprojeto.setDataAproxTermino(recebeDataInicio.getText());
+				cprojeto.setDataInicio(recebeDataInicio.getText());
 				cprojeto.setDataAproxTermino(recebeDataTermino.getText());
 				cprojeto.setDescricao(recebeDescricao.getText());
 				cprojeto.setRecursosFinanceiros(recebeRecursoFinanceiro.getText());
-				JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");
+				//JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");
+				dao.create(cprojeto);
+				
 				dispose();
 			}
 		});
-		btnSalvar.setBounds(124, 385, 140, 25);
+		btnSalvar.setBounds(124, 417, 140, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -142,12 +149,22 @@ public class CadastrarProjeto extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(282, 385, 140, 25);
+		btnCancelar.setBounds(282, 417, 140, 25);
 		contentPane.add(btnCancelar);
 		
 		lblCadastreSeuNovo = new JLabel("Cadastre seu novo projeto");
 		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
 		lblCadastreSeuNovo.setBounds(150, 30, 500, 30);
 		contentPane.add(lblCadastreSeuNovo);
+		
+		JLabel numeroP = new JLabel("Insira o número do projeto:");
+		numeroP.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		numeroP.setBounds(78, 93, 200, 15);
+		contentPane.add(numeroP);
+		
+		recebeNumero = new JTextField();
+		recebeNumero.setBounds(271, 95, 200, 19);
+		contentPane.add(recebeNumero);
+		recebeNumero.setColumns(10);
 	}
 }

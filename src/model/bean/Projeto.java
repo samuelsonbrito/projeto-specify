@@ -1,7 +1,7 @@
 package model.bean;
 
 public class Projeto {
-	private int id;
+	private int numero;
 	private String nome;
 	private String dataInicio; // ver depois para dividir em dia, mes, ano no 
 								// banco de dados
@@ -16,7 +16,7 @@ public class Projeto {
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
 			String recursosFinanceiros) {
-		this.id = id;
+		this.numero = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
 		this.dataAproxTermino = dataAproxTermino;
@@ -52,12 +52,20 @@ public class Projeto {
 		return recursosFinanceiros;
 	}
 
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
 	public void setRecursosFinanceiros(String recursosFinanceiros) {
 		this.recursosFinanceiros = recursosFinanceiros;
 	}
 
-	public int getId() {
-		return id;
+	public int getNumero() {
+		return numero;
 	}
 
 	public String getDataInicio() {

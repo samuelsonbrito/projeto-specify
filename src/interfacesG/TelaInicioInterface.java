@@ -96,7 +96,7 @@ public class TelaInicioInterface extends JFrame {
 				myProjects.setVisible(true);
 				myProjects.setTitle("Meus Projetos");
 				myProjects.setLocationRelativeTo(null);
-				myProjects.setExtendedState(MAXIMIZED_BOTH);
+				//myProjects.setExtendedState(MAXIMIZED_BOTH);
 				dispose();
 				
 			}

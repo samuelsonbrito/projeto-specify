@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.bean.Requisito;
+import model.dao.RequisitoDAO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -156,19 +157,18 @@ public class CadastrarRequisito extends JFrame {
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int rbID=Integer.parseInt(recebeID.getText());
-				nreq.setId(rbID);
+				RequisitoDAO dao = new RequisitoDAO();
+				
+				nreq.setId(Integer.parseInt(recebeID.getText()));
 				nreq.setSujeito(recebeSujeito.getText());
 				nreq.setAcaoRestricao(recebeAcaoRestri.getText());
 				nreq.setValorRazao(recebeValorRazao.getText());
-				int sgpi=Integer.parseInt(recebeGrauPrio.getText());
-				nreq.setGrauPrioridade(sgpi);
-				int sgd=Integer.parseInt(recebeGrauDifi.getText());
-				nreq.setGrauDificuldade(sgd);
-				int se=Integer.parseInt(recebeEstimativa.getText());
-				nreq.setEstimativa(se);
+				nreq.setGrauPrioridade(Integer.parseInt(recebeGrauPrio.getText()));
+				nreq.setGrauDificuldade(Integer.parseInt(recebeGrauDifi.getText()));
+				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 				
-				JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
+				dao.create(nreq);
+				//JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
 				dispose();
 			}
 		});
