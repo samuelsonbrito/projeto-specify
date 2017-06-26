@@ -168,7 +168,13 @@ public class CadastrarRequisito extends JFrame {
 				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 				
 				dao.create(nreq);
-				//JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
+
+				/*int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito?");
+				if (resposta == JOptionPane.YES_OPTION)
+					JOptionPane.showMessageDialog(null, "");;
+					//precisa fazer limpar campos para poder cadastrar novo req
+				if (resposta ==JOptionPane.NO_OPTION)
+					dispose();*/
 				dispose();
 			}
 		});

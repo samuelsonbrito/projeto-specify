@@ -134,6 +134,13 @@ public class CadastrarProjeto extends JFrame {
 				//JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");
 				dao.create(cprojeto);
 				
+				/*int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
+				if (resposta == JOptionPane.YES_OPTION)
+					JOptionPane.showMessageDialog(null, "");;
+					//precisa fazer limpar campos para poder cadastrar novo req
+				if (resposta ==JOptionPane.NO_OPTION)
+					dispose();*/
+				
 				dispose();
 			}
 		});
