@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
+import javax.swing.JTable;
 
 public class MeusProjetos extends JFrame {
 
@@ -101,22 +102,5 @@ public class MeusProjetos extends JFrame {
 		});
 		btnNovoRequisito.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/page_add.png")));
 		toolBar.add(btnNovoRequisito);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
-		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		tabbedPane.setBackground(Color.DARK_GRAY);
-		tabbedPane.setBounds(10, 35, 198, 370);
-		//tabbedPane.add(null, BorderLayout.NORTH);
-
-		contentPane.add(tabbedPane);
-		
-		JPanel panel = new JPanel();
-		panel.setForeground(Color.PINK);
-		panel.setBackground(UIManager.getColor("TabbedPane.light"));
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignOnBaseline(true);
-		flowLayout.setAlignment(FlowLayout.TRAILING);
-		tabbedPane.addTab("Projetos", null, panel, null);
-		tabbedPane.setBackgroundAt(0, UIManager.getColor("SplitPane.darkShadow"));
 	}
 }
