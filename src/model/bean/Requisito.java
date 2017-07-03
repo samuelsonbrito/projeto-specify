@@ -1,19 +1,29 @@
 package model.bean;
 
 public class Requisito {
+	private int codigo; 
 	private int id;
 	private String sujeito;
 	private String acaoRestricao;
 	private String valorRazao;
-	private int grauPrioridade;
-	private int grauDificuldade; 
+	private GrauP grauPrioridade;
+	private GrauD grauDificuldade; 
 	private int estimativa;
+	
+	public enum GrauP{
+		BAIXA, MEDIA, ALTA;
+	}
+	
+	public enum GrauD{
+		BAIXA, MEDIA, ALTA;
+	}
+	
 	
 	public Requisito(){
 		
 	}
 	
-	public Requisito(int id, String sujeito, String acaoRestricao, String valorRazao, int grauPrioridade, int grauDificuldade, int estimativa) {
+	public Requisito(int id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
 		super();
 		this.id = id;
 		this.sujeito = sujeito;
@@ -56,19 +66,19 @@ public class Requisito {
 		this.valorRazao = valorRazao;
 	}
 
-	public int getGrauPrioridade() {
+	public GrauP getGrauPrioridade() {
 		return grauPrioridade;
 	}
 
-	public void setGrauPrioridade(int grauPrioridade) {
+	public void setGrauPrioridade( GrauP grauPrioridade) {
 		this.grauPrioridade = grauPrioridade;
 	}
 
-	public int getGrauDificuldade() {
+	public  GrauD getGrauDificuldade() {
 		return grauDificuldade;
 	}
 
-	public void setGrauDificuldade(int grauDificuldade) {
+	public void setGrauDificuldade(GrauD grauDificuldade) {
 		this.grauDificuldade = grauDificuldade;
 	}
 

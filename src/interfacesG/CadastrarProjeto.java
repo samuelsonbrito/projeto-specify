@@ -34,7 +34,6 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblRecursosFinanceiros;
 	private JTextField recebeRecursoFinanceiro;
 	private JLabel lblCadastreSeuNovo;
-	private JTextField recebeNumero;
 
 	/**
 	 * Launch the application.
@@ -125,12 +124,12 @@ public class CadastrarProjeto extends JFrame {
 				//ação salvar projeto
 				
 				ProjetoDAO dao = new ProjetoDAO();
-				cprojeto.setNumero(Integer.parseInt(recebeNumero.getText()));
+				//cprojeto.setCodigo(Integer.parseInt(recebeNumero.getText()));
 				cprojeto.setNome(recebeNomeProjeto.getText());
 				cprojeto.setDataInicio(recebeDataInicio.getText());
 				cprojeto.setDataAproxTermino(recebeDataTermino.getText());
 				cprojeto.setDescricao(recebeDescricao.getText());
-				cprojeto.setRecursosFinanceiros(recebeRecursoFinanceiro.getText());
+				cprojeto.setRecursosFinanceiros(Float.parseFloat(recebeRecursoFinanceiro.getText()));
 				//JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");
 				dao.create(cprojeto);
 				
@@ -163,15 +162,5 @@ public class CadastrarProjeto extends JFrame {
 		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
 		lblCadastreSeuNovo.setBounds(150, 30, 500, 30);
 		contentPane.add(lblCadastreSeuNovo);
-		
-		JLabel numeroP = new JLabel("Insira o número do projeto:");
-		numeroP.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		numeroP.setBounds(78, 93, 200, 15);
-		contentPane.add(numeroP);
-		
-		recebeNumero = new JTextField();
-		recebeNumero.setBounds(271, 95, 200, 19);
-		contentPane.add(recebeNumero);
-		recebeNumero.setColumns(10);
 	}
 }

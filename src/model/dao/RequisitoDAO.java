@@ -31,17 +31,19 @@ public class RequisitoDAO {
             stmt.setString(2, r.getSujeito());
             stmt.setString(3, r.getAcaoRestricao());
             stmt.setString(4, r.getValorRazao());
-            stmt.setDouble(5, r.getGrauPrioridade());
-            stmt.setDouble(6, r.getGrauDificuldade());
+            stmt.setString(5, r.getGrauPrioridade().name());
+            stmt.setString(6, r.getGrauDificuldade().name());
             stmt.setDouble(7, r.getEstimativa());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar requisito: "+ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
+        } 
+        
+        //finally {
+       //     ConnectionFactory.closeConnection(con, stmt);
+       // }
 
     }
 

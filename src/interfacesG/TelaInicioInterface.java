@@ -57,9 +57,6 @@ public class TelaInicioInterface extends JFrame {
 	
 	public TelaInicioInterface() {
 		
-
-	    
-		
 		setResizable(false);
 		setFocusTraversalPolicyProvider(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -150,14 +147,13 @@ public class TelaInicioInterface extends JFrame {
 		panel.add(bgFundo2);
 		
 		
-		
 		JLabel bgFundo = new JLabel("");
 		bgFundo.setBounds(0, 0, 606, 523);
 		contentPane.add(bgFundo);
 		bgFundo.setIcon(new ImageIcon(TelaInicioInterface.class.getResource("/images/diamond-bg.png")));
 		btnSobreP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//colocar ação do botao ver meus projetos aqui 
+				//colocar ação do botão sobre 
 			}
 		});
 	}

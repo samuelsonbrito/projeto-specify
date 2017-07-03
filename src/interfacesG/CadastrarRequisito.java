@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.bean.Requisito;
+import model.bean.Requisito.GrauD;
 import model.dao.RequisitoDAO;
 
 import javax.swing.JLabel;
@@ -23,6 +24,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class CadastrarRequisito extends JFrame {
 
@@ -32,10 +35,10 @@ public class CadastrarRequisito extends JFrame {
 	private JTextField recebeSujeito;
 	private JTextField recebeAcaoRestri;
 	private JTextField recebeValorRazao;
-	private JTextField recebeGrauPrio;
-	private JTextField recebeGrauDifi;
 	private JTextField recebeEstimativa;
 	private Requisito nreq; 
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -127,11 +130,6 @@ public class CadastrarRequisito extends JFrame {
 		lblGrauDePrioridade.setBounds(76, 297, 300, 15);
 		contentPane.add(lblGrauDePrioridade);
 		
-		recebeGrauPrio = new JTextField();
-		recebeGrauPrio.setBounds(215, 295, 200, 19);
-		contentPane.add(recebeGrauPrio);
-		recebeGrauPrio.setColumns(10);
-		
 		JLabel lblGrauDeDificuldade = new JLabel("Grau de dificuldade: ");
 		lblGrauDeDificuldade.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblGrauDeDificuldade.setBounds(70, 266, 300, 15);
@@ -141,11 +139,6 @@ public class CadastrarRequisito extends JFrame {
 		lblEstimativa.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblEstimativa.setBounds(130, 324, 200, 15);
 		contentPane.add(lblEstimativa);
-		
-		recebeGrauDifi = new JTextField();
-		recebeGrauDifi.setBounds(215, 264, 200, 19);
-		contentPane.add(recebeGrauDifi);
-		recebeGrauDifi.setColumns(10);
 		
 		recebeEstimativa = new JTextField();
 		recebeEstimativa.setBounds(215, 324, 200, 19);
@@ -163,8 +156,13 @@ public class CadastrarRequisito extends JFrame {
 				nreq.setSujeito(recebeSujeito.getText());
 				nreq.setAcaoRestricao(recebeAcaoRestri.getText());
 				nreq.setValorRazao(recebeValorRazao.getText());
-				nreq.setGrauPrioridade(Integer.parseInt(recebeGrauPrio.getText()));
-				nreq.setGrauDificuldade(Integer.parseInt(recebeGrauDifi.getText()));
+				
+				
+				//nreq.setGrauDificuldade(GrauD.BAIXA);  <= funciona assim
+				//tem que colocar de acordo com a ação dos botões de prioridades para ativar baixa, media ou alta
+				
+				//nreq.setGrauPrioridade(recebeGrauPrio.getText());  <= era assims
+				// nreq.setGrauDificuldade(recebeGrauDifi.getText());
 				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 				
 				dao.create(nreq);
@@ -197,6 +195,36 @@ public class CadastrarRequisito extends JFrame {
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnAjuda.setBounds(95, 377, 117, 25);
 		contentPane.add(btnAjuda);
+		
+		JRadioButton gdBaixa = new JRadioButton("Baixa");
+		buttonGroup.add(gdBaixa);
+		gdBaixa.setBounds(215, 266, 70, 23);
+		contentPane.add(gdBaixa);
+		
+		JRadioButton gdMdia = new JRadioButton("Média");
+		buttonGroup.add(gdMdia);
+		gdMdia.setBounds(285, 266, 80, 23);
+		contentPane.add(gdMdia);
+		
+		JRadioButton gdAlta = new JRadioButton("Alta");
+		buttonGroup.add(gdAlta);
+		gdAlta.setBounds(362, 266, 110, 23);
+		contentPane.add(gdAlta);
+		
+		JRadioButton gpBaixa = new JRadioButton("Baixa");
+		buttonGroup_1.add(gpBaixa);
+		gpBaixa.setBounds(215, 297, 70, 23);
+		contentPane.add(gpBaixa);
+		
+		JRadioButton gpMedia = new JRadioButton("Média");
+		buttonGroup_1.add(gpMedia);
+		gpMedia.setBounds(285, 297, 80, 23);
+		contentPane.add(gpMedia);
+		
+		JRadioButton gpAlta = new JRadioButton("Alta");
+		buttonGroup_1.add(gpAlta);
+		gpAlta.setBounds(362, 297, 110, 23);
+		contentPane.add(gpAlta);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

@@ -1,22 +1,20 @@
 package model.bean;
 
 public class Projeto {
-	private int numero;
+	private int codigo; //antes era numero
 	private String nome;
-	private String dataInicio; // ver depois para dividir em dia, mes, ano no 
-								// banco de dados
-	private String dataAproxTermino; // ver depois para dividir em dia, mes, ano
-										// no banco de dados
+	private String dataInicio; 
+	private String dataAproxTermino; 
 	private String descricao;
-	private String recursosFinanceiros;
+	private float recursosFinanceiros;
 
 	public Projeto() {
 		// construtor vazio
 	}
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
-			String recursosFinanceiros) {
-		this.numero = id;
+			Float recursosFinanceiros) {
+		this.codigo = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
 		this.dataAproxTermino = dataAproxTermino;
@@ -48,24 +46,24 @@ public class Projeto {
 		this.descricao = descricao;
 	}
 
-	public String getRecursosFinanceiros() {
+	public float getRecursosFinanceiros() {
 		return recursosFinanceiros;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public void setRecursosFinanceiros(String recursosFinanceiros) {
+	public void setRecursosFinanceiros(float recursosFinanceiros) {
 		this.recursosFinanceiros = recursosFinanceiros;
 	}
 
-	public int getNumero() {
-		return numero;
+	public int getCodigo() {
+		return codigo;
 	}
 
 	public String getDataInicio() {
