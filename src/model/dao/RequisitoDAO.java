@@ -27,7 +27,7 @@ public class RequisitoDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO requisito(id,sujeito, acaoRestricao, valorRazao, grauPrioridade, grauDificuldade, estimativa)VALUES(?,?,?,?,?,?,?)");
-            stmt.setInt(1, r.getId());
+            stmt.setString(1, r.getId());
             stmt.setString(2, r.getSujeito());
             stmt.setString(3, r.getAcaoRestricao());
             stmt.setString(4, r.getValorRazao());
@@ -37,13 +37,13 @@ public class RequisitoDAO {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar requisito: "+ex);
         } 
         
-        //finally {
-       //     ConnectionFactory.closeConnection(con, stmt);
-       // }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar requisito: "+ex);
+        } finally {
+           ConnectionFactory.closeConnection(con, stmt);
+       }
 
     }
 

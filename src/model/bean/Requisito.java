@@ -2,7 +2,7 @@ package model.bean;
 
 public class Requisito {
 	private int codigo; 
-	private int id;
+	private String id;
 	private String sujeito;
 	private String acaoRestricao;
 	private String valorRazao;
@@ -18,12 +18,10 @@ public class Requisito {
 		BAIXA, MEDIA, ALTA;
 	}
 	
-	
-	public Requisito(){
-		
+	public Requisito(){	
 	}
 	
-	public Requisito(int id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
+	public Requisito(String id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
 		super();
 		this.id = id;
 		this.sujeito = sujeito;
@@ -34,11 +32,11 @@ public class Requisito {
 		this.estimativa = estimativa;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
