@@ -220,7 +220,8 @@ public class CadastrarRequisito extends JFrame {
 				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 
 				dao.create(nreq);
-
+				
+				//arrumar aqui - 
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito?");
 				if (resposta == JOptionPane.YES_OPTION)
 					JOptionPane.showMessageDialog(null, "teste pao");;

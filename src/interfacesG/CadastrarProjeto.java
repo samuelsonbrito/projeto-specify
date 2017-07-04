@@ -1,11 +1,13 @@
 package interfacesG;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
 
 import model.bean.Projeto;
 import model.dao.ProjetoDAO;
@@ -27,12 +29,13 @@ public class CadastrarProjeto extends JFrame {
 	private JPanel contentPane;
 	private Projeto cprojeto; 
 	private JTextField recebeNomeProjeto;
-	private JTextField recebeDataInicio;
-	private JTextField recebeDataTermino;
+	private JFormattedTextField recebeDataInicio_1_1;
+	private JFormattedTextField recebeDataTermino;
 	private JLabel lblDescrioDoProjeto;
 	private JTextField recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
-	private JTextField recebeRecursoFinanceiro;
+	
+	private JFormattedTextField recebeRecursoFinanceiro_1;
 	private JLabel lblCadastreSeuNovo;
 
 	/**
@@ -75,25 +78,45 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.add(recebeNomeProjeto);
 		recebeNomeProjeto.setColumns(10);
 		
+		/*********datas inicio e fim******************/
 		JLabel lblInsiraAData = new JLabel("Data de inicio: ");
 		lblInsiraAData.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblInsiraAData.setBounds(159, 179, 200, 15);
 		contentPane.add(lblInsiraAData);
 		
-		recebeDataInicio = new JTextField();
-		recebeDataInicio.setBounds(271, 179, 200, 20);
-		contentPane.add(recebeDataInicio);
-		recebeDataInicio.setColumns(10);
+		recebeDataInicio_1_1 = new JFormattedTextField();
+
+		try {
+			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
+			recebeDataInicio_1_1 = new javax.swing.JFormattedTextField(data);
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
+		}
+		
+		recebeDataInicio_1_1.setBounds(271, 179, 200, 20);
+		contentPane.add(recebeDataInicio_1_1);
+		recebeDataInicio_1_1.setColumns(10);
+		
 		
 		JLabel lblDataAproximadaPara = new JLabel("Data aproximada para término:");
 		lblDataAproximadaPara.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblDataAproximadaPara.setBounds(55, 222, 250, 15);
 		contentPane.add(lblDataAproximadaPara);
 		
-		recebeDataTermino = new JTextField();
+		recebeDataTermino = new JFormattedTextField();
+		try {
+			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
+			recebeDataTermino = new javax.swing.JFormattedTextField(data);
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
+		}
+		
 		recebeDataTermino.setBounds(271, 220, 200, 20);
 		contentPane.add(recebeDataTermino);
 		recebeDataTermino.setColumns(10);
+		/********************************************/
 		
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");
 		lblDescrioDoProjeto.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
@@ -104,17 +127,33 @@ public class CadastrarProjeto extends JFrame {
 		recebeDescricao.setBounds(271, 257, 200, 60);
 		contentPane.add(recebeDescricao);
 		recebeDescricao.setColumns(10);
-		
+		/******************* inicio recurso financeiro *******/
 		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:");
 		lblRecursosFinanceiros.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblRecursosFinanceiros.setBounds(64, 332, 250, 15);
 		contentPane.add(lblRecursosFinanceiros);
 		
-		recebeRecursoFinanceiro = new JTextField();
-		recebeRecursoFinanceiro.setBounds(271, 333, 200, 20);
-		contentPane.add(recebeRecursoFinanceiro);
-		recebeRecursoFinanceiro.setColumns(10);
+		recebeRecursoFinanceiro_1 = new JFormattedTextField();
 		
+		//criando mascara para recurso financeiro
+	
+		/*try {																		
+			javax.swing.text.MaskFormatter real= new javax.swing.text.MaskFormatter("######.##");
+			real.setValidCharacters("0123456789");
+			//real.setComponentOrientation('RIGHT_TO_LEFT');  
+			recebeRecursoFinanceiro_1 = new javax.swing.JFormattedTextField(real);
+			recebeRecursoFinanceiro_1.setHorizontalAlignment(JFormattedTextField.RIGHT);
+
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro: "+e);
+		}*/
+		
+		
+		recebeRecursoFinanceiro_1.setBounds(271, 333, 200, 20);
+		contentPane.add(recebeRecursoFinanceiro_1);
+		recebeRecursoFinanceiro_1.setColumns(10);
+		/*******************************************/
 		JButton btnSalvar = new JButton("Salvar ");
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 
@@ -126,10 +165,10 @@ public class CadastrarProjeto extends JFrame {
 				ProjetoDAO dao = new ProjetoDAO();
 				//cprojeto.setCodigo(Integer.parseInt(recebeNumero.getText()));
 				cprojeto.setNome(recebeNomeProjeto.getText());
-				cprojeto.setDataInicio(recebeDataInicio.getText());
+				cprojeto.setDataInicio(recebeDataInicio_1_1.getText());
 				cprojeto.setDataAproxTermino(recebeDataTermino.getText());
 				cprojeto.setDescricao(recebeDescricao.getText());
-				cprojeto.setRecursosFinanceiros(Float.parseFloat(recebeRecursoFinanceiro.getText()));
+				cprojeto.setRecursosFinanceiros(Double.parseDouble(recebeRecursoFinanceiro_1.getText()));
 				//JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");
 				dao.create(cprojeto);
 				

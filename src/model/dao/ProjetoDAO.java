@@ -28,7 +28,7 @@ public class ProjetoDAO {
 			stmt.setString(2, p.getDataInicio());
 			stmt.setString(3, p.getDataAproxTermino());
 			stmt.setString(4, p.getDescricao());
-			stmt.setFloat(5, p.getRecursosFinanceiros());
+			stmt.setDouble(5, p.getRecursosFinanceiros());
 			stmt.executeUpdate();
 
 			JOptionPane.showMessageDialog(null, "Projeto salvo com sucesso!");

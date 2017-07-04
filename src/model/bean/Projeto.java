@@ -6,14 +6,14 @@ public class Projeto {
 	private String dataInicio; 
 	private String dataAproxTermino; 
 	private String descricao;
-	private float recursosFinanceiros;
+	private double recursosFinanceiros;
 
 	public Projeto() {
 		// construtor vazio
 	}
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
-			Float recursosFinanceiros) {
+			double recursosFinanceiros) {
 		this.codigo = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
@@ -46,7 +46,7 @@ public class Projeto {
 		this.descricao = descricao;
 	}
 
-	public float getRecursosFinanceiros() {
+	public double getRecursosFinanceiros() {
 		return recursosFinanceiros;
 	}
 
@@ -58,7 +58,7 @@ public class Projeto {
 		this.dataInicio = dataInicio;
 	}
 
-	public void setRecursosFinanceiros(float recursosFinanceiros) {
+	public void setRecursosFinanceiros(double recursosFinanceiros) {
 		this.recursosFinanceiros = recursosFinanceiros;
 	}
 
