@@ -73,7 +73,7 @@ public class CadastrarRequisito extends JFrame {
 	                        //apaga os valores
 	                        JTextField field = (JTextField) c;
 	                        field.setText("");
-	                        System.out.println("apagando campo " + i);
+	                        //System.out.println("apagando campo " + i);
 	                    }
 	                }
 	            }
