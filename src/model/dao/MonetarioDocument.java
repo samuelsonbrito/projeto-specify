@@ -1,5 +1,9 @@
 package model.dao;
 
+
+//Código postado pelo Mark_Ameba no GUJ.
+//Encontrado no post http://www.guj.com.br/t/mascara-de-moeda/55314/9
+
 import javax.swing.text.*;
 public class MonetarioDocument extends PlainDocument {
  public static final int NUMERO_DIGITOS_MAXIMO = 12;

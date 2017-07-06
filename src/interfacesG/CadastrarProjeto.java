@@ -207,14 +207,19 @@ public class CadastrarProjeto extends JFrame {
 				
 				dao.create(cprojeto);
 				
-				/*int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
-				if (resposta == JOptionPane.YES_OPTION)
-					JOptionPane.showMessageDialog(null, "");;
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
+				if (resposta == JOptionPane.YES_OPTION){
 					//precisa fazer limpar campos para poder cadastrar novo req
-				if (resposta ==JOptionPane.NO_OPTION)
-					dispose();*/
+					recebeNomeProjeto.setText("");
+					recebeDataInicio_1_1.setText("");
+					recebeDataTermino_1.setText("");
+					recebeDescricao.setText("");
+					recebeRecursoFinanceiro_1.setText("");
 				
-				dispose();
+				}
+				if (resposta ==JOptionPane.NO_OPTION)
+					dispose();
+					//dispose();
 			}
 		});
 		btnSalvar.setBounds(124, 417, 140, 25);

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.Desktop.Action;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
@@ -26,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
+import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 
 public class CadastrarRequisito extends JFrame {
@@ -58,7 +61,26 @@ public class CadastrarRequisito extends JFrame {
 			}
 		});
 	}
-
+	
+	 public AbstractAction acaoBotao() {
+	        AbstractAction acao = new AbstractAction() {
+	            public void actionPerformed(ActionEvent event) {
+	                //limpa os campos
+	                for (int i=0; i < getContentPane().getComponentCount(); i++) {
+	                    //varre todos os componentes
+	                    Component c = getContentPane().getComponent(i);
+	                    if (c instanceof JTextField) {
+	                        //apaga os valores
+	                        JTextField field = (JTextField) c;
+	                        field.setText("");
+	                        System.out.println("apagando campo " + i);
+	                    }
+	                }
+	            }
+	        };
+	        
+	        return acao;
+	    }
 	/**
 	 * Create the frame.
 	 */
@@ -215,19 +237,25 @@ public class CadastrarRequisito extends JFrame {
 					nreq.setGrauPrioridade(GrauP.ALTA);					
 				}
 
-				// nreq.setGrauPrioridade(recebeGrauPrio.getText());  <= era assims
+				// nreq.setGrauPrioridade(recebeGrauPrio.getText());  <= era assim
 				// nreq.setGrauDificuldade(recebeGrauDifi.getText());
 				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 
 				dao.create(nreq);
 				
-				//arrumar aqui - 
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito?");
-				if (resposta == JOptionPane.YES_OPTION)
-					JOptionPane.showMessageDialog(null, "teste pao");;
+				 
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito para este mesmo projeto?");
+				if (resposta == JOptionPane.YES_OPTION){
 					//precisa fazer limpar campos para poder cadastrar novo req
-					if (resposta ==JOptionPane.NO_OPTION)
-						dispose();
+					recebeID.setText("");
+					recebeSujeito.setText("");
+					recebeAcaoRestri.setText("");
+					recebeValorRazao.setText("");
+					recebeEstimativa.setText("");
+				
+				}
+				if (resposta ==JOptionPane.NO_OPTION)
+					dispose();
 					//dispose();
 			}
 		});
