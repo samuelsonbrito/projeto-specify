@@ -1,6 +1,7 @@
 package model.bean;
 
 public class Requisito {
+	
 	private int codigo; 
 	private String id;
 	private String sujeito;
@@ -9,6 +10,11 @@ public class Requisito {
 	private GrauP grauPrioridade;
 	private GrauD grauDificuldade; 
 	private int estimativa;
+	private TipoReq tipoRequisito;
+	
+	public enum TipoReq{
+		FUNCIONAL,NAOFUNCIONAL,USUARIO,NEGOCIO;	
+	}
 	
 	public enum GrauP{
 		BAIXA, MEDIA, ALTA;
@@ -21,8 +27,10 @@ public class Requisito {
 	public Requisito(){	
 	}
 	
-	public Requisito(String id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
+	public Requisito(TipoReq tipoRequisito, int codigo, String id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
 		super();
+		this.tipoRequisito=tipoRequisito; 
+		this.codigo=codigo; 
 		this.id = id;
 		this.sujeito = sujeito;
 		this.acaoRestricao = acaoRestricao;
@@ -30,6 +38,22 @@ public class Requisito {
 		this.grauPrioridade = grauPrioridade;
 		this.grauDificuldade = grauDificuldade;
 		this.estimativa = estimativa;
+	}
+
+	public TipoReq getTipoReq() {
+		return tipoRequisito;
+	}
+
+	public void setTipoReq(TipoReq tipoRequisito) {
+		this.tipoRequisito = tipoRequisito;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getId() {

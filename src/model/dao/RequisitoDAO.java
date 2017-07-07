@@ -26,14 +26,15 @@ public class RequisitoDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO requisito(id,sujeito, acaoRestricao, valorRazao, grauPrioridade, grauDificuldade, estimativa)VALUES(?,?,?,?,?,?,?)");
-            stmt.setString(1, r.getId());
-            stmt.setString(2, r.getSujeito());
-            stmt.setString(3, r.getAcaoRestricao());
-            stmt.setString(4, r.getValorRazao());
-            stmt.setString(5, r.getGrauPrioridade().name());
-            stmt.setString(6, r.getGrauDificuldade().name());
-            stmt.setDouble(7, r.getEstimativa());
+            stmt = con.prepareStatement("INSERT INTO requisito(tipoRequisito, id, sujeito, acaoRestricao, valorRazao, grauPrioridade, grauDificuldade, estimativa)VALUES(?,?,?,?,?,?,?,?)");
+            stmt.setString(1, r.getTipoReq().name());
+            stmt.setString(2, r.getId());
+            stmt.setString(3, r.getSujeito());
+            stmt.setString(4, r.getAcaoRestricao());
+            stmt.setString(5, r.getValorRazao());
+            stmt.setString(6, r.getGrauPrioridade().name());
+            stmt.setString(7, r.getGrauDificuldade().name());
+            stmt.setDouble(8, r.getEstimativa());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");

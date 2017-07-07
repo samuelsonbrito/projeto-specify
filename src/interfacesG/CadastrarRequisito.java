@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import model.bean.Requisito;
 import model.bean.Requisito.GrauD;
 import model.bean.Requisito.GrauP;
+import model.bean.Requisito.TipoReq;
 import model.dao.RequisitoDAO;
 
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 
 public class CadastrarRequisito extends JFrame {
 
@@ -45,6 +47,7 @@ public class CadastrarRequisito extends JFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private boolean selectPrioridade; 
 	private boolean selectDificuldade; 
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -86,6 +89,7 @@ public class CadastrarRequisito extends JFrame {
 	 */
 	public CadastrarRequisito() {
 		nreq = new Requisito();
+		
 		setTitle("Cadastrar requisito");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 554, 500);
@@ -99,7 +103,7 @@ public class CadastrarRequisito extends JFrame {
 		lblCadastreSeuNovo.setBounds(150, 40, 500, 15);
 		contentPane.add(lblCadastreSeuNovo);
 
-		JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");
+		/*JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");
 		lblProjetoAoQual.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		lblProjetoAoQual.setBounds(61, 84, 400, 15);
 		contentPane.add(lblProjetoAoQual);
@@ -109,7 +113,7 @@ public class CadastrarRequisito extends JFrame {
 		txtListaDosProjetos.setText("uma lista dos projetos ja cadastrados deve aparecer aqui ");
 		txtListaDosProjetos.setBounds(65, 103, 400, 19);
 		contentPane.add(txtListaDosProjetos);
-		txtListaDosProjetos.setColumns(10);
+		txtListaDosProjetos.setColumns(10);*/
 
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(185, 151, 70, 15);
@@ -119,11 +123,6 @@ public class CadastrarRequisito extends JFrame {
 		recebeID.setBounds(215, 149, 200, 19);
 		contentPane.add(recebeID);
 		recebeID.setColumns(10);
-
-		JLabel lblSujeito = new JLabel("Sujeito: ");
-		lblSujeito.setFont(new Font("TakaoPGothic", Font.BOLD, 12));	
-		lblSujeito.setBounds(154, 182, 70, 15);
-		contentPane.add(lblSujeito);
 
 		recebeSujeito = new JTextField();
 		recebeSujeito.setBounds(215, 179, 200, 19);
@@ -201,6 +200,23 @@ public class CadastrarRequisito extends JFrame {
 		buttonGroup_1.add(gpAlta);
 		gpAlta.setBounds(362, 297, 110, 23);
 		contentPane.add(gpAlta);
+		
+		
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(215, 110, 200, 19);
+		//String selecione="Selecione";
+		String rf="Requisito funcional";
+		String rnf="Requisito não funcional"; 
+		String ru="Requisito de usuário";
+		String rn="Requisito de negócio"; 
+		//comboBox.addItem(selecione);
+		comboBox.addItem(rf);
+		comboBox.addItem(rnf);
+		comboBox.addItem(ru);
+		comboBox.addItem(rn);
+		
+		contentPane.add(comboBox);
 
 
 		JButton btnSalvar = new JButton("Salvar");
@@ -209,6 +225,25 @@ public class CadastrarRequisito extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RequisitoDAO dao = new RequisitoDAO();
+
+				/*if(comboBox.getSelectedItem()==selecione){
+					// nreq.setTipoReq(null);
+				}*/
+				if(comboBox.getSelectedItem()==rf){
+					nreq.setTipoReq(TipoReq.FUNCIONAL);
+					
+				}
+				if(comboBox.getSelectedItem()==rnf){
+					nreq.setTipoReq(TipoReq.NAOFUNCIONAL);
+				}
+				
+				if(comboBox.getSelectedItem()==ru){
+					nreq.setTipoReq(TipoReq.USUARIO);
+				}
+				if(comboBox.getSelectedItem()==rn){
+					nreq.setTipoReq(TipoReq.NEGOCIO);	
+				}
+				
 
 				nreq.setId(recebeID.getText());
 				nreq.setSujeito(recebeSujeito.getText());
@@ -278,6 +313,19 @@ public class CadastrarRequisito extends JFrame {
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnAjuda.setBounds(95, 377, 117, 25);
 		contentPane.add(btnAjuda);
+		
+				JLabel lblSujeito = new JLabel("Sujeito: ");
+				lblSujeito.setFont(new Font("TakaoPGothic", Font.BOLD, 12));	
+				lblSujeito.setBounds(154, 182, 70, 15);
+				contentPane.add(lblSujeito);
+				
+				lblNewLabel = new JLabel("Tipo de requisito: ");
+				lblNewLabel.setBounds(79, 110, 150, 15);
+				contentPane.add(lblNewLabel);
+				
+			
+				
+				
 
 	}
 
