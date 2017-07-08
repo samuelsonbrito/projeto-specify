@@ -134,15 +134,13 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.add(recebeSujeito);
 		recebeSujeito.setColumns(10);
 
-		//acao restricao //
+		//------acao restricao --------//
 		JLabel lblAoEouRestrio = new JLabel("Ação e/ou restrição:");
 		lblAoEouRestrio.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
 		lblAoEouRestrio.setBounds(50, 209, 300, 15);
 		contentPane.add(lblAoEouRestrio);
 
 		recebeAcaoRestri = new JTextArea();
-		
-		
 		
 		JScrollPane scrollPane = new JScrollPane(recebeAcaoRestri);
 		scrollPane.setBounds(186, 200, 250, 40);
@@ -153,15 +151,11 @@ public class CadastrarRequisito extends JFrame {
 
 		
 		recebeAcaoRestri.setMargin(new Insets(4, 3, 4, 3));
-		recebeAcaoRestri.setTabSize(10);
+		recebeAcaoRestri.setTabSize(0);
 		recebeAcaoRestri.setWrapStyleWord(true);
 		recebeAcaoRestri.setLineWrap(true);
 		recebeAcaoRestri.setBounds(180, 210, 200, 25);
 		recebeAcaoRestri.setColumns(10);
-		
-	
-		
-		
 		
 		//------------------------------//
 		
@@ -192,6 +186,21 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
+		recebeEstimativa.setToolTipText("em horas, exemplo: 1, para uma hora, 2, para duas horas. ");
+		
+		
+		try {
+		
+			javax.swing.text.MaskFormatter hora= new javax.swing.text.MaskFormatter("##:##:##");
+			hora.setPlaceholderCharacter('0');
+			recebeEstimativa = new javax.swing.JFormattedTextField(hora);
+			recebeEstimativa.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeEstimativa.setToolTipText("HH:MM:SS");
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
+		}	
+		
 		recebeEstimativa.setBounds(186, 334, 250, 25);
 		contentPane.add(recebeEstimativa);
 		recebeEstimativa.setColumns(10);
@@ -309,7 +318,7 @@ public class CadastrarRequisito extends JFrame {
 
 				// nreq.setGrauPrioridade(recebeGrauPrio.getText());  <= era assim
 				// nreq.setGrauDificuldade(recebeGrauDifi.getText());
-				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
+				nreq.setEstimativa(recebeEstimativa.getText());
 
 				dao.create(nreq);
 				

@@ -41,10 +41,8 @@ public class CadastrarProjeto extends JFrame {
 	private Projeto cprojeto; 
 	private JTextField recebeNomeProjeto;
 	private JFormattedTextField recebeDataInicio_1_1;
-	private JFormattedTextField recebeDataInicio_1_1_1;
 	//private JFormattedTextField recebeDataTermino;
 	private JFormattedTextField recebeDataTermino_1;
-	private JFormattedTextField recebeDataTermino_1_1;
 	private JLabel lblDescrioDoProjeto;
 	private JTextArea recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
@@ -103,17 +101,17 @@ public class CadastrarProjeto extends JFrame {
 		try {
 			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
 			data.setPlaceholderCharacter('_');
-			recebeDataInicio_1_1_1 = new javax.swing.JFormattedTextField(data);
-			recebeDataInicio_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-			recebeDataInicio_1_1_1.setToolTipText("AAAA/MM/DD");
+			recebeDataInicio_1_1 = new javax.swing.JFormattedTextField(data);
+			recebeDataInicio_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeDataInicio_1_1.setToolTipText("AAAA/MM/DD");
 		}
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataInicio_1_1_1.setBounds(240, 150, 80, 25);
-		contentPane.add(recebeDataInicio_1_1_1);
-		recebeDataInicio_1_1_1.setColumns(10);
+		recebeDataInicio_1_1.setBounds(240, 150, 80, 25);
+		contentPane.add(recebeDataInicio_1_1);
+		recebeDataInicio_1_1.setColumns(10);
 		
 		
 		JLabel lblDataAproximadaPara = new JLabel("Data aprox. para término:");
@@ -125,17 +123,17 @@ public class CadastrarProjeto extends JFrame {
 		try {
 			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
 			data.setPlaceholderCharacter('_');
-			recebeDataTermino_1_1 = new javax.swing.JFormattedTextField(data);
-			recebeDataTermino_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-			recebeDataTermino_1_1.setToolTipText("AAAA/MM/DD");
+			recebeDataTermino_1 = new javax.swing.JFormattedTextField(data);
+			recebeDataTermino_1.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeDataTermino_1.setToolTipText("AAAA/MM/DD");
 		}
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataTermino_1_1.setBounds(240, 196, 80, 25);
-		contentPane.add(recebeDataTermino_1_1);
-		recebeDataTermino_1_1.setColumns(10);
+		recebeDataTermino_1.setBounds(240, 196, 80, 25);
+		contentPane.add(recebeDataTermino_1);
+		recebeDataTermino_1.setColumns(10);
 		/********************************************/
 		
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");

@@ -9,7 +9,7 @@ public class Requisito {
 	private String valorRazao;
 	private GrauP grauPrioridade;
 	private GrauD grauDificuldade; 
-	private int estimativa;
+	private String estimativa;
 	private TipoReq tipoRequisito;
 	
 	public enum TipoReq{
@@ -27,7 +27,7 @@ public class Requisito {
 	public Requisito(){	
 	}
 	
-	public Requisito(TipoReq tipoRequisito, int codigo, String id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, int estimativa) {
+	public Requisito(TipoReq tipoRequisito, int codigo, String id, String sujeito, String acaoRestricao, String valorRazao, GrauP grauPrioridade, GrauD grauDificuldade, String estimativa) {
 		super();
 		this.tipoRequisito=tipoRequisito; 
 		this.codigo=codigo; 
@@ -104,11 +104,11 @@ public class Requisito {
 		this.grauDificuldade = grauDificuldade;
 	}
 
-	public int getEstimativa() {
+	public String getEstimativa() {
 		return estimativa;
 	}
 
-	public void setEstimativa(int estimativa) {
+	public void setEstimativa(String estimativa) {
 		this.estimativa = estimativa;
 	} 
 	

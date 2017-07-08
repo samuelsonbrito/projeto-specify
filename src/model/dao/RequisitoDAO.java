@@ -34,7 +34,7 @@ public class RequisitoDAO {
             stmt.setString(5, r.getValorRazao());
             stmt.setString(6, r.getGrauPrioridade().name());
             stmt.setString(7, r.getGrauDificuldade().name());
-            stmt.setDouble(8, r.getEstimativa());
+            stmt.setString(8, r.getEstimativa());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
