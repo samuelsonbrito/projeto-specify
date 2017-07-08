@@ -3,6 +3,7 @@ package interfacesG;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -29,9 +30,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import java.awt.Cursor;
+import javax.swing.JTextArea;
 
 public class CadastrarRequisito extends JFrame {
 
@@ -39,7 +43,7 @@ public class CadastrarRequisito extends JFrame {
 	private JTextField txtListaDosProjetos;
 	private JTextField recebeID;
 	private JTextField recebeSujeito;
-	private JTextField recebeAcaoRestri;
+	private JTextArea recebeAcaoRestri;
 	private JTextField recebeValorRazao;
 	private JTextField recebeEstimativa;
 	private Requisito nreq; 
@@ -116,95 +120,126 @@ public class CadastrarRequisito extends JFrame {
 		txtListaDosProjetos.setColumns(10);*/
 
 		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(185, 151, 70, 15);
+		lblId.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblId.setBounds(155, 130, 80, 15);
 		contentPane.add(lblId);
 
 		recebeID = new JTextField();
-		recebeID.setBounds(215, 149, 200, 19);
+		recebeID.setBounds(186, 130, 250, 25);
 		contentPane.add(recebeID);
 		recebeID.setColumns(10);
 
 		recebeSujeito = new JTextField();
-		recebeSujeito.setBounds(215, 179, 200, 19);
+		recebeSujeito.setBounds(186, 165, 250, 25);
 		contentPane.add(recebeSujeito);
 		recebeSujeito.setColumns(10);
 
+		//acao restricao //
 		JLabel lblAoEouRestrio = new JLabel("Ação e/ou restrição:");
-		lblAoEouRestrio.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblAoEouRestrio.setBounds(68, 212, 300, 15);
+		lblAoEouRestrio.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+		lblAoEouRestrio.setBounds(50, 209, 300, 15);
 		contentPane.add(lblAoEouRestrio);
 
-		recebeAcaoRestri = new JTextField();
-		recebeAcaoRestri.setBounds(215, 210, 200, 19);
-		contentPane.add(recebeAcaoRestri);
+		recebeAcaoRestri = new JTextArea();
+		
+		
+		
+		JScrollPane scrollPane = new JScrollPane(recebeAcaoRestri);
+		scrollPane.setBounds(186, 200, 250, 40);
+		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+		
+		contentPane.add(scrollPane);
+
+		
+		recebeAcaoRestri.setMargin(new Insets(4, 3, 4, 3));
+		recebeAcaoRestri.setTabSize(10);
+		recebeAcaoRestri.setWrapStyleWord(true);
+		recebeAcaoRestri.setLineWrap(true);
+		recebeAcaoRestri.setBounds(180, 210, 200, 25);
 		recebeAcaoRestri.setColumns(10);
+		
+	
+		
+		
+		
+		//------------------------------//
+		
 
 		JLabel lblValorOuRazo = new JLabel("Valor ou razão: ");
-		lblValorOuRazo.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblValorOuRazo.setBounds(104, 239, 300, 15);
+		lblValorOuRazo.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblValorOuRazo.setBounds(80, 250, 300, 15);
 		contentPane.add(lblValorOuRazo);
 
 		recebeValorRazao = new JTextField();
-		recebeValorRazao.setBounds(215, 239, 200, 19);
+		recebeValorRazao.setBounds(186, 249, 250, 25);
 		contentPane.add(recebeValorRazao);
 		recebeValorRazao.setColumns(10);
 
 		JLabel lblGrauDePrioridade = new JLabel("Grau de prioridade:");
-		lblGrauDePrioridade.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblGrauDePrioridade.setBounds(76, 297, 300, 15);
+		lblGrauDePrioridade.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblGrauDePrioridade.setBounds(54, 308, 300, 15);
 		contentPane.add(lblGrauDePrioridade);
 
 		JLabel lblGrauDeDificuldade = new JLabel("Grau de dificuldade: ");
-		lblGrauDeDificuldade.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblGrauDeDificuldade.setBounds(70, 266, 300, 15);
+		lblGrauDeDificuldade.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblGrauDeDificuldade.setBounds(49, 280, 300, 15);
 		contentPane.add(lblGrauDeDificuldade);
 
 		JLabel lblEstimativa = new JLabel("Estimativa: ");
-		lblEstimativa.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblEstimativa.setBounds(130, 324, 200, 15);
+		lblEstimativa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblEstimativa.setBounds(103, 337, 200, 15);
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
-		recebeEstimativa.setBounds(215, 324, 200, 19);
+		recebeEstimativa.setBounds(186, 334, 250, 25);
 		contentPane.add(recebeEstimativa);
 		recebeEstimativa.setColumns(10);
 
 		/********* grau dificuldade ****************/
 		JRadioButton gdBaixa = new JRadioButton("Baixa");
+		gdBaixa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdBaixa);
-		gdBaixa.setBounds(215, 266, 70, 23);
+		gdBaixa.setBounds(195, 277, 70, 23);
 		contentPane.add(gdBaixa);
 
 		JRadioButton gdMdia = new JRadioButton("Média");
+		gdMdia.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdMdia);
-		gdMdia.setBounds(285, 266, 80, 23);
+		gdMdia.setBounds(278, 277, 80, 23);
 		contentPane.add(gdMdia);
 
 		JRadioButton gdAlta = new JRadioButton("Alta");
+		gdAlta.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdAlta);
-		gdAlta.setBounds(362, 266, 110, 23);
+		gdAlta.setBounds(370, 277, 110, 23);
 		contentPane.add(gdAlta);
 
 		/******** grau prioridade ****************/
 		JRadioButton gpBaixa = new JRadioButton("Baixa");
+		gpBaixa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpBaixa);
-		gpBaixa.setBounds(215, 297, 70, 23);
+		gpBaixa.setBounds(195, 304, 70, 23);
 		contentPane.add(gpBaixa);
 
 		JRadioButton gpMedia = new JRadioButton("Média");
+		gpMedia.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpMedia);
-		gpMedia.setBounds(285, 297, 80, 23);
+		gpMedia.setBounds(278, 304, 80, 23);
 		contentPane.add(gpMedia);
 
 		JRadioButton gpAlta = new JRadioButton("Alta");
+		gpAlta.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpAlta);
-		gpAlta.setBounds(362, 297, 110, 23);
+		gpAlta.setBounds(370, 304, 110, 23);
 		contentPane.add(gpAlta);
 		
 		
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(215, 110, 200, 19);
+		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		comboBox.setBounds(187, 93, 250, 25);
 		//String selecione="Selecione";
 		String rf="Requisito funcional";
 		String rnf="Requisito não funcional"; 
@@ -294,7 +329,7 @@ public class CadastrarRequisito extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(225, 377, 117, 25);
+		btnSalvar.setBounds(225, 390, 117, 25);
 		contentPane.add(btnSalvar);
 
 		JButton btnCancelar = new JButton("Cancelar");
@@ -305,22 +340,23 @@ public class CadastrarRequisito extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(355, 377, 117, 25);
+		btnCancelar.setBounds(355, 390, 117, 25);
 		contentPane.add(btnCancelar);
 
 		JButton btnAjuda = new JButton("Ajuda");
 		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnAjuda.setBounds(95, 377, 117, 25);
+		btnAjuda.setBounds(95, 390, 117, 25);
 		contentPane.add(btnAjuda);
 		
 				JLabel lblSujeito = new JLabel("Sujeito: ");
-				lblSujeito.setFont(new Font("TakaoPGothic", Font.BOLD, 12));	
-				lblSujeito.setBounds(154, 182, 70, 15);
+				lblSujeito.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));	
+				lblSujeito.setBounds(124, 165, 70, 15);
 				contentPane.add(lblSujeito);
 				
 				lblNewLabel = new JLabel("Tipo de requisito: ");
-				lblNewLabel.setBounds(79, 110, 150, 15);
+				lblNewLabel.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+				lblNewLabel.setBounds(65, 90, 150, 25);
 				contentPane.add(lblNewLabel);
 				
 			

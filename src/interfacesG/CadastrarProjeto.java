@@ -41,8 +41,10 @@ public class CadastrarProjeto extends JFrame {
 	private Projeto cprojeto; 
 	private JTextField recebeNomeProjeto;
 	private JFormattedTextField recebeDataInicio_1_1;
+	private JFormattedTextField recebeDataInicio_1_1_1;
 	//private JFormattedTextField recebeDataTermino;
 	private JFormattedTextField recebeDataTermino_1;
+	private JFormattedTextField recebeDataTermino_1_1;
 	private JLabel lblDescrioDoProjeto;
 	private JTextArea recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
@@ -80,20 +82,20 @@ public class CadastrarProjeto extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblInsiraONome = new JLabel("Insira o nome do projeto:");
-		lblInsiraONome.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblInsiraONome.setBounds(92, 137, 200, 15);
+		JLabel lblInsiraONome = new JLabel("Nome do projeto:");
+		lblInsiraONome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblInsiraONome.setBounds(110, 109, 130, 25);
 		contentPane.add(lblInsiraONome);
 		
 		recebeNomeProjeto = new JTextField();
-		recebeNomeProjeto.setBounds(271, 135, 200, 20);
+		recebeNomeProjeto.setBounds(240, 111, 230, 25);
 		contentPane.add(recebeNomeProjeto);
 		recebeNomeProjeto.setColumns(10);
 		
 		/*********datas inicio e fim******************/
 		JLabel lblInsiraAData = new JLabel("Data de inicio: ");
-		lblInsiraAData.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblInsiraAData.setBounds(159, 179, 200, 15);
+		lblInsiraAData.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblInsiraAData.setBounds(130, 150, 100, 20);
 		contentPane.add(lblInsiraAData);
 		
 		recebeDataInicio_1_1 = new JFormattedTextField();
@@ -101,42 +103,44 @@ public class CadastrarProjeto extends JFrame {
 		try {
 			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
 			data.setPlaceholderCharacter('_');
-			recebeDataInicio_1_1 = new javax.swing.JFormattedTextField(data);
-			recebeDataInicio_1_1.setToolTipText("AAAA/MM/DD");
+			recebeDataInicio_1_1_1 = new javax.swing.JFormattedTextField(data);
+			recebeDataInicio_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeDataInicio_1_1_1.setToolTipText("AAAA/MM/DD");
 		}
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataInicio_1_1.setBounds(271, 179, 200, 20);
-		contentPane.add(recebeDataInicio_1_1);
-		recebeDataInicio_1_1.setColumns(10);
+		recebeDataInicio_1_1_1.setBounds(240, 150, 80, 25);
+		contentPane.add(recebeDataInicio_1_1_1);
+		recebeDataInicio_1_1_1.setColumns(10);
 		
 		
-		JLabel lblDataAproximadaPara = new JLabel("Data aproximada para término:");
-		lblDataAproximadaPara.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblDataAproximadaPara.setBounds(55, 222, 250, 15);
+		JLabel lblDataAproximadaPara = new JLabel("Data aprox. para término:");
+		lblDataAproximadaPara.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblDataAproximadaPara.setBounds(62, 196, 250, 20);
 		contentPane.add(lblDataAproximadaPara);
 		
 		recebeDataTermino_1 = new JFormattedTextField();
 		try {
 			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
 			data.setPlaceholderCharacter('_');
-			recebeDataTermino_1 = new javax.swing.JFormattedTextField(data);
-			recebeDataTermino_1.setToolTipText("AAAA/MM/DD");
+			recebeDataTermino_1_1 = new javax.swing.JFormattedTextField(data);
+			recebeDataTermino_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeDataTermino_1_1.setToolTipText("AAAA/MM/DD");
 		}
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataTermino_1.setBounds(271, 220, 200, 20);
-		contentPane.add(recebeDataTermino_1);
-		recebeDataTermino_1.setColumns(10);
+		recebeDataTermino_1_1.setBounds(240, 196, 80, 25);
+		contentPane.add(recebeDataTermino_1_1);
+		recebeDataTermino_1_1.setColumns(10);
 		/********************************************/
 		
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");
-		lblDescrioDoProjeto.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblDescrioDoProjeto.setBounds(115, 257, 200, 15);
+		lblDescrioDoProjeto.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblDescrioDoProjeto.setBounds(87, 233, 200, 15);
 		contentPane.add(lblDescrioDoProjeto);
 		
 		
@@ -144,7 +148,7 @@ public class CadastrarProjeto extends JFrame {
 		recebeDescricao = new JTextArea();
 		
 		JScrollPane scrollPane = new JScrollPane(recebeDescricao);
-		scrollPane.setBounds(271, 255, 200, 60);
+		scrollPane.setBounds(240, 231, 230, 60);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
 		
@@ -165,8 +169,8 @@ public class CadastrarProjeto extends JFrame {
 	 *******************************************************/
 		
 		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:");
-		lblRecursosFinanceiros.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblRecursosFinanceiros.setBounds(64, 332, 250, 15);
+		lblRecursosFinanceiros.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		lblRecursosFinanceiros.setBounds(50, 306, 250, 25);
 		contentPane.add(lblRecursosFinanceiros);
 		
 		recebeRecursoFinanceiro_1 = new JFormattedTextField();
@@ -178,7 +182,7 @@ public class CadastrarProjeto extends JFrame {
 		      e.printStackTrace();  
 		  } 
 		
-		recebeRecursoFinanceiro_1.setBounds(271, 333, 200, 20);
+		recebeRecursoFinanceiro_1.setBounds(240, 309, 230, 25);
 		contentPane.add(recebeRecursoFinanceiro_1);
 		recebeRecursoFinanceiro_1.setColumns(10);
 		
@@ -222,7 +226,7 @@ public class CadastrarProjeto extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(124, 417, 140, 25);
+		btnSalvar.setBounds(208, 377, 117, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -234,13 +238,19 @@ public class CadastrarProjeto extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(282, 417, 140, 25);
+		btnCancelar.setBounds(338, 377, 117, 25);
 		contentPane.add(btnCancelar);
 		
 		lblCadastreSeuNovo = new JLabel("Cadastre seu novo projeto");
 		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
 		lblCadastreSeuNovo.setBounds(150, 30, 500, 30);
 		contentPane.add(lblCadastreSeuNovo);
+		
+		JButton btnAjuda = new JButton("Ajuda");
+		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		btnAjuda.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/help.png")));
+		btnAjuda.setBounds(78, 377, 117, 25);
+		contentPane.add(btnAjuda);
 	}
 	public JFormattedTextField getRecebeRecursoFinanceiro_1() {
 		return recebeRecursoFinanceiro_1;
