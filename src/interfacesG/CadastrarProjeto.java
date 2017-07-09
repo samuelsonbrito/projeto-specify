@@ -196,8 +196,8 @@ public class CadastrarProjeto extends JFrame {
 		
 		
 		JButton btnSalvar = new JButton("Salvar ");
-		btnSalvar.setForeground(UIManager.getColor("Button.foreground"));
-		btnSalvar.setBackground(UIManager.getColor("MenuBar.shadow"));
+		btnSalvar.setForeground(SystemColor.controlHighlight);
+		btnSalvar.setBackground(SystemColor.inactiveCaptionText);
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 
 		btnSalvar.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/disk.png")));
@@ -238,6 +238,8 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(SystemColor.controlHighlight);
+		btnCancelar.setBackground(SystemColor.inactiveCaptionText);
 		btnCancelar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 
 		btnCancelar.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/cancel.png")));
@@ -250,6 +252,8 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JButton btnAjuda = new JButton("Ajuda");
+		btnAjuda.setForeground(SystemColor.controlHighlight);
+		btnAjuda.setBackground(SystemColor.inactiveCaptionText);
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnAjuda.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/help.png")));
 		btnAjuda.setBounds(78, 405, 117, 25);
