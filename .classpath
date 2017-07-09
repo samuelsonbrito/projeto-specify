@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/rhebeca/workspace/ProgramaIC/mysql-connector-java-5.1.42/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="lib" path="/home/rhebeca/Downloads/syntheticaBlackStar_2.9.6/syntheticaBlackStar.jar"/>
+	<classpathentry kind="lib" path="/home/rhebeca/Downloads/Deezer Downloader v3.1 [mod by ries].jar"/>
+	<classpathentry kind="lib" path="/home/rhebeca/Downloads/JTattoo-1.6.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

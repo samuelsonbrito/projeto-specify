@@ -6,6 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
+import com.jtattoo.plaf.fast.FastLookAndFeel;
+
+import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -38,7 +45,18 @@ public class TelaInicioInterface extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		 try 
+		    {
+		      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		    } 
+		    catch (Exception e) 
+		    {
+		      e.printStackTrace();
+		    }
 		EventQueue.invokeLater(new Runnable() {
+			
+			
+			
 			public void run() {
 				try {
 					TelaInicioInterface frame = new TelaInicioInterface();
@@ -49,6 +67,32 @@ public class TelaInicioInterface extends JFrame {
 				}
 			}
 		});
+		
+		 /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+       
+	 
+		
+		/*try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaInicioInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaInicioInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaInicioInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaInicioInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>*/
 	}
 
 	/**
@@ -81,6 +125,7 @@ public class TelaInicioInterface extends JFrame {
 		
 		
 		JButton btnMeusProjetos = new JButton("Meus projetos");
+		btnMeusProjetos.setForeground(SystemColor.control);
 		btnMeusProjetos.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnMeusProjetos.setToolTipText("Incluir, alterar, excluir e ver meus projetos");
 		btnMeusProjetos.setBounds(116, 159, 340, 40);
@@ -98,15 +143,19 @@ public class TelaInicioInterface extends JFrame {
 				
 			}
 		});
-		btnMeusProjetos.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		btnMeusProjetos.setBackground(SystemColor.inactiveCaptionText);
 		
 		JButton btnSobreP = new JButton("Sobre");
+		btnSobreP.setForeground(SystemColor.control);
+		btnSobreP.setBackground(SystemColor.inactiveCaptionText);
 		btnSobreP.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnSobreP.setToolTipText("Sobre o (nome do programa aqui)");
 		btnSobreP.setBounds(116, 216, 340, 40);
 		panel.add(btnSobreP);
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.setForeground(SystemColor.control);
+		btnSair.setBackground(SystemColor.inactiveCaptionText);
 		btnSair.setFont(new Font("TakaoPGothic", Font.BOLD, 13));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -25,6 +25,7 @@ import java.awt.Desktop.Action;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -67,6 +68,14 @@ public class CadastrarRequisito extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		 try 
+		    {
+		      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		    } 
+		    catch (Exception e) 
+		    {
+		      e.printStackTrace();
+		    }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -77,6 +86,8 @@ public class CadastrarRequisito extends JFrame {
 				}
 			}
 		});
+		
+
 	}
 	
 	 public AbstractAction acaoBotao() {

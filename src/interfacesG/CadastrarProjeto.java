@@ -62,6 +62,15 @@ public class CadastrarProjeto extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		 try 
+		    {
+		      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		    } 
+		    catch (Exception e) 
+		    {
+		      e.printStackTrace();
+		    }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -73,6 +82,8 @@ public class CadastrarProjeto extends JFrame {
 				}
 			}
 		});
+		
+
 	}
 
 	/**

@@ -30,6 +30,15 @@ public class MeusProjetos extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		 try 
+		    {
+		      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		    } 
+		    catch (Exception e) 
+		    {
+		      e.printStackTrace();
+		    }
+	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -37,12 +46,17 @@ public class MeusProjetos extends JFrame {
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 					//frame.setExtendedState(MAXIMIZED_BOTH);
+					
+					
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}	
+			
 		});
+		
+		
 	}
 
 	/**
