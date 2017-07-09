@@ -34,6 +34,15 @@ import javax.swing.DropMode;
 import java.awt.Insets;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.CompoundBorder;
+import java.awt.SystemColor;
 
 public class CadastrarProjeto extends JFrame {
 
@@ -48,7 +57,6 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblRecursosFinanceiros;
 	
 	private JFormattedTextField recebeRecursoFinanceiro_1;
-	private JLabel lblCadastreSeuNovo;
 
 	/**
 	 * Launch the application.
@@ -188,6 +196,8 @@ public class CadastrarProjeto extends JFrame {
 		
 		
 		JButton btnSalvar = new JButton("Salvar ");
+		btnSalvar.setForeground(UIManager.getColor("Button.foreground"));
+		btnSalvar.setBackground(UIManager.getColor("MenuBar.shadow"));
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 
 		btnSalvar.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/disk.png")));
@@ -224,7 +234,7 @@ public class CadastrarProjeto extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(208, 377, 117, 25);
+		btnSalvar.setBounds(208, 405, 117, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -236,19 +246,20 @@ public class CadastrarProjeto extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(338, 377, 117, 25);
+		btnCancelar.setBounds(338, 405, 117, 25);
 		contentPane.add(btnCancelar);
-		
-		lblCadastreSeuNovo = new JLabel("Cadastre seu novo projeto");
-		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
-		lblCadastreSeuNovo.setBounds(150, 30, 500, 30);
-		contentPane.add(lblCadastreSeuNovo);
 		
 		JButton btnAjuda = new JButton("Ajuda");
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnAjuda.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/help.png")));
-		btnAjuda.setBounds(78, 377, 117, 25);
+		btnAjuda.setBounds(78, 405, 117, 25);
 		contentPane.add(btnAjuda);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastre seu novo projeto", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		panel.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 14));
+		panel.setBounds(35, 60, 475, 310);
+		contentPane.add(panel);
 	}
 	public JFormattedTextField getRecebeRecursoFinanceiro_1() {
 		return recebeRecursoFinanceiro_1;

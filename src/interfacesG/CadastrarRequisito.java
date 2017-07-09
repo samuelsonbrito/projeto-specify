@@ -36,6 +36,16 @@ import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 public class CadastrarRequisito extends JFrame {
 
@@ -96,16 +106,11 @@ public class CadastrarRequisito extends JFrame {
 		
 		setTitle("Cadastrar requisito");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 554, 500);
+		setBounds(100, 100, 554, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JLabel lblCadastreSeuNovo = new JLabel("Cadastre seu novo requisito");
-		lblCadastreSeuNovo.setFont(new Font("TakaoPGothic", Font.BOLD, 19));
-		lblCadastreSeuNovo.setBounds(150, 40, 500, 15);
-		contentPane.add(lblCadastreSeuNovo);
 
 		/*JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");
 		lblProjetoAoQual.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
@@ -246,6 +251,20 @@ public class CadastrarRequisito extends JFrame {
 		
 		
 		JComboBox comboBox = new JComboBox();
+	
+		
+		
+		comboBox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				comboBox.setBackground(new Color(28,28,28));
+			}
+			
+		});
+		
+		
+		comboBox.setForeground(SystemColor.controlHighlight);
+		comboBox.setBackground(SystemColor.inactiveCaptionText);
 		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		comboBox.setBounds(187, 93, 250, 25);
@@ -264,6 +283,8 @@ public class CadastrarRequisito extends JFrame {
 
 
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setForeground(SystemColor.controlHighlight);
+		btnSalvar.setBackground(SystemColor.activeCaptionText);
 		btnSalvar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/disk.png")));
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnSalvar.addActionListener(new ActionListener() {
@@ -338,10 +359,12 @@ public class CadastrarRequisito extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(225, 390, 117, 25);
+		btnSalvar.setBounds(216, 400, 117, 25);
 		contentPane.add(btnSalvar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(SystemColor.controlHighlight);
+		btnCancelar.setBackground(SystemColor.activeCaptionText);
 		btnCancelar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/cancel.png")));
 		btnCancelar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnCancelar.addActionListener(new ActionListener() {
@@ -349,13 +372,15 @@ public class CadastrarRequisito extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(355, 390, 117, 25);
+		btnCancelar.setBounds(352, 400, 117, 25);
 		contentPane.add(btnCancelar);
 
 		JButton btnAjuda = new JButton("Ajuda");
+		btnAjuda.setForeground(SystemColor.controlHighlight);
+		btnAjuda.setBackground(SystemColor.activeCaptionText);
 		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnAjuda.setBounds(95, 390, 117, 25);
+		btnAjuda.setBounds(80, 400, 117, 25);
 		contentPane.add(btnAjuda);
 		
 				JLabel lblSujeito = new JLabel("Sujeito: ");
@@ -367,6 +392,11 @@ public class CadastrarRequisito extends JFrame {
 				lblNewLabel.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 				lblNewLabel.setBounds(65, 90, 150, 25);
 				contentPane.add(lblNewLabel);
+				
+				JPanel panel = new JPanel();
+				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastre seu novo requisito", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+				panel.setBounds(35, 50, 480, 330);
+				contentPane.add(panel);
 				
 			
 				
