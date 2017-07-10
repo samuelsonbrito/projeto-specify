@@ -2,7 +2,14 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -39,5 +46,43 @@ public class ProjetoDAO {
 		}
 
 	}
+	
+	
+	
+	public List<Projeto> read() {
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Projeto> projetos = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT * FROM projeto");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Projeto projeto = new Projeto();
+
+				projeto.setCodigo(rs.getInt("codigo"));
+				projeto.setNome(rs.getString("nome"));
+				projeto.setDataInicio(rs.getString("dataInicio"));
+				projeto.setDataAproxTermino(rs.getString("dataAproxTermino"));
+				projeto.setDescricao(rs.getString("descricao"));
+				projeto.setRecursosFinanceiros(rs.getDouble("recursosFinanceiros"));
+				projetos.add(projeto);
+					
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return projetos;
+
+	}
+	
 
 }

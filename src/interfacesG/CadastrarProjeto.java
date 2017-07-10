@@ -85,6 +85,17 @@ public class CadastrarProjeto extends JFrame {
 		
 
 	}
+	
+	/*
+	public void readJTable() {   
+	   ProjetoDAO projeto = new ProjetoDAO();
+	    for (Projeto p : projeto.read()) {
+	        modelo.addRow(new Object[]{
+	            p.getNome(),
+	        });
+	    }
+	}*/
+
 
 	/**
 	 * Create the frame.
@@ -206,6 +217,8 @@ public class CadastrarProjeto extends JFrame {
 	/*************************************************/
 		
 		
+	/********************ACAO SALVAR******************/	
+		
 		JButton btnSalvar = new JButton("Salvar ");
 		btnSalvar.setForeground(SystemColor.controlHighlight);
 		btnSalvar.setBackground(SystemColor.inactiveCaptionText);
@@ -225,10 +238,11 @@ public class CadastrarProjeto extends JFrame {
 				String texto = recebeRecursoFinanceiro_1.getText();
 				texto = texto.replace(".", "");
 				texto = texto.replace(",", ".");
-				cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));
-				
-				
+				cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));		
 				dao.create(cprojeto);
+				
+				
+				
 				
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 				if (resposta == JOptionPane.YES_OPTION){
@@ -247,6 +261,8 @@ public class CadastrarProjeto extends JFrame {
 		});
 		btnSalvar.setBounds(208, 405, 117, 25);
 		contentPane.add(btnSalvar);
+		
+		/**************** FIM BOTAO SALVAR***********************/
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(SystemColor.controlHighlight);

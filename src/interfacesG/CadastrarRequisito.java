@@ -348,8 +348,6 @@ public class CadastrarRequisito extends JFrame {
 					nreq.setGrauPrioridade(GrauP.ALTA);					
 				}
 
-				// nreq.setGrauPrioridade(recebeGrauPrio.getText());  <= era assim
-				// nreq.setGrauDificuldade(recebeGrauDifi.getText());
 				nreq.setEstimativa(recebeEstimativa.getText());
 
 				dao.create(nreq);
