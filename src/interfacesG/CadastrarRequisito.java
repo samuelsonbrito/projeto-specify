@@ -202,10 +202,17 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
+		recebeEstimativa.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				recebeEstimativa.setText("");
+			}		
+		});
+		
 		recebeEstimativa.setToolTipText("em horas, exemplo: 1, para uma hora, 2, para duas horas. ");
 		
 		
-		try {
+		/*try {
 		
 			javax.swing.text.MaskFormatter hora= new javax.swing.text.MaskFormatter("##:##:##");
 			hora.setPlaceholderCharacter('0');
@@ -215,7 +222,7 @@ public class CadastrarRequisito extends JFrame {
 		}
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
-		}	
+		}*/	
 		
 		recebeEstimativa.setBounds(186, 334, 250, 25);
 		contentPane.add(recebeEstimativa);
@@ -348,7 +355,7 @@ public class CadastrarRequisito extends JFrame {
 					nreq.setGrauPrioridade(GrauP.ALTA);					
 				}
 
-				nreq.setEstimativa(recebeEstimativa.getText());
+				nreq.setEstimativa(Integer.parseInt(recebeEstimativa.getText()));
 
 				dao.create(nreq);
 				

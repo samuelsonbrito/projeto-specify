@@ -112,18 +112,18 @@ public class CadastrarProjeto extends JFrame {
 		
 		JLabel lblInsiraONome = new JLabel("Nome do projeto:");
 		lblInsiraONome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblInsiraONome.setBounds(110, 109, 130, 25);
+		lblInsiraONome.setBounds(120, 109, 130, 25);
 		contentPane.add(lblInsiraONome);
 		
 		recebeNomeProjeto = new JTextField();
-		recebeNomeProjeto.setBounds(240, 111, 230, 25);
+		recebeNomeProjeto.setBounds(252, 109, 230, 25);
 		contentPane.add(recebeNomeProjeto);
 		recebeNomeProjeto.setColumns(10);
 		
 		/*********datas inicio e fim******************/
 		JLabel lblInsiraAData = new JLabel("Data de inicio: ");
 		lblInsiraAData.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblInsiraAData.setBounds(130, 150, 100, 20);
+		lblInsiraAData.setBounds(140, 150, 100, 20);
 		contentPane.add(lblInsiraAData);
 		
 		recebeDataInicio_1_1 = new JFormattedTextField();
@@ -139,14 +139,14 @@ public class CadastrarProjeto extends JFrame {
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataInicio_1_1.setBounds(240, 150, 80, 25);
+		recebeDataInicio_1_1.setBounds(252, 148, 80, 25);
 		contentPane.add(recebeDataInicio_1_1);
 		recebeDataInicio_1_1.setColumns(10);
 		
 		
 		JLabel lblDataAproximadaPara = new JLabel("Data aprox. para término:");
 		lblDataAproximadaPara.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblDataAproximadaPara.setBounds(62, 196, 250, 20);
+		lblDataAproximadaPara.setBounds(72, 196, 250, 20);
 		contentPane.add(lblDataAproximadaPara);
 		
 		recebeDataTermino_1 = new JFormattedTextField();
@@ -161,14 +161,14 @@ public class CadastrarProjeto extends JFrame {
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
 		
-		recebeDataTermino_1.setBounds(240, 196, 80, 25);
+		recebeDataTermino_1.setBounds(252, 194, 80, 25);
 		contentPane.add(recebeDataTermino_1);
 		recebeDataTermino_1.setColumns(10);
 		/********************************************/
 		
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");
 		lblDescrioDoProjeto.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblDescrioDoProjeto.setBounds(87, 233, 200, 15);
+		lblDescrioDoProjeto.setBounds(96, 233, 200, 15);
 		contentPane.add(lblDescrioDoProjeto);
 		
 		
@@ -176,7 +176,7 @@ public class CadastrarProjeto extends JFrame {
 		recebeDescricao = new JTextArea();
 		
 		JScrollPane scrollPane = new JScrollPane(recebeDescricao);
-		scrollPane.setBounds(240, 231, 230, 60);
+		scrollPane.setBounds(252, 229, 230, 60);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
 		
@@ -196,11 +196,11 @@ public class CadastrarProjeto extends JFrame {
 	 * 					recurso financeiro 
 	 *******************************************************/
 		
-		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:");
+		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:  R$");
 		lblRecursosFinanceiros.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblRecursosFinanceiros.setBounds(50, 306, 250, 25);
 		contentPane.add(lblRecursosFinanceiros);
-		
+		String rs = "R$ ";
 		recebeRecursoFinanceiro_1 = new JFormattedTextField();
 		try {
 			recebeRecursoFinanceiro_1.setDocument(new MonetarioDocument());
@@ -210,7 +210,7 @@ public class CadastrarProjeto extends JFrame {
 		      e.printStackTrace();  
 		  } 
 		
-		recebeRecursoFinanceiro_1.setBounds(240, 309, 230, 25);
+		recebeRecursoFinanceiro_1.setBounds(252, 307, 230, 25);
 		contentPane.add(recebeRecursoFinanceiro_1);
 		recebeRecursoFinanceiro_1.setColumns(10);
 		
@@ -233,16 +233,13 @@ public class CadastrarProjeto extends JFrame {
 				//cprojeto.setCodigo(Integer.parseInt(recebeNumero.getText()));
 				cprojeto.setNome(recebeNomeProjeto.getText());
 				cprojeto.setDataInicio(recebeDataInicio_1_1.getText());
-				cprojeto.setDataAproxTermino(recebeDataTermino_1.getText());
+				cprojeto.setDataAproxTermino(recebeDataTermino_1.getText());	
 				cprojeto.setDescricao(recebeDescricao.getText());
 				String texto = recebeRecursoFinanceiro_1.getText();
 				texto = texto.replace(".", "");
 				texto = texto.replace(",", ".");
 				cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));		
 				dao.create(cprojeto);
-				
-				
-				
 				
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 				if (resposta == JOptionPane.YES_OPTION){
