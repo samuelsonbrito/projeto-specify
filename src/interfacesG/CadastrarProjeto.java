@@ -1,4 +1,7 @@
 package interfacesG;
+import java.util.Calendar;
+import java.util.Date;
+
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -55,7 +58,7 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblDescrioDoProjeto;
 	private JTextArea recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
-	
+
 	private JFormattedTextField recebeRecursoFinanceiro_1;
 
 	/**
@@ -63,14 +66,14 @@ public class CadastrarProjeto extends JFrame {
 	 */
 	public static void main(String[] args) {
 
-		 try 
-		    {
-		      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-		    } 
-		    catch (Exception e) 
-		    {
-		      e.printStackTrace();
-		    }
+		try 
+		{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -82,10 +85,10 @@ public class CadastrarProjeto extends JFrame {
 				}
 			}
 		});
-		
+
 
 	}
-	
+
 	/*
 	public void readJTable() {   
 	   ProjetoDAO projeto = new ProjetoDAO();
@@ -109,23 +112,23 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblInsiraONome = new JLabel("Nome do projeto:");
 		lblInsiraONome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblInsiraONome.setBounds(120, 109, 130, 25);
 		contentPane.add(lblInsiraONome);
-		
+
 		recebeNomeProjeto = new JTextField();
 		recebeNomeProjeto.setBounds(252, 109, 230, 25);
 		contentPane.add(recebeNomeProjeto);
 		recebeNomeProjeto.setColumns(10);
-		
+
 		/*********datas inicio e fim******************/
 		JLabel lblInsiraAData = new JLabel("Data de inicio: ");
 		lblInsiraAData.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblInsiraAData.setBounds(140, 150, 100, 20);
 		contentPane.add(lblInsiraAData);
-		
+
 		recebeDataInicio_1_1 = new JFormattedTextField();
 
 		try {
@@ -138,17 +141,17 @@ public class CadastrarProjeto extends JFrame {
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
-		
-		recebeDataInicio_1_1.setBounds(252, 148, 80, 25);
+
+		recebeDataInicio_1_1.setBounds(252, 148, 85, 25);
 		contentPane.add(recebeDataInicio_1_1);
 		recebeDataInicio_1_1.setColumns(10);
-		
-		
+
+
 		JLabel lblDataAproximadaPara = new JLabel("Data aprox. para término:");
 		lblDataAproximadaPara.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblDataAproximadaPara.setBounds(72, 196, 250, 20);
 		contentPane.add(lblDataAproximadaPara);
-		
+
 		recebeDataTermino_1 = new JFormattedTextField();
 		try {
 			javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("####/##/##");
@@ -160,65 +163,64 @@ public class CadastrarProjeto extends JFrame {
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}
-		
-		recebeDataTermino_1.setBounds(252, 194, 80, 25);
+
+		recebeDataTermino_1.setBounds(252, 194, 85, 25);
 		contentPane.add(recebeDataTermino_1);
 		recebeDataTermino_1.setColumns(10);
 		/********************************************/
-		
+
 		lblDescrioDoProjeto = new JLabel("Descrição do projeto:");
 		lblDescrioDoProjeto.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblDescrioDoProjeto.setBounds(96, 233, 200, 15);
 		contentPane.add(lblDescrioDoProjeto);
-		
-		
-		
+
+
+
 		recebeDescricao = new JTextArea();
-		
+
 		JScrollPane scrollPane = new JScrollPane(recebeDescricao);
 		scrollPane.setBounds(252, 229, 230, 60);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
-		
+
 		contentPane.add(scrollPane);
 
-		
+
 		recebeDescricao.setMargin(new Insets(4, 3, 4, 3));
 		recebeDescricao.setTabSize(10);
 		recebeDescricao.setWrapStyleWord(true);
 		recebeDescricao.setLineWrap(true);
 		recebeDescricao.setBounds(271, 284, 200, 60);
-		                           //contentPane.add(recebeDescricao);
+		//contentPane.add(recebeDescricao);
 		recebeDescricao.setColumns(10);
-		
-		
-	/******************************************************* 
-	 * 					recurso financeiro 
-	 *******************************************************/
-		
+
+
+		/******************************************************* 
+		 * 					recurso financeiro 
+		 *******************************************************/
+
 		lblRecursosFinanceiros = new JLabel("Recurso financeiro estimado:  R$");
 		lblRecursosFinanceiros.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		lblRecursosFinanceiros.setBounds(50, 306, 250, 25);
 		contentPane.add(lblRecursosFinanceiros);
-		String rs = "R$ ";
 		recebeRecursoFinanceiro_1 = new JFormattedTextField();
 		try {
 			recebeRecursoFinanceiro_1.setDocument(new MonetarioDocument());
 			recebeRecursoFinanceiro_1.setText("0");		
 		}
 		catch (Exception e) {  
-		      e.printStackTrace();  
-		  } 
-		
+			e.printStackTrace();  
+		} 
+
 		recebeRecursoFinanceiro_1.setBounds(252, 307, 230, 25);
 		contentPane.add(recebeRecursoFinanceiro_1);
 		recebeRecursoFinanceiro_1.setColumns(10);
-		
-	/*************************************************/
-		
-		
-	/********************ACAO SALVAR******************/	
-		
+
+		/*************************************************/
+
+
+		/********************ACAO SALVAR******************/	
+
 		JButton btnSalvar = new JButton("Salvar ");
 		btnSalvar.setForeground(SystemColor.controlHighlight);
 		btnSalvar.setBackground(SystemColor.inactiveCaptionText);
@@ -228,39 +230,50 @@ public class CadastrarProjeto extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ação salvar projeto
-				
+
+
 				ProjetoDAO dao = new ProjetoDAO();
-				//cprojeto.setCodigo(Integer.parseInt(recebeNumero.getText()));
-				cprojeto.setNome(recebeNomeProjeto.getText());
+				Calendar c = Calendar.getInstance();
+
+
 				cprojeto.setDataInicio(recebeDataInicio_1_1.getText());
-				cprojeto.setDataAproxTermino(recebeDataTermino_1.getText());	
-				cprojeto.setDescricao(recebeDescricao.getText());
-				String texto = recebeRecursoFinanceiro_1.getText();
-				texto = texto.replace(".", "");
-				texto = texto.replace(",", ".");
-				cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));		
-				dao.create(cprojeto);
-				
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
-				if (resposta == JOptionPane.YES_OPTION){
-					//precisa fazer limpar campos para poder cadastrar novo req
-					recebeNomeProjeto.setText("");
-					recebeDataInicio_1_1.setText("");
-					recebeDataTermino_1.setText("");
-					recebeDescricao.setText("");
-					recebeRecursoFinanceiro_1.setText("");
-				
+				cprojeto.setDataAproxTermino(recebeDataTermino_1.getText());
+
+				int comp = cprojeto.getDataInicio().compareTo(cprojeto.getDataAproxTermino());
+
+				if(comp > 0){
+					JOptionPane.showMessageDialog(null, "Data inválida!");	
 				}
-				if (resposta ==JOptionPane.NO_OPTION)
-					dispose();
-					//dispose();
+				else {
+					cprojeto.setNome(recebeNomeProjeto.getText());
+					cprojeto.setDescricao(recebeDescricao.getText());
+					String texto = recebeRecursoFinanceiro_1.getText();
+					texto = texto.replace(".", "");
+					texto = texto.replace(",", ".");
+					cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));	
+					dao.create(cprojeto);
+
+					int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
+					if (resposta == JOptionPane.YES_OPTION){
+						//precisa fazer limpar campos para poder cadastrar novo req
+						recebeNomeProjeto.setText("");
+						recebeDataInicio_1_1.setText("");
+						recebeDataTermino_1.setText("");
+						recebeDescricao.setText("");
+						recebeRecursoFinanceiro_1.setText("");
+
+					}
+					if (resposta ==JOptionPane.NO_OPTION)
+						dispose();
+
+				}
 			}
 		});
 		btnSalvar.setBounds(208, 405, 117, 25);
 		contentPane.add(btnSalvar);
-		
+
 		/**************** FIM BOTAO SALVAR***********************/
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(SystemColor.controlHighlight);
 		btnCancelar.setBackground(SystemColor.inactiveCaptionText);
@@ -274,7 +287,7 @@ public class CadastrarProjeto extends JFrame {
 		});
 		btnCancelar.setBounds(338, 405, 117, 25);
 		contentPane.add(btnCancelar);
-		
+
 		JButton btnAjuda = new JButton("Ajuda");
 		btnAjuda.setForeground(SystemColor.controlHighlight);
 		btnAjuda.setBackground(SystemColor.inactiveCaptionText);
@@ -282,7 +295,7 @@ public class CadastrarProjeto extends JFrame {
 		btnAjuda.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/help.png")));
 		btnAjuda.setBounds(78, 405, 117, 25);
 		contentPane.add(btnAjuda);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastre seu novo projeto", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panel.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 14));

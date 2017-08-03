@@ -48,6 +48,9 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 
+import java.util.Date;
+
+
 public class CadastrarRequisito extends JFrame {
 
 	private JPanel contentPane;
@@ -299,7 +302,7 @@ public class CadastrarRequisito extends JFrame {
 		
 		contentPane.add(comboBox);
 
-
+		/*************ação ao salvar requisito*************/
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setForeground(SystemColor.controlHighlight);
 		btnSalvar.setBackground(SystemColor.activeCaptionText);
@@ -362,7 +365,7 @@ public class CadastrarRequisito extends JFrame {
 				 
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito para este mesmo projeto?");
 				if (resposta == JOptionPane.YES_OPTION){
-					//precisa fazer limpar campos para poder cadastrar novo req
+					//limpa campos para cadastrar novo requisito
 					recebeID.setText("");
 					recebeSujeito.setText("");
 					recebeAcaoRestri.setText("");
@@ -377,6 +380,8 @@ public class CadastrarRequisito extends JFrame {
 		});
 		btnSalvar.setBounds(216, 400, 117, 25);
 		contentPane.add(btnSalvar);
+		
+		// ------------------------- end salvar requisito s
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(SystemColor.controlHighlight);

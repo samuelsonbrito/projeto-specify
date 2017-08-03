@@ -12,6 +12,7 @@ public class Requisito {
 	private int estimativa;
 	private TipoReq tipoRequisito;
 	
+	
 	public enum TipoReq{
 		FUNCIONAL,NAOFUNCIONAL,USUARIO,NEGOCIO;	
 	}

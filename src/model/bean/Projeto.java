@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.util.Date;
+
 public class Projeto {
 	private int codigo; //antes era numero
 	private String nome;
@@ -7,19 +9,30 @@ public class Projeto {
 	private String dataAproxTermino; 
 	private String descricao;
 	private double recursosFinanceiros;
+	private Date horaCriacao; 
 
 	public Projeto() {
 		// construtor vazio
 	}
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
-			double recursosFinanceiros) {
+			double recursosFinanceiros, Date horaCriacao) {
 		this.codigo = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
 		this.dataAproxTermino = dataAproxTermino;
 		this.descricao = descricao;
 		this.recursosFinanceiros = recursosFinanceiros;
+		this.horaCriacao = horaCriacao; 
+		
+	}
+	
+	public Date getHoraCriacao(){
+		return horaCriacao;
+	}
+	
+	public void setHoraCriacao(Date horaCriacao){
+		this.horaCriacao = horaCriacao; 
 	}
 
 	public String getNome() {
@@ -69,5 +82,7 @@ public class Projeto {
 	public String getDataInicio() {
 		return dataInicio;
 	}
+
+
 
 }
