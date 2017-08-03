@@ -284,6 +284,12 @@ public class CadastrarProjeto extends JFrame {
 		contentPane.add(btnCancelar);
 
 		JButton btnAjuda = new JButton("Ajuda");
+		btnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaAjudaProjeto tap=new TelaAjudaProjeto();
+				tap.setVisible(true);
+			}
+		});
 		btnAjuda.setForeground(SystemColor.controlHighlight);
 		btnAjuda.setBackground(SystemColor.inactiveCaptionText);
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
