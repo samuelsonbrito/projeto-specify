@@ -30,15 +30,10 @@ public class ProjetoDAO {
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = con.prepareStatement("INSERT INTO projeto(nome, dataInicio, dataAproxTermino, descricao, recursosFinanceiros, diaHoraCriacao)VALUES(?,?,?,?,?,?)");
+			stmt = con.prepareStatement("INSERT INTO projeto(nome, dataInicio, dataAproxTermino, descricao, recursosFinanceiros)VALUES(?,?,?,?,?)");
 			stmt.setString(1, p.getNome());
-			
-			
 			stmt.setString(2, p.getDataInicio());
-			stmt.setString(3, p.getDataAproxTermino());
-			
-			
-			
+			stmt.setString(3, p.getDataAproxTermino());	
 			stmt.setString(4, p.getDescricao());
 			stmt.setDouble(5, p.getRecursosFinanceiros());
 			//stmt.setDate(2, );
@@ -50,9 +45,7 @@ public class ProjetoDAO {
 		} catch (SQLException ex) {
 			
 			JOptionPane.showMessageDialog(null, "Erro ao salvar projeto: "+ex);
-		} finally {
-			ConnectionFactory.closeConnection(con, stmt);
-		}
+		} 
 
 	}
 	
@@ -74,6 +67,7 @@ public class ProjetoDAO {
 				Projeto projeto = new Projeto();
 
 				projeto.setCodigo(rs.getInt("codigo"));
+				projeto.setHoraCriacao(rs.getTimestamp("diaHoraCriacao"));
 				projeto.setNome(rs.getString("nome"));
 				projeto.setDataInicio(rs.getString("dataInicio"));
 				projeto.setDataAproxTermino(rs.getString("dataAproxTermino"));

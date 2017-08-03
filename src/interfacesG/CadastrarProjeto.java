@@ -229,18 +229,13 @@ public class CadastrarProjeto extends JFrame {
 		btnSalvar.setIcon(new ImageIcon(CadastrarProjeto.class.getResource("/images/disk.png")));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ação salvar projeto
-
-
 				ProjetoDAO dao = new ProjetoDAO();
-				Calendar c = Calendar.getInstance();
-
-
+				
 				cprojeto.setDataInicio(recebeDataInicio_1_1.getText());
 				cprojeto.setDataAproxTermino(recebeDataTermino_1.getText());
 
+				//valida se dataInicio > dataTermino
 				int comp = cprojeto.getDataInicio().compareTo(cprojeto.getDataAproxTermino());
-
 				if(comp > 0){
 					JOptionPane.showMessageDialog(null, "Data inválida!");	
 				}
@@ -255,7 +250,7 @@ public class CadastrarProjeto extends JFrame {
 
 					int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 					if (resposta == JOptionPane.YES_OPTION){
-						//precisa fazer limpar campos para poder cadastrar novo req
+						//limpa campos para cadastrar novo requisito
 						recebeNomeProjeto.setText("");
 						recebeDataInicio_1_1.setText("");
 						recebeDataTermino_1.setText("");
@@ -272,7 +267,7 @@ public class CadastrarProjeto extends JFrame {
 		btnSalvar.setBounds(208, 405, 117, 25);
 		contentPane.add(btnSalvar);
 
-		/**************** FIM BOTAO SALVAR***********************/
+		/**************** FIM ACAO BOTAO SALVAR***********************/
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(SystemColor.controlHighlight);
