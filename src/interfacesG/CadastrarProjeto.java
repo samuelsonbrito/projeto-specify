@@ -247,7 +247,7 @@ public class CadastrarProjeto extends JFrame {
 					texto = texto.replace(",", ".");
 					cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));	
 					dao.create(cprojeto);
-
+					
 					int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 					if (resposta == JOptionPane.YES_OPTION){
 						//limpa campos para cadastrar novo requisito

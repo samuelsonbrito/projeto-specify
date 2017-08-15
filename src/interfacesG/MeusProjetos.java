@@ -16,6 +16,8 @@ import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -66,14 +68,21 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Rectangle;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+
 import java.awt.Font;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 public class MeusProjetos extends JFrame {
 
+
 	private JPanel contentPane;
+	private JTree tree;
+	private JLabel selectedLabel;
 
 	/**
 	 * Launch the application.
@@ -97,8 +106,6 @@ public class MeusProjetos extends JFrame {
 					frame.setLocationRelativeTo(null);
 					//frame.setExtendedState(MAXIMIZED_BOTH);
 
-
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,7 +117,7 @@ public class MeusProjetos extends JFrame {
 	}
 
 
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -191,18 +198,12 @@ public class MeusProjetos extends JFrame {
 		tabsShowInfo.addTab("New tab", null, panel_1, null);
 
 
-
-
 		JPanel panel = new JPanel();
-
-
 
 		panel.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panel.setBounds(10, 36, 339, 550);
 		contentPane.add(panel);
 		panel.setLayout(null);
-
-
 
 		JButton LabelProjetos = new JButton("Projetos");
 
@@ -219,71 +220,40 @@ public class MeusProjetos extends JFrame {
 
 
 
+		/********************** JTREE *****************************/
+	
+		 	
+		JTree tree_1 = new JTree();
+		ProjetoDAO pdao = new ProjetoDAO();
 
-		JTree tree = new JTree();
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Projetos") {
-				{
-					DefaultMutableTreeNode node_1;
-					DefaultMutableTreeNode node_2;
-					node_1 = new DefaultMutableTreeNode("nomeProjeto");
-						node_2 = new DefaultMutableTreeNode("Informações");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Atualizar"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Interessados");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Requisitos");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("nomeProjeto");
-						node_2 = new DefaultMutableTreeNode("Informações");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Atualizar"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Interessados");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Requisitos");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("nomeProjeto");
-						node_2 = new DefaultMutableTreeNode("Informações");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Atualizar"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Interessados");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Requisitos");
-							node_2.add(new DefaultMutableTreeNode("Ver"));
-							node_2.add(new DefaultMutableTreeNode("Cadastrar novo"));
-						node_1.add(node_2);
-					add(node_1);
+		tree_1.setModel(new DefaultTreeModel(
+				new DefaultMutableTreeNode("Projetos") { //raiz
+					{
+
+						DefaultMutableTreeNode node_1;
+
+						for(Projeto p: pdao.readName()){
+							
+							node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
+								node_1.add(new DefaultMutableTreeNode("see"));  //adicona filhos
+								node_1.add(new DefaultMutableTreeNode("violet"));
+								node_1.add(new DefaultMutableTreeNode("red"));
+								node_1.add(new DefaultMutableTreeNode("yellow"));
+							add(node_1);
+							
+							
+
+						}
+
+					}
 				}
-			}
-		));
-		ProjetoDAO projeto = new ProjetoDAO();
-
+				));
 		
-
-		 
-
-		tree.setBounds(2, 28, 335, 519);
-		panel.add(tree);
+		tree_1.setBounds(5, 30, 330, 250);
+		panel.add(tree_1); 
 
 
-
-
-
+		/*********************** end JTREE **********************/
 
 
 	}

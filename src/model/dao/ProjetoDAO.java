@@ -13,6 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import connection.ConnectionFactory;
 import model.bean.Projeto;
@@ -74,7 +77,9 @@ public class ProjetoDAO {
 				projeto.setDescricao(rs.getString("descricao"));
 				projeto.setRecursosFinanceiros(rs.getDouble("recursosFinanceiros"));
 				projetos.add(projeto);
-					
+				
+
+	
 			}
 
 		} catch (SQLException ex) {
@@ -86,6 +91,38 @@ public class ProjetoDAO {
 		return projetos;
 
 	}
+	
+	public List<Projeto> readName() {
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Projeto> projetosN = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT nome FROM projeto");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Projeto projeto = new Projeto();
+	
+				projeto.setNome(rs.getString("nome"));
+				
+				projetosN.add(projeto);
+	
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return projetosN;
+
+	}
+	
 	
 
 }
