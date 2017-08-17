@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+import model.bean.Projeto;
 import model.bean.Requisito;
 
 
@@ -47,5 +49,38 @@ public class RequisitoDAO {
        }
 
     }
+    
+    public List<Requisito> readID() {
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Requisito> requisitoID = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT id FROM requisito ");
+
+			//stmt = con.prepareStatement("SELECT r.id FROM requisito as r JOIN projeto as p ON r.pcodigo=p.codigo ");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Requisito requisito = new Requisito();
+	
+				requisito.setId(rs.getString("id"));
+				
+				requisitoID.add(requisito);
+	
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return requisitoID;
+
+	}
 
 }
