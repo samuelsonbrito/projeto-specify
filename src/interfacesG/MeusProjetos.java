@@ -270,10 +270,17 @@ public class MeusProjetos extends JFrame {
 	    	
 	        panel.add(tree);
 		
+
+			JScrollPane scrollPane = new JScrollPane(tree);
+			scrollPane.setBounds(5, 30, 330, 515);
+			scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+
+			panel.add(scrollPane);
 	        
 	        
 	        
-	
+	        
 		
 
 		/*********************** end JTREE **********************/
