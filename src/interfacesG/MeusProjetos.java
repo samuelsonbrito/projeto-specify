@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -15,6 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,9 @@ import javax.swing.JSeparator;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import model.bean.Projeto;
+import model.bean.Requisito;
 import model.dao.ProjetoDAO;
+import model.dao.RequisitoDAO;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSpinner;
@@ -74,6 +80,8 @@ import javax.swing.event.TreeSelectionListener;
 import java.awt.Font;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -83,6 +91,9 @@ public class MeusProjetos extends JFrame {
 	private JPanel contentPane;
 	private JTree tree;
 	private JLabel selectedLabel;
+	Point loc;
+	boolean overRoot = false;
+
 
 	/**
 	 * Launch the application.
@@ -223,38 +234,71 @@ public class MeusProjetos extends JFrame {
 		/********************** JTREE *****************************/
 	
 		 	
-		JTree tree_1 = new JTree();
-		ProjetoDAO pdao = new ProjetoDAO();
-
-		tree_1.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("Projetos") { //raiz
-					{
-
-						DefaultMutableTreeNode node_1;
-
-						for(Projeto p: pdao.readName()){
-							
-							node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
-								node_1.add(new DefaultMutableTreeNode("see"));  //adicona filhos
-								node_1.add(new DefaultMutableTreeNode("violet"));
-								node_1.add(new DefaultMutableTreeNode("red"));
-								node_1.add(new DefaultMutableTreeNode("yellow"));
-							add(node_1);
-							
-							
-
-						}
-
-					}
-				}
-				));
 		
-		tree_1.setBounds(5, 30, 330, 250);
-		panel.add(tree_1); 
-
+		 JTree tree = new JTree();
+	    	ProjetoDAO pdao = new ProjetoDAO();
+			RequisitoDAO rdao = new RequisitoDAO();
+	        
+	        tree.setModel(new DefaultTreeModel(
+					new DefaultMutableTreeNode("Projetos") { //raiz
+						{	DefaultMutableTreeNode node_1;
+						DefaultMutableTreeNode node_2;
+							
+							for(Projeto p: pdao.readName()){
+							
+								node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
+									node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
+										node_2.add(new DefaultMutableTreeNode("opções de req")); //filho do filho
+										node_1.add(node_2);	
+									node_2 = new DefaultMutableTreeNode("Interessados");
+										node_2.add(new DefaultMutableTreeNode("opções de interessados"));
+										node_1.add(node_2);			
+								add(node_1); //adiciona nó pai na arvore	
+								
+								
+							}
+						}
+					}
+					));
+	        
+	        
+	        
+	        
+	        PopupHandler handler = new PopupHandler(tree);
+	        tree.add(handler.getPopup());
+	    	tree.setBounds(5, 30, 330, 515);
+	    	
+	        panel.add(tree);
+		
+	        
+	        
+	        
+	
+		
 
 		/*********************** end JTREE **********************/
 
 
+	}
+	
+	
+	
+	
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
