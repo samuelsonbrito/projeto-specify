@@ -11,8 +11,17 @@ public class Requisito {
 	private GrauD grauDificuldade; 
 	private int estimativa;
 	private TipoReq tipoRequisito;
+	private int projcodigo; 
 	
 	
+	public int getProjcodigo() {
+		return projcodigo;
+	}
+
+	public void setProjcodigo(int projcodigo) {
+		this.projcodigo = projcodigo;
+	}
+
 	public enum TipoReq{
 		FUNCIONAL,NAOFUNCIONAL,USUARIO,NEGOCIO;	
 	}
