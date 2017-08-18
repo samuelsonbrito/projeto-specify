@@ -39,10 +39,11 @@ public class ConnectionFactory {
 	}
 
 	public static void closeConnection(Connection con, PreparedStatement stmt) {
-		closeConnection(con);
+		//closeConnection(con);
 		try {
 			if (stmt != null) {
 				stmt.close();
+				//closeConnection(con);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
