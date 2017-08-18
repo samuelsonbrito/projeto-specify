@@ -9,12 +9,20 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
+import model.bean.Projeto;
+import model.bean.Requisito;
+import model.dao.ProjetoDAO;
 
 public class PopupHandler implements ActionListener,
 PopupMenuListener {
@@ -22,6 +30,7 @@ PopupMenuListener {
 	JPopupMenu popup;
 	JMenuItem item;
 	JMenuItem item2; 
+	JMenuItem item3; 
 	boolean overRoot = false;
 	Point loc;
 
@@ -30,9 +39,12 @@ PopupMenuListener {
 		popup = new JPopupMenu();
 		popup.setInvoker(tree);
 		JMenu menu = new JMenu("Novo");
+		JMenu menu2 = new JMenu("Deletar");
 		popup.add(menu);
+		popup.add(menu2);
 		menu.add(item2= getMenuItem("Novo Projeto"));
 		menu.add(item = getMenuItem("Novo Requisito"));
+		menu2.add(item3= getMenuItem("Projeto"));
 		tree.addMouseListener(ma);
 		popup.addPopupMenuListener(this);
 	}
@@ -53,23 +65,54 @@ PopupMenuListener {
 		TreePath path  = tree.getPathForLocation(loc.x, loc.y);
 		//System.out.println("path = " + path);
 		//System.out.printf("loc = [%d, %d]%n", loc.x, loc.y);
+		 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                 tree.getLastSelectedPathComponent();
+        Object nodeInfo = node.getUserObject();
+        String recebenode=(String) nodeInfo;
+        
+        
+		//JOptionPane.showMessageDialog(null, recebenode);
+
 		if(ac.equals("NOVO PROJETO"))
 			exibeProjeto(path);
 		if(ac.equals("NOVO REQUISITO"))
 			exibeRequisito(path);
+		if(ac.equals("PROJETO"))
+			deletarProjeto(recebenode);
 	}
+	
 
+	private void deletarProjeto(String recebenode){
+		//TreePath path = ((JTree) nodeInfo).getPathForLocation ( getX (), getY () );
+		ProjetoDAO dao = new ProjetoDAO();
+		for(Projeto p: dao.readName()){
+			if(recebenode.equals(p.getNome())){
+				//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
+				dao.delete(p.getCodigo());
+				
+			}	else {
+				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
+				
+			}
+		}
+		
+	}
 	private void exibeProjeto(TreePath path) {
 
 		CadastrarProjeto novoProjeto=new CadastrarProjeto();
 		novoProjeto.setVisible(true);
 		novoProjeto.setLocationRelativeTo(null);
+        DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+
 	}
 
 	private void exibeRequisito(TreePath path) {
+		
 		CadastrarRequisito novoRequisito=new CadastrarRequisito();
 		novoRequisito.setVisible(true);
 		novoRequisito.setLocationRelativeTo(null);
+        DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+
 	}
 
 	private MouseListener ma = new MouseAdapter() {
@@ -96,6 +139,7 @@ PopupMenuListener {
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 		item.setVisible(!overRoot);
 		item2.setVisible(overRoot);
+		item3.setVisible(!overRoot);
 	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {}

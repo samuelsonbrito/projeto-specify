@@ -100,7 +100,7 @@ public class ProjetoDAO {
 		List<Projeto> projetosN = new ArrayList<>();
 
 		try {
-			stmt = con.prepareStatement("SELECT nome FROM projeto");
+			stmt = con.prepareStatement("SELECT nome, codigo FROM projeto");
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -108,6 +108,7 @@ public class ProjetoDAO {
 				Projeto projeto = new Projeto();
 	
 				projeto.setNome(rs.getString("nome"));
+				projeto.setCodigo(rs.getInt("codigo"));
 				
 				projetosN.add(projeto);
 	
@@ -123,6 +124,25 @@ public class ProjetoDAO {
 
 	}
 	
+	public void delete(int codigo) {
+
+        PreparedStatement stmt = null;
+	//	ResultSet rs = null;
+
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM projeto WHERE codigo = ?");
+            stmt.setInt(1, codigo);
+            stmt.executeUpdate();
+           
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+        } finally {
+           ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
 	
 
 }
