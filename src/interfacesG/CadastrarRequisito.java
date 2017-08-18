@@ -10,10 +10,12 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.bean.Projeto;
 import model.bean.Requisito;
 import model.bean.Requisito.GrauD;
 import model.bean.Requisito.GrauP;
 import model.bean.Requisito.TipoReq;
+import model.dao.ProjetoDAO;
 import model.dao.RequisitoDAO;
 
 import javax.swing.JLabel;
@@ -271,9 +273,7 @@ public class CadastrarRequisito extends JFrame {
 		
 		
 		
-		JComboBox comboBox = new JComboBox();
-	
-		
+		JComboBox comboBox = new JComboBox();	
 		
 		comboBox.addMouseListener(new MouseAdapter() {
 			@Override
@@ -282,8 +282,7 @@ public class CadastrarRequisito extends JFrame {
 			}
 			
 		});
-		
-		
+			
 		comboBox.setForeground(SystemColor.controlHighlight);
 		comboBox.setBackground(SystemColor.inactiveCaptionText);
 		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -301,6 +300,28 @@ public class CadastrarRequisito extends JFrame {
 		comboBox.addItem(rn);
 		
 		contentPane.add(comboBox);
+		
+		
+		JComboBox comboBox2 = new JComboBox();	
+		comboBox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				comboBox.setBackground(new Color(28,28,28));
+			}
+			
+		});	
+		comboBox2.setForeground(SystemColor.controlHighlight);
+		comboBox2.setBackground(SystemColor.inactiveCaptionText);
+		comboBox2.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		comboBox2.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		comboBox2.setBounds(187, 55, 250, 25);
+		//String selecione="Selecione";
+		ProjetoDAO pdao = new ProjetoDAO();
+		for(Projeto p: pdao.readName()){
+			String nomep=p.getNome();
+			comboBox2.addItem(nomep);
+		}
+		contentPane.add(comboBox2);
 
 		/*************ação ao salvar requisito*************/
 		JButton btnSalvar = new JButton("Salvar");
@@ -311,13 +332,18 @@ public class CadastrarRequisito extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RequisitoDAO dao = new RequisitoDAO();
-
-				/*if(comboBox.getSelectedItem()==selecione){
-					// nreq.setTipoReq(null);
-				}*/
+				ProjetoDAO pdao = new ProjetoDAO();
+				
+				for(Projeto p: pdao.readName() ){
+					if(comboBox2.getSelectedItem().equals(p.getNome())){
+						nreq.setProjcodigo(p.getCodigo());
+					}
+				}
+				
+				
+				
 				if(comboBox.getSelectedItem()==rf){
-					nreq.setTipoReq(TipoReq.FUNCIONAL);
-					
+					nreq.setTipoReq(TipoReq.FUNCIONAL);			
 				}
 				if(comboBox.getSelectedItem()==rnf){
 					nreq.setTipoReq(TipoReq.NAOFUNCIONAL);
@@ -330,7 +356,6 @@ public class CadastrarRequisito extends JFrame {
 					nreq.setTipoReq(TipoReq.NEGOCIO);	
 				}
 				
-
 				nreq.setId(recebeID.getText());
 				nreq.setSujeito(recebeSujeito.getText());
 				nreq.setAcaoRestricao(recebeAcaoRestri.getText());
@@ -378,10 +403,10 @@ public class CadastrarRequisito extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(216, 400, 117, 25);
+		btnSalvar.setBounds(216, 420, 117, 25);
 		contentPane.add(btnSalvar);
 		
-		// ------------------------- end salvar requisito s
+		// ------------------------- end salvar requisito 
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(SystemColor.controlHighlight);
@@ -393,7 +418,7 @@ public class CadastrarRequisito extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(352, 400, 117, 25);
+		btnCancelar.setBounds(352, 420, 117, 25);
 		contentPane.add(btnCancelar);
 
 		JButton btnAjuda = new JButton("Ajuda");
@@ -401,9 +426,14 @@ public class CadastrarRequisito extends JFrame {
 		btnAjuda.setBackground(SystemColor.activeCaptionText);
 		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnAjuda.setBounds(80, 400, 117, 25);
+		btnAjuda.setBounds(80, 420, 117, 25);
 		contentPane.add(btnAjuda);
-		
+				
+				JLabel labelProjeto = new JLabel("Projeto: ");
+				labelProjeto.setBounds(124, 55, 52, 21);
+				contentPane.add(labelProjeto);
+				labelProjeto.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+				
 				JLabel lblSujeito = new JLabel("Sujeito: ");
 				lblSujeito.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));	
 				lblSujeito.setBounds(124, 165, 70, 15);
@@ -416,7 +446,7 @@ public class CadastrarRequisito extends JFrame {
 				
 				JPanel panel = new JPanel();
 				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastre seu novo requisito", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-				panel.setBounds(35, 50, 480, 330);
+				panel.setBounds(35, 30, 480, 360);
 				contentPane.add(panel);
 				
 			
