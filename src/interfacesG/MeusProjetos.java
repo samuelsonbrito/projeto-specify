@@ -84,6 +84,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MeusProjetos extends JFrame {
 
@@ -232,20 +234,49 @@ public class MeusProjetos extends JFrame {
 
 
 		/********************** JTREE *****************************/
-	
-		 	
 		
+		constroiJTree(panel);
+		
+		JToolBar toolBar_1 = new JToolBar();
+		toolBar_1.setBounds(5, 30, 330, 18);
+		panel.add(toolBar_1);
+			
+			JButton btnRefresh = new JButton("==");
+			btnRefresh.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+			 		//ação p atualizar arvore
+				}
+			});
+			toolBar_1.add(btnRefresh);
+	        
+
+		/*********************** end JTREE **********************/
+
+	}
+	public void teste(){
+		//((DefaultTreeModel)tree.getModel()).reload();
+		repaint();
+		revalidate();
+		validate();
+	}
+	
+	
+	public void constroiJTree(JPanel panel){
 		 JTree tree = new JTree();
+			tree.setVisibleRowCount(0);
+
 	    	ProjetoDAO pdao = new ProjetoDAO();
 			RequisitoDAO rdao = new RequisitoDAO();
-	        
+			
 	        tree.setModel(new DefaultTreeModel(
 					new DefaultMutableTreeNode("Projetos") { //raiz
-						{	DefaultMutableTreeNode node_1;
+						{	
+						DefaultMutableTreeNode node_1;
 						DefaultMutableTreeNode node_2;
-							
+						int pcode;
 							for(Projeto p: pdao.readName()){
-							
+								pcode=p.getCodigo();
 								node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
 									node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
 										node_2.add(new DefaultMutableTreeNode("opções de req")); //filho do filho
@@ -253,44 +284,28 @@ public class MeusProjetos extends JFrame {
 									node_2 = new DefaultMutableTreeNode("Interessados");
 										node_2.add(new DefaultMutableTreeNode("opções de interessados"));
 										node_1.add(node_2);			
-								add(node_1); //adiciona nó pai na arvore	
-								
-								
+								add(node_1); //adiciona nó pai na arvore								
 							}
 						}
 					}
 					));
-	        
-	        
-	        
-	        
+	      
 	        PopupHandler handler = new PopupHandler(tree);
 	        tree.add(handler.getPopup());
 	    	tree.setBounds(5, 30, 330, 515);
 	    	
 	        panel.add(tree);
-		
 
 			JScrollPane scrollPane = new JScrollPane(tree);
-			scrollPane.setBounds(5, 30, 330, 515);
+			scrollPane.setBounds(5, 50, 330, 497);
 			scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
 
 			panel.add(scrollPane);
-	        
-	        
-	        
-	        
-		
-
-		/*********************** end JTREE **********************/
-
-
+			
+			
 	}
-	
-	
-	
-	
+
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
