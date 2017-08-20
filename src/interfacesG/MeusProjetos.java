@@ -241,30 +241,41 @@ public class MeusProjetos extends JFrame {
 		toolBar_1.setBounds(5, 30, 330, 18);
 		panel.add(toolBar_1);
 			
-			JButton btnRefresh = new JButton("==");
+			JButton btnRefresh = new JButton("");
+			btnRefresh.setToolTipText("Atualizar");
+			btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
 			btnRefresh.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-			 		//ação p atualizar arvore
+					//ação atualizar 
+					constroiJTree(panel);
+
 				}
 			});
 			toolBar_1.add(btnRefresh);
+			
+			JButton btnNewButton = new JButton("");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					CadastrarProjeto novoprojeto= new CadastrarProjeto();
+					novoprojeto.setVisible(true);
+					novoprojeto.setLocationRelativeTo(null);
+				}
+			});
+			btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
+			btnNewButton.setToolTipText("Novo projeto");
+			toolBar_1.add(btnNewButton);
 	        
 
 		/*********************** end JTREE **********************/
 
-	}
-	public void teste(){
-		//((DefaultTreeModel)tree.getModel()).reload();
-		repaint();
-		revalidate();
-		validate();
 	}
 	
 	
 	public void constroiJTree(JPanel panel){
 		 JTree tree = new JTree();
 			tree.setVisibleRowCount(0);
+			tree.repaint();
 
 	    	ProjetoDAO pdao = new ProjetoDAO();
 			RequisitoDAO rdao = new RequisitoDAO();
@@ -274,16 +285,27 @@ public class MeusProjetos extends JFrame {
 						{	
 						DefaultMutableTreeNode node_1;
 						DefaultMutableTreeNode node_2;
+						DefaultMutableTreeNode node_3;
 						int pcode;
 							for(Projeto p: pdao.readName()){
 								pcode=p.getCodigo();
 								node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
 									node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
-										node_2.add(new DefaultMutableTreeNode("opções de req")); //filho do filho
-										node_1.add(node_2);	
-									node_2 = new DefaultMutableTreeNode("Interessados");
-										node_2.add(new DefaultMutableTreeNode("opções de interessados"));
-										node_1.add(node_2);			
+										
+									for(Requisito r: rdao.readID()){
+										//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ p.getCodigo());
+										if(r.getProjcodigo()==p.getCodigo()){
+											node_2.add(new DefaultMutableTreeNode(r.getId())); //filho do filho
+											node_1.add(node_2);
+										}
+										else {
+											//node_2.add(new DefaultMutableTreeNode("Vazio"));
+											node_1.add(node_2);
+										}
+									}							
+									node_3 = new DefaultMutableTreeNode("Interessados");
+										node_3.add(new DefaultMutableTreeNode("opções de interessados"));
+										node_1.add(node_3);			
 								add(node_1); //adiciona nó pai na arvore								
 							}
 						}
@@ -302,6 +324,8 @@ public class MeusProjetos extends JFrame {
 			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
 
 			panel.add(scrollPane);
+			
+			
 			
 			
 	}
