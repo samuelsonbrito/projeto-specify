@@ -37,5 +37,5 @@ create table if not exists interessado(
 
 alter table requisito add column pcodigo int not null;
 alter table requisito add foreign key (pcodigo) references projeto(codigo)
-			on delete restrict 
+			on delete cascade
             on update cascade;
