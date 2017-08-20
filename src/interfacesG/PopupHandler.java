@@ -23,6 +23,7 @@ import javax.swing.tree.TreePath;
 import model.bean.Projeto;
 import model.bean.Requisito;
 import model.dao.ProjetoDAO;
+import model.dao.RequisitoDAO;
 
 public class PopupHandler implements ActionListener,
 PopupMenuListener {
@@ -31,6 +32,8 @@ PopupMenuListener {
 	JMenuItem item;
 	JMenuItem item2; 
 	JMenuItem item3; 
+	JMenuItem item4; 
+	JMenu menu, menu2; 
 	boolean overRoot = false;
 	Point loc;
 
@@ -38,13 +41,14 @@ PopupMenuListener {
 		this.tree = tree;
 		popup = new JPopupMenu();
 		popup.setInvoker(tree);
-		JMenu menu = new JMenu("Novo");
-		JMenu menu2 = new JMenu("Deletar");
+		menu = new JMenu("Novo");
+		menu2 = new JMenu("Deletar");
 		popup.add(menu);
 		popup.add(menu2);
 		menu.add(item2= getMenuItem("Novo Projeto"));
 		menu.add(item = getMenuItem("Novo Requisito"));
 		menu2.add(item3= getMenuItem("Projeto"));
+		menu2.add(item4= getMenuItem("Requisito"));
 		tree.addMouseListener(ma);
 		popup.addPopupMenuListener(this);
 	}
@@ -69,27 +73,46 @@ PopupMenuListener {
                  tree.getLastSelectedPathComponent();
         Object nodeInfo = node.getUserObject();
         String recebenode=(String) nodeInfo;
-        
-        
 		//JOptionPane.showMessageDialog(null, recebenode);
-
 		if(ac.equals("NOVO PROJETO"))
 			exibeProjeto(path);
 		if(ac.equals("NOVO REQUISITO"))
 			exibeRequisito(path);
 		if(ac.equals("PROJETO"))
 			deletarProjeto(recebenode);
+		if(ac.equals("REQUISITO"));
+			deletarRequisito(recebenode);
 	}
 	
+	private void deletarRequisito(String recebenode){
+		RequisitoDAO dao = new RequisitoDAO();
+		for(Requisito r: dao.readID()){
+
+			if(recebenode.equals(r.getId())){
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o requisito "+recebenode+"?");
+				if (resposta == JOptionPane.YES_OPTION){
+				//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
+				dao.delete(r.getId());
+				}
+			}	else {
+				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
+				
+			}
+		}
+		
+	}
 
 	private void deletarProjeto(String recebenode){
 		//TreePath path = ((JTree) nodeInfo).getPathForLocation ( getX (), getY () );
 		ProjetoDAO dao = new ProjetoDAO();
 		for(Projeto p: dao.readName()){
+
 			if(recebenode.equals(p.getNome())){
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o projeto "+recebenode+"?");
+				if (resposta == JOptionPane.YES_OPTION){
 				//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
 				dao.delete(p.getCodigo());
-				
+				}
 			}	else {
 				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
 				
@@ -140,6 +163,8 @@ PopupMenuListener {
 		item.setVisible(!overRoot);
 		item2.setVisible(overRoot);
 		item3.setVisible(!overRoot);
+		item4.setVisible(!overRoot);
+		menu2.setVisible(!overRoot);
 	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {}

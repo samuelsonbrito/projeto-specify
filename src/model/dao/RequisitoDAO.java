@@ -51,5 +51,56 @@ public class RequisitoDAO {
 
     }
     
+    public List<Requisito> readID() {
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Requisito> reqID = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT id, pcodigo FROM requisito");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Requisito requisito = new Requisito();
+	
+				requisito.setId(rs.getString("id"));
+				requisito.setProjcodigo(rs.getInt("pcodigo"));
+				
+				
+				reqID.add(requisito);
+	
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return reqID;
+
+	}
+    
+    public void delete(String id) {
+
+        PreparedStatement stmt = null;
+	//	ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement("DELETE FROM requisito WHERE id = ?");
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+           
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+        } finally {
+           ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
+    
    
 }
