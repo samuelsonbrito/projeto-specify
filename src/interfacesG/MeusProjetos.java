@@ -89,10 +89,10 @@ import java.awt.event.FocusEvent;
 
 public class MeusProjetos extends JFrame {
 
-
 	private JPanel contentPane;
 	private JTree tree;
 	private JLabel selectedLabel;
+	private JScrollPane scrollPane; 
 	Point loc;
 	boolean overRoot = false;
 
@@ -101,16 +101,15 @@ public class MeusProjetos extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try 
-		{
+		//aparencia da interface: Nimbus
+		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-
 		} 
-		catch (Exception e) 
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		//da run no frame
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -118,17 +117,12 @@ public class MeusProjetos extends JFrame {
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 					//frame.setExtendedState(MAXIMIZED_BOTH);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}	
-
+			} 
 		});
-
-
 	}
-
 
 
 	/**
@@ -136,10 +130,15 @@ public class MeusProjetos extends JFrame {
 	 */
 	public MeusProjetos() {
 		setTitle("Meus projetos");
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 650);
+		setBounds(100, 100, 1170, 630);
 
+	/** 
+	 * 
+	 * Início codigo dos componentes da interface
+	 * 
+	 **/
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setForeground(new Color(204, 204, 204));
 		menuBar.setBackground(new Color(51, 51, 51));
@@ -163,42 +162,35 @@ public class MeusProjetos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		toolBar.setBounds(0, 0, 1200, 30);
+		toolBar.setBounds(0, 0, 1170, 30);
 		contentPane.add(toolBar);
-
-		JButton btnNovoProjeto = new JButton("Novo projeto");
-		btnNovoProjeto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//ação botao novo projeto 
+		
+		//botãozinho de novo projeto
+		JButton btnNewButton = new JButton("");
+		toolBar.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
 				CadastrarProjeto novoprojeto= new CadastrarProjeto();
 				novoprojeto.setVisible(true);
 				novoprojeto.setLocationRelativeTo(null);
 			}
 		});
-		btnNovoProjeto.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
-		toolBar.add(btnNovoProjeto);
-
-		JButton btnNovoRequisito = new JButton("Novo requisito");
-		btnNovoRequisito.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastrarRequisito novoRequisito=new CadastrarRequisito();
-				novoRequisito.setVisible(true);
-				novoRequisito.setLocationRelativeTo(null);
-			}
-		});
-		btnNovoRequisito.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/page_add.png")));
-		toolBar.add(btnNovoRequisito);
-
+		btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
+		btnNewButton.setToolTipText("Novo projeto");
+		
+		
+		
 		JTabbedPane tabsShowInfo = new JTabbedPane(JTabbedPane.TOP);
 
 		tabsShowInfo.setOpaque(true);
 		tabsShowInfo.setAutoscrolls(true);
 		tabsShowInfo.setForeground(SystemColor.window);
 		tabsShowInfo.setBackground(new Color(51, 51, 51));
-		tabsShowInfo.setBounds(369, 37, 798, 550);
+		tabsShowInfo.setBounds(360, 37, 798, 550);
 		contentPane.add(tabsShowInfo);
 
 		JPanel panelShowInfo = new JPanel();
@@ -212,6 +204,8 @@ public class MeusProjetos extends JFrame {
 
 
 		JPanel panel = new JPanel();
+		
+		
 
 		panel.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panel.setBounds(10, 36, 339, 550);
@@ -219,7 +213,7 @@ public class MeusProjetos extends JFrame {
 		panel.setLayout(null);
 
 		JButton LabelProjetos = new JButton("Projetos");
-
+		
 		LabelProjetos.setForeground(SystemColor.controlHighlight);
 		LabelProjetos.setBackground(SystemColor.inactiveCaptionText);
 		LabelProjetos.setVerifyInputWhenFocusTarget(false);
@@ -231,120 +225,77 @@ public class MeusProjetos extends JFrame {
 		LabelProjetos.setBounds(0, 0, 339, 28);
 		panel.add(LabelProjetos);
 
-
-
-		/********************** JTREE *****************************/
 		
-		constroiJTree(panel);
+		constroiArvoreBancoDados(panel); //invoca a construção da tree no JPanel 
 		
-		JToolBar toolBar_1 = new JToolBar();
-		toolBar_1.setBounds(5, 30, 330, 18);
-		panel.add(toolBar_1);
-			
-			JButton btnRefresh = new JButton("");
-			btnRefresh.setToolTipText("Atualizar");
-			btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
-			btnRefresh.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//ação atualizar 
-					constroiJTree(panel);
-
-				}
-			});
-			toolBar_1.add(btnRefresh);
-			
-			JButton btnNewButton = new JButton("");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-					CadastrarProjeto novoprojeto= new CadastrarProjeto();
-					novoprojeto.setVisible(true);
-					novoprojeto.setLocationRelativeTo(null);
-				}
-			});
-			btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
-			btnNewButton.setToolTipText("Novo projeto");
-			toolBar_1.add(btnNewButton);
-	        
-
-		/*********************** end JTREE **********************/
-
-	}
-	
-	
-	public void constroiJTree(JPanel panel){
-		 JTree tree = new JTree();
-			tree.setVisibleRowCount(0);
-			tree.repaint();
-
-	    	ProjetoDAO pdao = new ProjetoDAO();
-			RequisitoDAO rdao = new RequisitoDAO();
-			
-	        tree.setModel(new DefaultTreeModel(
-					new DefaultMutableTreeNode("Projetos") { //raiz
-						{	
-						DefaultMutableTreeNode node_1;
-						DefaultMutableTreeNode node_2;
-						DefaultMutableTreeNode node_3;
-						int pcode;
-							for(Projeto p: pdao.readName()){
-								pcode=p.getCodigo();
-								node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
-									node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
-										
-									for(Requisito r: rdao.readID()){
-										//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ p.getCodigo());
-										if(r.getProjcodigo()==p.getCodigo()){
-											node_2.add(new DefaultMutableTreeNode(r.getId())); //filho do filho
-											node_1.add(node_2);
-										}
-										else {
-											//node_2.add(new DefaultMutableTreeNode("Vazio"));
-											node_1.add(node_2);
-										}
-									}							
-									node_3 = new DefaultMutableTreeNode("Interessados");
-										node_3.add(new DefaultMutableTreeNode("opções de interessados"));
-										node_1.add(node_3);			
-								add(node_1); //adiciona nó pai na arvore								
-							}
-						}
-					}
-					));
-	      
-	        PopupHandler handler = new PopupHandler(tree);
-	        tree.add(handler.getPopup());
-	    	tree.setBounds(5, 30, 330, 515);
-	    	
-	        panel.add(tree);
-
-			JScrollPane scrollPane = new JScrollPane(tree);
-			scrollPane.setBounds(5, 50, 330, 497);
-			scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
-
-			panel.add(scrollPane);
-			
-			
-			
-			
-	}
-
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
+		//botãozinho de refresh
+		JButton btnRefresh = new JButton("");
+		toolBar.add(btnRefresh);
+		btnRefresh.setToolTipText("Atualizar");
+		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rodaArvore(tree);	
 			}
 		});
 	}
+	
+	public void rodaArvore(JTree tree){
+		ProjetoDAO pdao = new ProjetoDAO();
+		RequisitoDAO rdao = new RequisitoDAO();
+		tree.setModel(new DefaultTreeModel(
+				new DefaultMutableTreeNode("Projetos") { //raiz
+					{					       			
+						DefaultMutableTreeNode node_1;
+						DefaultMutableTreeNode node_2;
+						DefaultMutableTreeNode node_3;
+						 
+						//le do banco de dados projetos e requisitos 
+						for(Projeto p: pdao.readName()){
+							node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
+							node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
+
+							for(Requisito r: rdao.readID()){
+								//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ p.getCodigo());
+								if(r.getProjcodigo()==p.getCodigo()){
+									node_2.add(new DefaultMutableTreeNode(r.getId())); //filho do filho
+									node_1.add(node_2);
+								}
+								else {
+									node_1.add(node_2);
+								}
+							} //fim for	menor					
+							node_3 = new DefaultMutableTreeNode("Interessados");
+							node_3.add(new DefaultMutableTreeNode("opções de interessados"));
+							node_1.add(node_3);			
+							add(node_1);  //adiciona nó pai na arvore							
+						} //fim for
+					}
+				}
+				));	
+	}
+	
+	public void constroiArvoreBancoDados(JPanel panel){
+		
+			tree = new JTree();
+		 
+			tree.setVisibleRowCount(0);
+			rodaArvore(tree);
+		
+			PopupHandler handler = new PopupHandler(tree);
+	        tree.add(handler.getPopup());
+	    	tree.setBounds(5, 30, 330, 515);
+	        panel.add(tree);
+	        
+	        scrollPane = new JScrollPane(tree);
+			scrollPane.setBounds(5, 30, 330, 518);
+			scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+			panel.add(scrollPane);
+			
+			
+	        
+	}
+	
+
 }
