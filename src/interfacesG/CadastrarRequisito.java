@@ -120,51 +120,39 @@ public class CadastrarRequisito extends JFrame {
 	public CadastrarRequisito() {
 		nreq = new Requisito();
 		
-		setTitle("Cadastrar requisito");
+		setTitle("Cadastrar Requisito");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 554, 480);
+		setBounds(100, 100, 534, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		/*JLabel lblProjetoAoQual = new JLabel("Selecione o projeto ao qual o requisito pertence:");
-		lblProjetoAoQual.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		lblProjetoAoQual.setBounds(61, 84, 400, 15);
-		contentPane.add(lblProjetoAoQual);
-
-		txtListaDosProjetos = new JTextField();
-		txtListaDosProjetos.setHorizontalAlignment(SwingConstants.CENTER);
-		txtListaDosProjetos.setText("uma lista dos projetos ja cadastrados deve aparecer aqui ");
-		txtListaDosProjetos.setBounds(65, 103, 400, 19);
-		contentPane.add(txtListaDosProjetos);
-		txtListaDosProjetos.setColumns(10);*/
-
-		JLabel lblId = new JLabel("ID:");
+		JLabel lblId = new JLabel("Identificador:*");
 		lblId.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblId.setBounds(155, 130, 80, 15);
+		lblId.setBounds(80, 143, 100, 15);
 		contentPane.add(lblId);
 
 		recebeID = new JTextField();
-		recebeID.setBounds(186, 130, 250, 25);
+		recebeID.setBounds(176, 140, 250, 25);
 		contentPane.add(recebeID);
 		recebeID.setColumns(10);
 
 		recebeSujeito = new JTextField();
-		recebeSujeito.setBounds(186, 165, 250, 25);
+		recebeSujeito.setBounds(176, 175, 250, 25);
 		contentPane.add(recebeSujeito);
 		recebeSujeito.setColumns(10);
 
 		//------acao restricao --------//
-		JLabel lblAoEouRestrio = new JLabel("Ação e/ou restrição:");
+		JLabel lblAoEouRestrio = new JLabel("Ação e/ou restrição:*");
 		lblAoEouRestrio.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
-		lblAoEouRestrio.setBounds(50, 209, 300, 15);
+		lblAoEouRestrio.setBounds(40, 211, 300, 15);
 		contentPane.add(lblAoEouRestrio);
 
 		recebeAcaoRestri = new JTextArea();
 		
 		JScrollPane scrollPane = new JScrollPane(recebeAcaoRestri);
-		scrollPane.setBounds(186, 200, 250, 40);
+		scrollPane.setBounds(176, 210, 250, 40);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
 		
@@ -181,29 +169,29 @@ public class CadastrarRequisito extends JFrame {
 		//------------------------------//
 		
 
-		JLabel lblValorOuRazo = new JLabel("Valor ou razão: ");
+		JLabel lblValorOuRazo = new JLabel("Valor ou razão:*");
 		lblValorOuRazo.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblValorOuRazo.setBounds(80, 250, 300, 15);
+		lblValorOuRazo.setBounds(70, 260, 300, 15);
 		contentPane.add(lblValorOuRazo);
 
 		recebeValorRazao = new JTextField();
-		recebeValorRazao.setBounds(186, 249, 250, 25);
+		recebeValorRazao.setBounds(176, 257, 250, 25);
 		contentPane.add(recebeValorRazao);
 		recebeValorRazao.setColumns(10);
 
-		JLabel lblGrauDePrioridade = new JLabel("Grau de prioridade:");
+		JLabel lblGrauDePrioridade = new JLabel("Grau de prioridade:*");
 		lblGrauDePrioridade.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblGrauDePrioridade.setBounds(54, 308, 300, 15);
+		lblGrauDePrioridade.setBounds(44, 318, 300, 15);
 		contentPane.add(lblGrauDePrioridade);
 
-		JLabel lblGrauDeDificuldade = new JLabel("Grau de dificuldade: ");
+		JLabel lblGrauDeDificuldade = new JLabel("Grau de dificuldade:*");
 		lblGrauDeDificuldade.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblGrauDeDificuldade.setBounds(49, 280, 300, 15);
+		lblGrauDeDificuldade.setBounds(39, 292, 300, 15);
 		contentPane.add(lblGrauDeDificuldade);
 
-		JLabel lblEstimativa = new JLabel("Estimativa: ");
+		JLabel lblEstimativa = new JLabel("Estimativa:");
 		lblEstimativa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblEstimativa.setBounds(103, 337, 200, 15);
+		lblEstimativa.setBounds(93, 347, 200, 15);
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
@@ -229,7 +217,7 @@ public class CadastrarRequisito extends JFrame {
 			JOptionPane.showMessageDialog(null,"Erro ao inserir data!");
 		}*/	
 		
-		recebeEstimativa.setBounds(186, 334, 250, 25);
+		recebeEstimativa.setBounds(176, 344, 250, 25);
 		contentPane.add(recebeEstimativa);
 		recebeEstimativa.setColumns(10);
 
@@ -237,38 +225,38 @@ public class CadastrarRequisito extends JFrame {
 		JRadioButton gdBaixa = new JRadioButton("Baixa");
 		gdBaixa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdBaixa);
-		gdBaixa.setBounds(195, 277, 70, 23);
+		gdBaixa.setBounds(185, 287, 70, 23);
 		contentPane.add(gdBaixa);
 
 		JRadioButton gdMdia = new JRadioButton("Média");
 		gdMdia.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdMdia);
-		gdMdia.setBounds(278, 277, 80, 23);
+		gdMdia.setBounds(272, 287, 80, 23);
 		contentPane.add(gdMdia);
 
 		JRadioButton gdAlta = new JRadioButton("Alta");
 		gdAlta.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup.add(gdAlta);
-		gdAlta.setBounds(370, 277, 110, 23);
+		gdAlta.setBounds(370, 287, 110, 23);
 		contentPane.add(gdAlta);
 
 		/******** grau prioridade ****************/
 		JRadioButton gpBaixa = new JRadioButton("Baixa");
 		gpBaixa.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpBaixa);
-		gpBaixa.setBounds(195, 304, 70, 23);
+		gpBaixa.setBounds(185, 314, 70, 23);
 		contentPane.add(gpBaixa);
 
 		JRadioButton gpMedia = new JRadioButton("Média");
 		gpMedia.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpMedia);
-		gpMedia.setBounds(278, 304, 80, 23);
+		gpMedia.setBounds(272, 314, 80, 23);
 		contentPane.add(gpMedia);
 
 		JRadioButton gpAlta = new JRadioButton("Alta");
 		gpAlta.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		buttonGroup_1.add(gpAlta);
-		gpAlta.setBounds(370, 304, 110, 23);
+		gpAlta.setBounds(370, 314, 110, 23);
 		contentPane.add(gpAlta);
 		
 		
@@ -287,7 +275,7 @@ public class CadastrarRequisito extends JFrame {
 		comboBox.setBackground(SystemColor.inactiveCaptionText);
 		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		comboBox.setBounds(187, 93, 250, 25);
+		comboBox.setBounds(177, 103, 250, 25);
 		//String selecione="Selecione";
 		String rf="Requisito funcional";
 		String rnf="Requisito não funcional"; 
@@ -314,7 +302,7 @@ public class CadastrarRequisito extends JFrame {
 		comboBox2.setBackground(SystemColor.inactiveCaptionText);
 		comboBox2.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		comboBox2.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		comboBox2.setBounds(187, 55, 250, 25);
+		comboBox2.setBounds(177, 65, 250, 25);
 		//String selecione="Selecione";
 		ProjetoDAO pdao = new ProjetoDAO();
 		for(Projeto p: pdao.readName()){
@@ -403,7 +391,7 @@ public class CadastrarRequisito extends JFrame {
 					//dispose();
 			}
 		});
-		btnSalvar.setBounds(216, 420, 117, 25);
+		btnSalvar.setBounds(206, 424, 117, 25);
 		contentPane.add(btnSalvar);
 		
 		// ------------------------- end salvar requisito 
@@ -418,35 +406,47 @@ public class CadastrarRequisito extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(352, 420, 117, 25);
+		btnCancelar.setBounds(342, 424, 117, 25);
 		contentPane.add(btnCancelar);
 
 		JButton btnAjuda = new JButton("Ajuda");
+		btnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaAjudaRequisito ajuda = new TelaAjudaRequisito();
+				ajuda.setLocationRelativeTo(null);
+				ajuda.setVisible(true);
+			}
+		});
 		btnAjuda.setForeground(SystemColor.controlHighlight);
 		btnAjuda.setBackground(SystemColor.activeCaptionText);
 		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
 		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnAjuda.setBounds(80, 420, 117, 25);
+		btnAjuda.setBounds(70, 424, 117, 25);
 		contentPane.add(btnAjuda);
 				
-				JLabel labelProjeto = new JLabel("Projeto: ");
-				labelProjeto.setBounds(124, 55, 52, 21);
+				JLabel labelProjeto = new JLabel("Projeto:*");
+				labelProjeto.setBounds(114, 65, 60, 21);
 				contentPane.add(labelProjeto);
 				labelProjeto.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
 				
-				JLabel lblSujeito = new JLabel("Sujeito: ");
+				JLabel lblSujeito = new JLabel("Sujeito:*");
 				lblSujeito.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));	
-				lblSujeito.setBounds(124, 165, 70, 15);
+				lblSujeito.setBounds(114, 176, 100, 15);
 				contentPane.add(lblSujeito);
 				
-				lblNewLabel = new JLabel("Tipo de requisito: ");
+				JLabel lblCamposCom = new JLabel("(*) Campos de preenchimento obrigatório.");
+				lblCamposCom.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 11));
+				lblCamposCom.setBounds(30, 395, 250, 15);
+				contentPane.add(lblCamposCom);
+				
+				lblNewLabel = new JLabel("Tipo de requisito:*");
 				lblNewLabel.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-				lblNewLabel.setBounds(65, 90, 150, 25);
+				lblNewLabel.setBounds(55, 100, 150, 25);
 				contentPane.add(lblNewLabel);
 				
 				JPanel panel = new JPanel();
-				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastre seu novo requisito", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-				panel.setBounds(35, 30, 480, 360);
+				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastrar novo requisito", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
+				panel.setBounds(20, 15, 490, 400);
 				contentPane.add(panel);
 				
 			
