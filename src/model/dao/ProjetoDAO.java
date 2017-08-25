@@ -144,5 +144,33 @@ public class ProjetoDAO {
 
     }
 	
+	 public void update(int codigo) {
+
+	        PreparedStatement stmt = null;
+
+	        try {
+	            stmt = con.prepareStatement("UPDATE projeto SET codigo = ?, nome = ?, dataInicio = ?, dataAproxTermino = ?, descricao = ?, recursosFinanceiros = ?, horaCriacao = ?,  WHERE codigo = ?");
+	            Projeto p = new Projeto();
+	            stmt.setInt(1, p.getCodigo());
+	            stmt.setString(2, p.getNome());
+	            stmt.setString(3, p.getDataInicio());
+	            stmt.setString(4, p.getDataAproxTermino());
+	            stmt.setString(5, p.getDescricao());
+	            stmt.setDouble(6, p.getRecursosFinanceiros());
+	            stmt.setDate(7, (Date) p.getHoraCriacao());
+	            stmt.setInt(8, codigo);           
+				
+
+	            stmt.executeUpdate();
+
+	            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
+	        } finally {
+	            ConnectionFactory.closeConnection(con, stmt);
+	        }
+
+	    }
+	
 
 }

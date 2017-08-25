@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 
 import model.bean.Projeto;
 import model.bean.Requisito;
+import model.bean.Requisito.GrauD;
+import model.bean.Requisito.GrauP;
+import model.bean.Requisito.TipoReq;
 
 
 public class RequisitoDAO {
@@ -84,6 +87,49 @@ public class RequisitoDAO {
 
 	}
     
+    
+    public List<Requisito> readALL() {   //para JTable
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Requisito> req = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT * FROM requisito");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Requisito requisito = new Requisito();
+				
+	
+				requisito.setId(rs.getString("id"));
+				requisito.setCodigo(rs.getInt("codigo"));
+				requisito.setSujeito(rs.getString("sujeito"));
+				requisito.setAcaoRestricao(rs.getString("acaoRestricao"));
+				requisito.setValorRazao(rs.getString("valorRazao"));
+				requisito.setProjcodigo(rs.getInt("pcodigo"));
+				requisito.setEstimativa(rs.getInt("estimativa"));
+				requisito.setHoraCriacao(rs.getDate("diaHoraCriacao"));
+				
+				//requisito.setTipoReq((TipoReq)rs.getObject("tipoRequisito"));
+				//requisito.setGrauPrioridade((GrauP) rs.getObject("grauPrioridade"));
+				//requisito.setGrauDificuldade((GrauD) rs.getObject("grauDificuldade"));
+				
+				req.add(requisito);
+	
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return req;
+
+	}
     public void delete(String id) {
 
         PreparedStatement stmt = null;
