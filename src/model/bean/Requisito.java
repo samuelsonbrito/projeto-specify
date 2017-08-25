@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.util.Date;
+
 public class Requisito {
 	
 	private int codigo; 
@@ -12,8 +14,17 @@ public class Requisito {
 	private int estimativa;
 	private TipoReq tipoRequisito;
 	private int projcodigo; 
+	private Date horaCriacao; 
 	
 	
+	public Date getHoraCriacao() {
+		return horaCriacao;
+	}
+
+	public void setHoraCriacao(Date horaCriacao) {
+		this.horaCriacao = horaCriacao;
+	}
+
 	public int getProjcodigo() {
 		return projcodigo;
 	}
@@ -50,14 +61,7 @@ public class Requisito {
 		this.estimativa = estimativa;
 	}
 
-	public TipoReq getTipoReq() {
-		return tipoRequisito;
-	}
-
-	public void setTipoReq(TipoReq tipoRequisito) {
-		this.tipoRequisito = tipoRequisito;
-	}
-
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -98,6 +102,14 @@ public class Requisito {
 		this.valorRazao = valorRazao;
 	}
 
+	public TipoReq getTipoReq() {
+		return tipoRequisito;
+	}
+
+	public void setTipoReq(TipoReq tipoRequisito) {
+		this.tipoRequisito = tipoRequisito;
+	}
+
 	public GrauP getGrauPrioridade() {
 		return grauPrioridade;
 	}
@@ -120,7 +132,8 @@ public class Requisito {
 
 	public void setEstimativa(int estimativa) {
 		this.estimativa = estimativa;
-	} 
+	}
+
 	
 	
 
