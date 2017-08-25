@@ -87,14 +87,26 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
+import javax.swing.JCheckBox;
+
 public class MeusProjetos extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPane, panelDireito;
 	private JTree tree;
 	private JLabel selectedLabel;
-	private JScrollPane scrollPane; 
+	private JScrollPane scrollPane, scrollPane2; 
 	Point loc;
 	boolean overRoot = false;
+	private JTable table;
+	private JTable table_1;
+	private int node; 
+	private DefaultTableModel modelo;
+
 
 
 	/**
@@ -131,45 +143,59 @@ public class MeusProjetos extends JFrame {
 	public MeusProjetos() {
 		setTitle("Meus projetos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1170, 630);
-
-	/** 
-	 * 
-	 * Início codigo dos componentes da interface
-	 * 
-	 **/
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setForeground(new Color(204, 204, 204));
-		menuBar.setBackground(new Color(51, 51, 51));
-		setJMenuBar(menuBar);
-
-		JMenu mnArquivo = new JMenu("Arquivo");
-		mnArquivo.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/folder.png")));
-		menuBar.add(mnArquivo);
-
-		JMenuItem mntmSair = new JMenuItem("Sair");
-		mntmSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		mnArquivo.add(mntmSair);
-
-		JMenu mnEditar = new JMenu("Editar");
-		menuBar.add(mnEditar);
+		setBounds(100, 100, 890, 670);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.controlDkShadow);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
-		JToolBar toolBar = new JToolBar();
-		toolBar.setFloatable(false);
-		toolBar.setBounds(0, 0, 1170, 30);
+
+		JPanel toolBar = new JPanel();
+		toolBar.setBackground(new Color(51,51,51));
+		toolBar.setBounds(10, 49, 869, 28);
 		contentPane.add(toolBar);
-		
+
+		JPanel stBarra = new JPanel();
+		stBarra.setBackground(new Color(51, 51, 51));
+		stBarra.setBounds(10, 2, 869, 45);
+		contentPane.add(stBarra);
+		stBarra.setLayout(null);
+
+		JMenuItem mntmMeusProjetos = new JMenuItem("Meus Projetos");
+		mntmMeusProjetos.setForeground(SystemColor.control);
+		mntmMeusProjetos.setBackground(java.awt.Color.white);
+		mntmMeusProjetos.setHorizontalAlignment(SwingConstants.CENTER);
+		mntmMeusProjetos.setSelected(true);
+		mntmMeusProjetos.setBounds(5, 5, 120, 40);
+		stBarra.add(mntmMeusProjetos);
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Sobre");
+		mntmNewMenuItem.setForeground(SystemColor.control);
+		mntmNewMenuItem.setHorizontalAlignment(SwingConstants.CENTER);
+		mntmNewMenuItem.setBounds(130, 5, 80, 40);
+		stBarra.add(mntmNewMenuItem);
+
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("");
+		mntmNewMenuItem_1.setBackground(SystemColor.inactiveCaptionText);
+		mntmNewMenuItem_1.setToolTipText("Logout");
+		mntmNewMenuItem_1.setFocusable(true);
+		mntmNewMenuItem_1.setFocusTraversalPolicyProvider(true);
+		mntmNewMenuItem_1.setFocusPainted(true);
+		mntmNewMenuItem_1.setFocusCycleRoot(true);
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		mntmNewMenuItem_1.setHorizontalAlignment(SwingConstants.CENTER);
+		mntmNewMenuItem_1.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/exit.png")));
+		mntmNewMenuItem_1.setBounds(810, 10, 80, 30);
+		stBarra.add(mntmNewMenuItem_1);
+		toolBar.setLayout(null);
+
 		//botãozinho de novo projeto
 		JButton btnNewButton = new JButton("");
+		btnNewButton.setBounds(10, 0, 44, 28);
 		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,39 +207,31 @@ public class MeusProjetos extends JFrame {
 		});
 		btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
 		btnNewButton.setToolTipText("Novo projeto");
-		
-		
-		
-		JTabbedPane tabsShowInfo = new JTabbedPane(JTabbedPane.TOP);
 
-		tabsShowInfo.setOpaque(true);
-		tabsShowInfo.setAutoscrolls(true);
-		tabsShowInfo.setForeground(SystemColor.window);
-		tabsShowInfo.setBackground(new Color(51, 51, 51));
-		tabsShowInfo.setBounds(360, 37, 798, 550);
-		contentPane.add(tabsShowInfo);
-
-		JPanel panelShowInfo = new JPanel();
-		panelShowInfo.setBackground(SystemColor.controlLtHighlight);
-		FlowLayout fl_panelShowInfo = (FlowLayout) panelShowInfo.getLayout();
-		tabsShowInfo.addTab("New tab", null, panelShowInfo, null);
-		panelShowInfo.setBorder(new LineBorder(SystemColor.textInactiveText));
-
-		JPanel panel_1 = new JPanel();
-		tabsShowInfo.addTab("New tab", null, panel_1, null);
+		//botãozinho de refresh
+		JButton btnRefresh = new JButton("");
+		btnRefresh.setBounds(55, 0, 44, 28);
+		toolBar.add(btnRefresh);
+		btnRefresh.setToolTipText("Atualizar");
+		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rodaArvore(tree);	
+				readJTable(node);
+			}
+		});
 
 
-		JPanel panel = new JPanel();
-		
-		
+		//////// LADO ESQUERDO DO PROGRAMA
 
+		JPanel panel = new JPanel();			
 		panel.setBorder(new LineBorder(SystemColor.inactiveCaption));
-		panel.setBounds(10, 36, 339, 550);
+		panel.setBounds(10, 80, 313, 550);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JButton LabelProjetos = new JButton("Projetos");
-		
+
 		LabelProjetos.setForeground(SystemColor.controlHighlight);
 		LabelProjetos.setBackground(SystemColor.inactiveCaptionText);
 		LabelProjetos.setVerifyInputWhenFocusTarget(false);
@@ -222,24 +240,130 @@ public class MeusProjetos extends JFrame {
 		LabelProjetos.setBorderPainted(false);
 		LabelProjetos.setAutoscrolls(true);
 		LabelProjetos.setFocusable(false);
-		LabelProjetos.setBounds(0, 0, 339, 28);
+		LabelProjetos.setBounds(0, 0, 313, 28);
 		panel.add(LabelProjetos);
 
-		
+
 		constroiArvoreBancoDados(panel); //invoca a construção da tree no JPanel 
+
+
+		////////////PAINEL DIREITO
+		panelDireito = new JPanel();
+		panelDireito.setBounds(330, 80, 548, 550);
+		panelDireito.setBorder(new LineBorder(SystemColor.inactiveCaption));
+
+		contentPane.add(panelDireito);
+		panelDireito.setLayout(null);
+
+		JButton LabelRequisitos = new JButton("Requisitos");
+
+		LabelRequisitos.setForeground(SystemColor.controlHighlight);
+		LabelRequisitos.setBackground(SystemColor.inactiveCaptionText);
+		LabelRequisitos.setVerifyInputWhenFocusTarget(false);
+		LabelRequisitos.setFocusTraversalKeysEnabled(false);
+		LabelRequisitos.setFocusPainted(false);
+		LabelRequisitos.setBorderPainted(false);
+		LabelRequisitos.setAutoscrolls(true);
+		LabelRequisitos.setFocusable(false);
+		LabelRequisitos.setBounds(0, 0, 547, 28);
+		panelDireito.add(LabelRequisitos);
+
+		criaJTable();
+
+
+		////////////FIM PAINEL DIREITO 
+	}
+
+	public void criaJTable(){
+
+		table_1 = new JTable();
+		table_1.setColumnSelectionAllowed(true);
+		table_1.setCellSelectionEnabled(true);
+		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		table_1.setShowVerticalLines(true);
+		table_1.setShowHorizontalLines(true);
+		table_1.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"-","C\u00F3digo", "Identificador"
+				}
+				));
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(400);
+
+		table_1.getTableHeader().setResizingAllowed(true);
+		table_1.getTableHeader().setReorderingAllowed(false);
+		table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
+		table_1.setBounds(6, 32, 788, 513);
 		
-		//botãozinho de refresh
-		JButton btnRefresh = new JButton("");
-		toolBar.add(btnRefresh);
-		btnRefresh.setToolTipText("Atualizar");
-		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rodaArvore(tree);	
-			}
-		});
+		JTableHeader header =  table_1.getTableHeader();
+		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+		centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		//table_1.setDefaultRenderer(Object.class, new CellRenderer());
+
+		 DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
+		table_1.setRowSorter(new TableRowSorter(modelo));
+
+		//readJTable(node);
+
+		panelDireito.add(table_1);
+
+		scrollPane2 = new JScrollPane(table_1);
+		scrollPane2.setBounds(6, 32, 540, 513);
+		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
+		panelDireito.add(scrollPane2);
+
 	}
 	
+	public static void alinhaTableCentro(JTable table, int[] posicoesDireita) {
+
+		DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
+		cellRender.setHorizontalAlignment(SwingConstants.CENTER);
+
+		for (int numCol = 0; numCol < table.getColumnCount(); numCol++) {
+
+			for (int i = 0; i < posicoesDireita.length; i++) {
+
+				if (numCol == posicoesDireita[i]) {
+
+					table.getColumnModel().getColumn(numCol).setCellRenderer(
+							cellRender);
+				}
+			}
+		}
+	}
+
+	public void readJTable(int node) {
+
+		DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
+		modelo.setNumRows(0);
+		RequisitoDAO pdao = new RequisitoDAO();
+
+
+		for (Requisito r : pdao.readALL()) {
+
+			if(r.getProjcodigo()==node){
+				//JOptionPane.showMessageDialog(null, "teste: "+ r.getProjcodigo()+" = " + node);
+
+				modelo.addRow(new Object[]{
+						r.getCodigo(),
+						r.getId(),
+
+				});
+			}
+			else{
+				System.out.println("pao");
+			}
+
+		}
+	}
+
+
 	public void rodaArvore(JTree tree){
 		ProjetoDAO pdao = new ProjetoDAO();
 		RequisitoDAO rdao = new RequisitoDAO();
@@ -249,7 +373,7 @@ public class MeusProjetos extends JFrame {
 						DefaultMutableTreeNode node_1;
 						DefaultMutableTreeNode node_2;
 						DefaultMutableTreeNode node_3;
-						 
+
 						//le do banco de dados projetos e requisitos 
 						for(Projeto p: pdao.readName()){
 							node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
@@ -274,28 +398,23 @@ public class MeusProjetos extends JFrame {
 				}
 				));	
 	}
-	
-	public void constroiArvoreBancoDados(JPanel panel){
-		
-			tree = new JTree();
-		 
-			tree.setVisibleRowCount(0);
-			rodaArvore(tree);
-		
-			PopupHandler handler = new PopupHandler(tree);
-	        tree.add(handler.getPopup());
-	    	tree.setBounds(5, 30, 330, 515);
-	        panel.add(tree);
-	        
-	        scrollPane = new JScrollPane(tree);
-			scrollPane.setBounds(5, 30, 330, 518);
-			scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-			scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
-			panel.add(scrollPane);
-			
-			
-	        
-	}
-	
 
+
+	public void constroiArvoreBancoDados(JPanel panel){
+		tree = new JTree();	 
+		tree.setVisibleRowCount(0);
+		rodaArvore(tree);
+
+		PopupHandler handler = new PopupHandler(tree);
+		tree.add(handler.getPopup());
+		tree.setBounds(5, 30, 330, 515);
+		panel.add(tree);
+
+		scrollPane = new JScrollPane(tree);
+		scrollPane.setBounds(5, 30, 305, 518);
+		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+		panel.add(scrollPane);
+
+	}
 }
