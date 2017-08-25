@@ -93,6 +93,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JCheckBox;
+import java.awt.Toolkit;
 
 public class MeusProjetos extends JFrame {
 
@@ -141,7 +142,8 @@ public class MeusProjetos extends JFrame {
 	 * Create the frame.
 	 */
 	public MeusProjetos() {
-		setTitle("Meus projetos");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MeusProjetos.class.getResource("/images/logoAzul.png")));
+		setTitle("Specify");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 890, 670);
 		contentPane = new JPanel();
@@ -151,28 +153,44 @@ public class MeusProjetos extends JFrame {
 
 
 		JPanel toolBar = new JPanel();
+		toolBar.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		toolBar.setBackground(new Color(51,51,51));
 		toolBar.setBounds(10, 49, 869, 28);
 		contentPane.add(toolBar);
 
 		JPanel stBarra = new JPanel();
-		stBarra.setBackground(new Color(51, 51, 51));
+		stBarra.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		stBarra.setBackground(new Color(51,51,51));
 		stBarra.setBounds(10, 2, 869, 45);
 		contentPane.add(stBarra);
 		stBarra.setLayout(null);
+		
+		JPanel panelRodape = new JPanel();
+		panelRodape.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panelRodape.setBounds(10, 634, 869, 28);
+		contentPane.add(panelRodape);
+		panelRodape.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Versão 1.0.0");
+		lblNewLabel.setBounds(780, 5, 71, 18);
+		lblNewLabel.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		panelRodape.add(lblNewLabel);
 
-		JMenuItem mntmMeusProjetos = new JMenuItem("Meus Projetos");
+		JMenuItem mntmMeusProjetos = new JMenuItem("");
+		mntmMeusProjetos.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/logo.png")));
 		mntmMeusProjetos.setForeground(SystemColor.control);
 		mntmMeusProjetos.setBackground(java.awt.Color.white);
 		mntmMeusProjetos.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmMeusProjetos.setSelected(true);
-		mntmMeusProjetos.setBounds(5, 5, 120, 40);
+		mntmMeusProjetos.setBounds(5, 2, 80, 40);
 		stBarra.add(mntmMeusProjetos);
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Sobre");
+		mntmNewMenuItem.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
+		mntmNewMenuItem.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/information.png")));
 		mntmNewMenuItem.setForeground(SystemColor.control);
 		mntmNewMenuItem.setHorizontalAlignment(SwingConstants.CENTER);
-		mntmNewMenuItem.setBounds(130, 5, 80, 40);
+		mntmNewMenuItem.setBounds(670, 2, 80, 40);
 		stBarra.add(mntmNewMenuItem);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("");
@@ -189,13 +207,27 @@ public class MeusProjetos extends JFrame {
 		});
 		mntmNewMenuItem_1.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmNewMenuItem_1.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/exit.png")));
-		mntmNewMenuItem_1.setBounds(810, 10, 80, 30);
+		mntmNewMenuItem_1.setBounds(810, 10, 50, 30);
 		stBarra.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmAjuda = new JMenuItem("Ajuda");
+		mntmAjuda.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/help.png")));
+		mntmAjuda.setForeground(SystemColor.window);
+		mntmAjuda.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
+		mntmAjuda.setBounds(750, 3, 70, 40);
+		stBarra.add(mntmAjuda);
+		
+		JLabel lblSistemaParaApoiar = new JLabel("Sistema para apoiar a especificação de Requisitos de Software");
+		lblSistemaParaApoiar.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+		lblSistemaParaApoiar.setForeground(SystemColor.window);
+		lblSistemaParaApoiar.setBackground(SystemColor.window);
+		lblSistemaParaApoiar.setBounds(90, 15, 500, 15);
+		stBarra.add(lblSistemaParaApoiar);
 		toolBar.setLayout(null);
 
 		//botãozinho de novo projeto
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setBounds(10, 0, 44, 28);
+		btnNewButton.setBounds(10, 1, 40, 26);
 		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,7 +242,7 @@ public class MeusProjetos extends JFrame {
 
 		//botãozinho de refresh
 		JButton btnRefresh = new JButton("");
-		btnRefresh.setBounds(55, 0, 44, 28);
+		btnRefresh.setBounds(55, 1, 40, 26);
 		toolBar.add(btnRefresh);
 		btnRefresh.setToolTipText("Atualizar");
 		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
@@ -231,6 +263,7 @@ public class MeusProjetos extends JFrame {
 		panel.setLayout(null);
 
 		JButton LabelProjetos = new JButton("Projetos");
+		LabelProjetos.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
 
 		LabelProjetos.setForeground(SystemColor.controlHighlight);
 		LabelProjetos.setBackground(SystemColor.inactiveCaptionText);
@@ -254,8 +287,25 @@ public class MeusProjetos extends JFrame {
 
 		contentPane.add(panelDireito);
 		panelDireito.setLayout(null);
+		
+		JButton btnEditar = new JButton("");
+		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
+		btnEditar.setBounds(384, 28, 50, 27);
+		panelDireito.add(btnEditar);
+		
+		JButton btnImprimir = new JButton("");
+		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
+		btnImprimir.setBounds(440, 28, 50, 27);
+		panelDireito.add(btnImprimir);
+		
+		JButton btnLixeira = new JButton("");
+		btnLixeira.setToolTipText("Deletar requisito");
+		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
+		btnLixeira.setBounds(495, 28, 50, 27);
+		panelDireito.add(btnLixeira);
 
 		JButton LabelRequisitos = new JButton("Requisitos");
+		LabelRequisitos.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 
 		LabelRequisitos.setForeground(SystemColor.controlHighlight);
 		LabelRequisitos.setBackground(SystemColor.inactiveCaptionText);
@@ -267,6 +317,8 @@ public class MeusProjetos extends JFrame {
 		LabelRequisitos.setFocusable(false);
 		LabelRequisitos.setBounds(0, 0, 547, 28);
 		panelDireito.add(LabelRequisitos);
+		
+		
 
 		criaJTable();
 
@@ -275,68 +327,53 @@ public class MeusProjetos extends JFrame {
 	}
 
 	public void criaJTable(){
-
-		table_1 = new JTable();
-		table_1.setColumnSelectionAllowed(true);
-		table_1.setCellSelectionEnabled(true);
-		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		table_1.setShowVerticalLines(true);
-		table_1.setShowHorizontalLines(true);
-		table_1.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-						"-","C\u00F3digo", "Identificador"
-				}
-				));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(400);
-
-		table_1.getTableHeader().setResizingAllowed(true);
-		table_1.getTableHeader().setReorderingAllowed(false);
-		table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
-		table_1.setBounds(6, 32, 788, 513);
 		
-		JTableHeader header =  table_1.getTableHeader();
-		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
-		centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		//table_1.setDefaultRenderer(Object.class, new CellRenderer());
+				table_1 = new JTable();
+				table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+				table_1.setColumnSelectionAllowed(true);
+				table_1.setCellSelectionEnabled(true);
+				table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+						table_1.setShowVerticalLines(true);
+						table_1.setShowHorizontalLines(true);
+						table_1.setModel(new DefaultTableModel(
+								new Object[][] {
+								},
+								new String[] {
+										"-","C\u00F3digo", "Identificador"
+								}
+								));
+						table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
+						table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
+						table_1.getColumnModel().getColumn(2).setPreferredWidth(399);
+						
+								table_1.getTableHeader().setResizingAllowed(true);
+								table_1.getTableHeader().setReorderingAllowed(false);
+								table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
+								table_1.setBounds(6, 32, 788, 513);
+								
+								JTableHeader header =  table_1.getTableHeader();
+								DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+								centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+								
+								
+								//table_1.setDefaultRenderer(Object.class, new CellRenderer());
 
-		 DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
-		table_1.setRowSorter(new TableRowSorter(modelo));
-
-		//readJTable(node);
-
-		panelDireito.add(table_1);
-
-		scrollPane2 = new JScrollPane(table_1);
-		scrollPane2.setBounds(6, 32, 540, 513);
-		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
-		panelDireito.add(scrollPane2);
+								 DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
+								 table_1.setRowSorter(new TableRowSorter(modelo));
+								 
+								 		//readJTable(node);
+								 
+								 		panelDireito.add(table_1);
+								 		
+								 				scrollPane2 = new JScrollPane(table_1);
+								 				scrollPane2.setBounds(4, 55, 540, 490);
+								 				scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+								 				scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
+								 				panelDireito.add(scrollPane2);
 
 	}
 	
-	public static void alinhaTableCentro(JTable table, int[] posicoesDireita) {
-
-		DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
-		cellRender.setHorizontalAlignment(SwingConstants.CENTER);
-
-		for (int numCol = 0; numCol < table.getColumnCount(); numCol++) {
-
-			for (int i = 0; i < posicoesDireita.length; i++) {
-
-				if (numCol == posicoesDireita[i]) {
-
-					table.getColumnModel().getColumn(numCol).setCellRenderer(
-							cellRender);
-				}
-			}
-		}
-	}
 
 	public void readJTable(int node) {
 
@@ -353,7 +390,6 @@ public class MeusProjetos extends JFrame {
 				modelo.addRow(new Object[]{
 						r.getCodigo(),
 						r.getId(),
-
 				});
 			}
 			else{
@@ -402,6 +438,7 @@ public class MeusProjetos extends JFrame {
 
 	public void constroiArvoreBancoDados(JPanel panel){
 		tree = new JTree();	 
+		tree.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		tree.setVisibleRowCount(0);
 		rodaArvore(tree);
 
