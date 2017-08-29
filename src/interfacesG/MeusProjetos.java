@@ -54,6 +54,7 @@ import model.dao.ProjetoDAO;
 import model.dao.RequisitoDAO;
 
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.Canvas;
 import javax.swing.Box;
@@ -66,6 +67,7 @@ import java.awt.Panel;
 import javax.swing.DebugGraphics;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
@@ -94,6 +96,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JCheckBox;
 import java.awt.Toolkit;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class MeusProjetos extends JFrame {
 
@@ -107,6 +111,7 @@ public class MeusProjetos extends JFrame {
 	private JTable table_1;
 	private int node; 
 	private DefaultTableModel modelo;
+	private JComboBox comboBox;
 
 
 
@@ -164,13 +169,13 @@ public class MeusProjetos extends JFrame {
 		stBarra.setBounds(10, 2, 869, 45);
 		contentPane.add(stBarra);
 		stBarra.setLayout(null);
-		
+
 		JPanel panelRodape = new JPanel();
 		panelRodape.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panelRodape.setBounds(10, 634, 869, 28);
 		contentPane.add(panelRodape);
 		panelRodape.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Versão 1.0.0");
 		lblNewLabel.setBounds(780, 5, 71, 18);
 		lblNewLabel.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
@@ -209,14 +214,14 @@ public class MeusProjetos extends JFrame {
 		mntmNewMenuItem_1.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/exit.png")));
 		mntmNewMenuItem_1.setBounds(810, 10, 50, 30);
 		stBarra.add(mntmNewMenuItem_1);
-		
+
 		JMenuItem mntmAjuda = new JMenuItem("Ajuda");
 		mntmAjuda.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/help.png")));
 		mntmAjuda.setForeground(SystemColor.window);
 		mntmAjuda.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
 		mntmAjuda.setBounds(750, 3, 70, 40);
 		stBarra.add(mntmAjuda);
-		
+
 		JLabel lblSistemaParaApoiar = new JLabel("Sistema para apoiar a especificação de Requisitos de Software");
 		lblSistemaParaApoiar.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
 		lblSistemaParaApoiar.setForeground(SystemColor.window);
@@ -248,8 +253,9 @@ public class MeusProjetos extends JFrame {
 		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rodaArvore(tree);	
+				rodaArvore(tree);
 				readJTable(node);
+				//atualizaComboBox(comboBox);
 			}
 		});
 
@@ -287,18 +293,27 @@ public class MeusProjetos extends JFrame {
 
 		contentPane.add(panelDireito);
 		panelDireito.setLayout(null);
-		
+
 		JButton btnEditar = new JButton("");
 		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
 		btnEditar.setBounds(384, 28, 50, 27);
 		panelDireito.add(btnEditar);
-		
+
 		JButton btnImprimir = new JButton("");
 		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
 		btnImprimir.setBounds(440, 28, 50, 27);
 		panelDireito.add(btnImprimir);
-		
+
 		JButton btnLixeira = new JButton("");
+		btnLixeira.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RequisitoDAO dao = new RequisitoDAO();
+				//ação p deletar linha 
+
+
+
+			}
+		});
 		btnLixeira.setToolTipText("Deletar requisito");
 		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
 		btnLixeira.setBounds(495, 28, 50, 27);
@@ -317,85 +332,128 @@ public class MeusProjetos extends JFrame {
 		LabelRequisitos.setFocusable(false);
 		LabelRequisitos.setBounds(0, 0, 547, 28);
 		panelDireito.add(LabelRequisitos);
-		
-		
+
 
 		criaJTable();
+
+
+		comboBox = new JComboBox();
+		comboBox.addItem("Selecione o projeto");
+
+		comboBox.setForeground(SystemColor.controlHighlight);
+		comboBox.setBackground(SystemColor.inactiveCaptionText);
+		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
+		comboBox.setBounds(5, 29, 375, 25);
+
+		RequisitoDAO dao = new RequisitoDAO();
+		ProjetoDAO pdao = new ProjetoDAO();
+
+		rodaComboBox(comboBox);
+
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				for (Projeto p: pdao.readName()){
+					if(comboBox.getSelectedItem().equals(p.getNome())){
+						readJTable(p.getCodigo());
+					}
+				}
+			}
+		});
+
+
+
+
+
+		panelDireito.add(comboBox);
 
 
 		////////////FIM PAINEL DIREITO 
 	}
 
-	public void criaJTable(){
-		
-				table_1 = new JTable();
-				table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
-				table_1.setColumnSelectionAllowed(true);
-				table_1.setCellSelectionEnabled(true);
-				table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				
-						table_1.setShowVerticalLines(true);
-						table_1.setShowHorizontalLines(true);
-						table_1.setModel(new DefaultTableModel(
-								new Object[][] {
-								},
-								new String[] {
-										"-","C\u00F3digo", "Identificador"
-								}
-								));
-						table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
-						table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
-						table_1.getColumnModel().getColumn(2).setPreferredWidth(399);
-						
-								table_1.getTableHeader().setResizingAllowed(true);
-								table_1.getTableHeader().setReorderingAllowed(false);
-								table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
-								table_1.setBounds(6, 32, 788, 513);
-								
-								JTableHeader header =  table_1.getTableHeader();
-								DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
-								centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-								
-								
-								//table_1.setDefaultRenderer(Object.class, new CellRenderer());
+	public void rodaComboBox(JComboBox comboBox){
+		RequisitoDAO dao = new RequisitoDAO();
+		ProjetoDAO pdao = new ProjetoDAO();
 
-								 DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
-								 table_1.setRowSorter(new TableRowSorter(modelo));
-								 
-								 		//readJTable(node);
-								 
-								 		panelDireito.add(table_1);
-								 		
-								 				scrollPane2 = new JScrollPane(table_1);
-								 				scrollPane2.setBounds(4, 55, 540, 490);
-								 				scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-								 				scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
-								 				panelDireito.add(scrollPane2);
+		//comboBox.repaint();
+		for (Projeto p: pdao.readName()){
+			String nomep=p.getNome();
+			comboBox.addItem(nomep);
+
+		}
+	}
+
+	/*public void atualizaComboBox(JComboBox comboBox){
+		RequisitoDAO dao = new RequisitoDAO();
+		ProjetoDAO pdao = new ProjetoDAO();
+
+		comboBox.removeAllItems();
+		for (Projeto p: pdao.readName()){
+			String nomep=p.getNome();
+			comboBox.addItem(nomep);
+
+		}
+	}*/
+
+	public void criaJTable(){
+
+		table_1 = new JTable();
+		table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		table_1.setColumnSelectionAllowed(false);
+		table_1.setCellSelectionEnabled(true);
+		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_1.setShowVerticalLines(true);
+		table_1.setShowHorizontalLines(true);
+		table_1.getTableHeader().setResizingAllowed(true);
+		table_1.getTableHeader().setReorderingAllowed(false);
+		table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
+		table_1.setBounds(6, 32, 788, 513);
+		JTableHeader header =  table_1.getTableHeader();
+		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+		centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+		table_1.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"-","C\u00F3digo", "Identificador"
+				}
+				));
+
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);	
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(399);
+		modelo = (DefaultTableModel) table_1.getModel();
+		modelo.setNumRows(0);
+
+		//readJTable(node);
+
+		panelDireito.add(table_1);
+
+		scrollPane2 = new JScrollPane(table_1);
+		scrollPane2.setBounds(4, 55, 540, 490);
+		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
+		panelDireito.add(scrollPane2);
 
 	}
-	
+
+
 
 	public void readJTable(int node) {
 
 		DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
 		modelo.setNumRows(0);
 		RequisitoDAO pdao = new RequisitoDAO();
-
-
 		for (Requisito r : pdao.readALL()) {
-
 			if(r.getProjcodigo()==node){
-				//JOptionPane.showMessageDialog(null, "teste: "+ r.getProjcodigo()+" = " + node);
-
+				//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ node);
 				modelo.addRow(new Object[]{
+						"",
 						r.getCodigo(),
 						r.getId(),
 				});
 			}
-			else{
-				System.out.println("pao");
-			}
-
 		}
 	}
 
@@ -414,19 +472,10 @@ public class MeusProjetos extends JFrame {
 						for(Projeto p: pdao.readName()){
 							node_1 = new DefaultMutableTreeNode(p.getNome()); //cria novo nó pai
 							node_2 = new DefaultMutableTreeNode("Requisitos"); //filho do pai
-
-							for(Requisito r: rdao.readID()){
-								//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ p.getCodigo());
-								if(r.getProjcodigo()==p.getCodigo()){
-									node_2.add(new DefaultMutableTreeNode(r.getId())); //filho do filho
-									node_1.add(node_2);
-								}
-								else {
-									node_1.add(node_2);
-								}
-							} //fim for	menor					
+							node_2.add(new DefaultMutableTreeNode(""));
+							node_1.add(node_2);			
 							node_3 = new DefaultMutableTreeNode("Interessados");
-							node_3.add(new DefaultMutableTreeNode("opções de interessados"));
+							node_3.add(new DefaultMutableTreeNode(""));
 							node_1.add(node_3);			
 							add(node_1);  //adiciona nó pai na arvore							
 						} //fim for
@@ -437,7 +486,8 @@ public class MeusProjetos extends JFrame {
 
 
 	public void constroiArvoreBancoDados(JPanel panel){
-		tree = new JTree();	 
+		tree = new JTree();
+		tree.setShowsRootHandles(false);
 		tree.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		tree.setVisibleRowCount(0);
 		rodaArvore(tree);
@@ -450,7 +500,7 @@ public class MeusProjetos extends JFrame {
 		scrollPane = new JScrollPane(tree);
 		scrollPane.setBounds(5, 30, 305, 518);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
 		panel.add(scrollPane);
 
 	}

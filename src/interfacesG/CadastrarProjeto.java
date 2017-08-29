@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -58,6 +59,7 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblDescrioDoProjeto;
 	private JTextArea recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
+	private JTree tree; 
 
 	private JFormattedTextField recebeRecursoFinanceiro_1;
 
@@ -247,6 +249,7 @@ public class CadastrarProjeto extends JFrame {
 					texto = texto.replace(",", ".");
 					cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));	
 					dao.create(cprojeto);
+					MeusProjetos mp = new MeusProjetos();
 					
 					int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 					if (resposta == JOptionPane.YES_OPTION){
@@ -256,10 +259,13 @@ public class CadastrarProjeto extends JFrame {
 						recebeDataTermino_1.setText("");
 						recebeDescricao.setText("");
 						recebeRecursoFinanceiro_1.setText("");
+						
 
 					}
-					if (resposta ==JOptionPane.NO_OPTION)
+					if (resposta ==JOptionPane.NO_OPTION){
 						dispose();
+						
+					}	
 
 				}
 			}
