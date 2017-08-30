@@ -52,7 +52,7 @@ PopupMenuListener {
 		popup.add(menu3);
 		menu.add(item2= getMenuItem("Novo Projeto"));
 		menu.add(item = getMenuItem("Novo Requisito"));
-
+		
 		menu2.add(item3= getMenuItem("Projeto"));
 		//menu2.add(item4= getMenuItem("Requisito"));
 		menu3.add(item5= getMenuItem("Informações Projeto"));
@@ -88,8 +88,6 @@ PopupMenuListener {
 			exibeRequisito(path);
 		if(ac.equals("PROJETO"))
 			deletarProjeto(recebenode);
-		if(ac.equals("REQUISITO"));
-		deletarRequisito(recebenode);
 		if(ac.equals("INFORMAÇÕES PROJETO")){
 			exibeInfoProjeto(recebenode);
 		}
@@ -119,7 +117,7 @@ PopupMenuListener {
 
 	}
 
-	private void deletarRequisito(String recebenode){
+	/*private void deletarRequisito(String recebenode){
 		RequisitoDAO dao = new RequisitoDAO();
 		for(Requisito r: dao.readID()){
 
@@ -135,11 +133,12 @@ PopupMenuListener {
 			}
 		}
 
-	}
+	}*/
 
 	private void deletarProjeto(String recebenode){
 		//TreePath path = ((JTree) nodeInfo).getPathForLocation ( getX (), getY () );
 		ProjetoDAO dao = new ProjetoDAO();
+		MeusProjetos mp = new MeusProjetos();
 		for(Projeto p: dao.readName()){
 
 			if(recebenode.equals(p.getNome())){
@@ -147,6 +146,7 @@ PopupMenuListener {
 				if (resposta == JOptionPane.YES_OPTION){
 					//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
 					dao.delete(p.getCodigo());
+					mp.rodaArvore(tree);
 				}
 			}	else {
 				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
@@ -157,7 +157,7 @@ PopupMenuListener {
 	}
 	private void exibeProjeto(TreePath path) {
 
-		CadastrarProjeto novoProjeto=new CadastrarProjeto();
+		CadastrarProjeto novoProjeto=new CadastrarProjeto(tree);
 		novoProjeto.setVisible(true);
 		novoProjeto.setLocationRelativeTo(null);
 		DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
@@ -203,7 +203,7 @@ PopupMenuListener {
 			Object nodeInf2= node.getUserObject();
 			Object nodeInfo = node.getParent();
 			//String parent = tree.getSelectionPath().getParentPath().getLastPathComponent().toString();
-			System.out.println(nodeInfo+" "+node + " "+ nodeInf2);
+			//System.out.println(nodeInfo+" "+node + " "+ nodeInf2);
 			
 			if((node!=root) && (nodeInfo!=null) && ((nodeInf2 != "Requisitos") && (nodeInf2 !="Interessados"))){
 				menuPopUpDel=true;
@@ -229,7 +229,7 @@ PopupMenuListener {
 		item3.setVisible(!overRoot); //projeto   ============> arrumar 
 		item5.setVisible(!overRoot);   
 		item6.setVisible(!overRoot);
-
+		
 		menu2.setVisible(menuPopUpDel); // não pode ser visivel na raiz e nem em requisitos      =======> arrumar 
 		menu3.setVisible(!overRoot); // não pode ser visivel na raiz 		========> arrumar 
 	}
