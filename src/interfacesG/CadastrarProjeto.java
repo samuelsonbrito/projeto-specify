@@ -59,7 +59,8 @@ public class CadastrarProjeto extends JFrame {
 	private JLabel lblDescrioDoProjeto;
 	private JTextArea recebeDescricao;
 	private JLabel lblRecursosFinanceiros;
-	private JTree tree; 
+	private JPanel panel;
+	private static JTree tree; 
 
 	private JFormattedTextField recebeRecursoFinanceiro_1;
 
@@ -79,7 +80,7 @@ public class CadastrarProjeto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastrarProjeto frame = new CadastrarProjeto();
+					CadastrarProjeto frame = new CadastrarProjeto(tree);
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -105,8 +106,10 @@ public class CadastrarProjeto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastrarProjeto() {
+	public CadastrarProjeto(JTree tree) {
+		this.tree=tree;
 		cprojeto=new Projeto();
+		//cprojeto.setInvoker(tree);
 		setTitle("Cadastrar Projeto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 554, 500);
@@ -249,7 +252,6 @@ public class CadastrarProjeto extends JFrame {
 					texto = texto.replace(",", ".");
 					cprojeto.setRecursosFinanceiros(Double.parseDouble(texto));	
 					dao.create(cprojeto);
-					MeusProjetos mp = new MeusProjetos();
 					
 					int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo projeto?");
 					if (resposta == JOptionPane.YES_OPTION){
@@ -259,15 +261,14 @@ public class CadastrarProjeto extends JFrame {
 						recebeDataTermino_1.setText("");
 						recebeDescricao.setText("");
 						recebeRecursoFinanceiro_1.setText("");
-						
-
 					}
 					if (resposta ==JOptionPane.NO_OPTION){
-						dispose();
-						
+						dispose();						
 					}	
-
 				}
+
+				MeusProjetos mp = new MeusProjetos();									
+            	mp.atualizaArvore(tree);
 			}
 		});
 		btnSalvar.setBounds(208, 405, 117, 25);
