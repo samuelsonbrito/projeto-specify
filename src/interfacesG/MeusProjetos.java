@@ -100,7 +100,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 public class MeusProjetos extends JFrame {
-
 	private JPanel contentPane, panelDireito;
 	private JTree tree;
 	private JLabel selectedLabel;
@@ -112,6 +111,7 @@ public class MeusProjetos extends JFrame {
 	private int node; 
 	private DefaultTableModel modelo;
 	private JComboBox comboBox;
+
 
 
 
@@ -146,6 +146,9 @@ public class MeusProjetos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
+
+
 	public MeusProjetos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MeusProjetos.class.getResource("/images/logoAzul.png")));
 		setTitle("Specify");
@@ -237,7 +240,7 @@ public class MeusProjetos extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				CadastrarProjeto novoprojeto= new CadastrarProjeto();
+				CadastrarProjeto novoprojeto= new CadastrarProjeto(tree);
 				novoprojeto.setVisible(true);
 				novoprojeto.setLocationRelativeTo(null);
 			}
@@ -282,9 +285,9 @@ public class MeusProjetos extends JFrame {
 		LabelProjetos.setBounds(0, 0, 313, 28);
 		panel.add(LabelProjetos);
 
-
+		///////////////////////	JTREE
 		constroiArvoreBancoDados(panel); //invoca a construção da tree no JPanel 
-
+		///////////////////////////////////// FIM JTREE
 
 		////////////PAINEL DIREITO
 		panelDireito = new JPanel();
@@ -362,14 +365,16 @@ public class MeusProjetos extends JFrame {
 		});
 
 
-
-
-
 		panelDireito.add(comboBox);
 
 
 		////////////FIM PAINEL DIREITO 
 	}
+
+	public JTree getTree() {
+		return tree;
+	}
+
 
 	public void rodaComboBox(JComboBox comboBox){
 		RequisitoDAO dao = new RequisitoDAO();
@@ -457,10 +462,21 @@ public class MeusProjetos extends JFrame {
 		}
 	}
 
+	public void atualizaArvore(JTree tree){
+		ProjetoDAO pdao = new ProjetoDAO();
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			public void run() 
+			{                                                                                                                                      
+				rodaArvore(tree);			
+			}
+		});
+
+	}
+
 
 	public void rodaArvore(JTree tree){
 		ProjetoDAO pdao = new ProjetoDAO();
-		RequisitoDAO rdao = new RequisitoDAO();
 		tree.setModel(new DefaultTreeModel(
 				new DefaultMutableTreeNode("Projetos") { //raiz
 					{					       			
@@ -482,10 +498,11 @@ public class MeusProjetos extends JFrame {
 					}
 				}
 				));	
+
 	}
 
 
-	public void constroiArvoreBancoDados(JPanel panel){
+	public JTree constroiArvoreBancoDados(JPanel panel){
 		tree = new JTree();
 		tree.setShowsRootHandles(false);
 		tree.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
@@ -502,6 +519,10 @@ public class MeusProjetos extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
 		panel.add(scrollPane);
+
+
+
+		return tree;
 
 	}
 }
