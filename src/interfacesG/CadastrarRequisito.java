@@ -261,8 +261,7 @@ public class CadastrarRequisito extends JFrame {
 		
 		
 		
-		JComboBox comboBox = new JComboBox();	
-		
+		JComboBox comboBox = new JComboBox();		
 		comboBox.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -286,7 +285,6 @@ public class CadastrarRequisito extends JFrame {
 		comboBox.addItem(rnf);
 		comboBox.addItem(ru);
 		comboBox.addItem(rn);
-		
 		contentPane.add(comboBox);
 		
 		
@@ -294,7 +292,7 @@ public class CadastrarRequisito extends JFrame {
 		comboBox.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				comboBox.setBackground(new Color(28,28,28));
+				comboBox2.setBackground(new Color(28,28,28));
 			}
 			
 		});	
@@ -376,7 +374,7 @@ public class CadastrarRequisito extends JFrame {
 				dao.create(nreq);
 				
 				 
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito para este mesmo projeto?");
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar um novo requisito para este mesmo projeto?", "Cadastrar novo requisito", JOptionPane.YES_NO_OPTION);
 				if (resposta == JOptionPane.YES_OPTION){
 					//limpa campos para cadastrar novo requisito
 					recebeID.setText("");
