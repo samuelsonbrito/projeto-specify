@@ -3,7 +3,7 @@ create database if not exists softwareIC;
 create table if not exists projeto(
 	codigo int not null auto_increment primary key,
     diaHoraCriacao timestamp,
-	nome varchar(1000) not null,
+	nome varchar(1000) not null unique,
     dataInicio date not null,
     dataAproxTermino date not null, 
     descricao varchar(5000) not null,
@@ -23,19 +23,32 @@ create table if not exists requisito(
 	tipoRequisito enum('FUNCIONAL', 'NAOFUNCIONAL', 'USUARIO', 'NEGOCIO') not null
 );
 
-create table if not exists interessado(
-	codigo integer auto_increment not null primary key,
-	nome varchar(100),
-    sobrenome varchar(100),
-    endereco varchar(300),
-    rg varchar(14),
-    cpf varchar(14),
-    telefone varchar(15),
-    email varchar(50)
-
-);
-
 alter table requisito add column pcodigo int not null;
 alter table requisito add foreign key (pcodigo) references projeto(codigo)
 			on delete cascade
             on update cascade;
+
+create table if not exists interessado(
+	codigo integer auto_increment not null primary key,
+	nome varchar(100) not null,
+    sobrenome varchar(100) not null,
+    endereco varchar(300) not null,
+    rg varchar(14) not null,
+    cpf varchar(14) not null,
+    telefone varchar(15) not null,
+    email varchar(50) not null
+	
+);
+
+create table if not exists interessadoProjeto(
+	dataEntrada timestamp  default current_timestamp on update current_timestamp,
+    dataSaida timestamp default null,
+    papelDesempenhado varchar(1000) not null,
+	
+    projCodigo INTEGER NOT NULL references projeto(codigo) ON DELETE cascade ON UPDATE cascade,
+    intersCodigo INTEGER NOT NULL references interessado(codigo) ON DELETE cascade ON UPDATE cascade,
+    
+    PRIMARY KEY(projCodigo, intersCodigo)
+);
+
+
