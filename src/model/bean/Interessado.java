@@ -1,19 +1,26 @@
 package model.bean;
 
+import java.util.Date;
+
 public class Interessado {
-	private String nome;
-	private String sobrenome;
+	private int codigo; 
+	private String nome; 
+	private String sobrenome; 
 	private String endereco; 
-	private int rg;
-	private int cpf;
-	private String telefone; 
-	private String email;
+	private String rg;
+	private String cpf; 
+	private String telefone;
+	private String email; 
+	private Date dataCriacao; 
 	
-	public Interessado(){
+	public Interessado (){
 		
 	}
-	
-	public Interessado(String nome, String sobrenome, String endereco, int rg, int cpf, String telefone, String email) {
+
+	public Interessado(int id, String nome, String sobrenome, String endereco, String rg, String cpf, String telefone,
+			String email, Date dataCriacao) {
+		super();
+		this.codigo = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.endereco = endereco;
@@ -21,6 +28,15 @@ public class Interessado {
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
+		this.dataCriacao = dataCriacao;
+	}
+
+	public int getId() {
+		return codigo;
+	}
+
+	public void setId(int id) {
+		this.codigo = id;
 	}
 
 	public String getNome() {
@@ -47,19 +63,19 @@ public class Interessado {
 		this.endereco = endereco;
 	}
 
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
 
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -77,7 +93,16 @@ public class Interessado {
 
 	public void setEmail(String email) {
 		this.email = email;
-	} 
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	
 	
 	
 	

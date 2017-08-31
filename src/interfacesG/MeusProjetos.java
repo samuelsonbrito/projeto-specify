@@ -250,10 +250,23 @@ public class MeusProjetos extends JFrame {
 
 		//botãozinho de refresh
 		JButton btnRefresh = new JButton("");
-		btnRefresh.setBounds(55, 1, 40, 26);
+		btnRefresh.setBounds(100, 1, 40, 26);
 		toolBar.add(btnRefresh);
 		btnRefresh.setToolTipText("Atualizar");
 		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
+		
+		JButton btnCadInteressado = new JButton("");
+		btnCadInteressado.setToolTipText("Cadastrar Interessado");
+		btnCadInteressado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarInteressado cI = new CadastrarInteressado();
+				cI.setVisible(true);
+				cI.setLocationRelativeTo(null);
+			}
+		});
+		btnCadInteressado.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/group_add.png")));
+		btnCadInteressado.setBounds(55, 1, 40, 26);
+		toolBar.add(btnCadInteressado);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rodaArvore(tree);
@@ -287,24 +300,37 @@ public class MeusProjetos extends JFrame {
 
 		///////////////////////	JTREE
 		constroiArvoreBancoDados(panel); //invoca a construção da tree no JPanel 
-		///////////////////////////////////// FIM JTREE
+
+		/////////////////////// FIM JTREE
 
 		////////////PAINEL DIREITO
+
+		RequisitoDAO dao = new RequisitoDAO();
+		ProjetoDAO pdao = new ProjetoDAO();
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(SystemColor.activeCaption);
+		tabbedPane.setBounds(327, 77, 552, 553);
+		contentPane.add(tabbedPane);
+		
+		JPanel panelProjetos = new JPanel();
+		tabbedPane.addTab("Projetos", null, panelProjetos, null);
+
 		panelDireito = new JPanel();
-		panelDireito.setBounds(330, 80, 548, 550);
+		tabbedPane.addTab("Requisitos", null, panelDireito, null);
 		panelDireito.setBorder(new LineBorder(SystemColor.inactiveCaption));
-
-		contentPane.add(panelDireito);
 		panelDireito.setLayout(null);
+		criaJTable();
 
+		/******************botões panelDireito***********/
 		JButton btnEditar = new JButton("");
 		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
-		btnEditar.setBounds(384, 28, 50, 27);
+		btnEditar.setBounds(384, 2, 50, 27);
 		panelDireito.add(btnEditar);
 
 		JButton btnImprimir = new JButton("");
 		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
-		btnImprimir.setBounds(440, 28, 50, 27);
+		btnImprimir.setBounds(440, 2, 50, 27);
 		panelDireito.add(btnImprimir);
 
 		JButton btnLixeira = new JButton("");
@@ -312,48 +338,24 @@ public class MeusProjetos extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				RequisitoDAO dao = new RequisitoDAO();
 				//ação p deletar linha 
-
-
-
 			}
 		});
+		
 		btnLixeira.setToolTipText("Deletar requisito");
 		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
-		btnLixeira.setBounds(495, 28, 50, 27);
+		btnLixeira.setBounds(495, 2, 50, 27);
 		panelDireito.add(btnLixeira);
-
-		JButton LabelRequisitos = new JButton("Requisitos");
-		LabelRequisitos.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
-
-		LabelRequisitos.setForeground(SystemColor.controlHighlight);
-		LabelRequisitos.setBackground(SystemColor.inactiveCaptionText);
-		LabelRequisitos.setVerifyInputWhenFocusTarget(false);
-		LabelRequisitos.setFocusTraversalKeysEnabled(false);
-		LabelRequisitos.setFocusPainted(false);
-		LabelRequisitos.setBorderPainted(false);
-		LabelRequisitos.setAutoscrolls(true);
-		LabelRequisitos.setFocusable(false);
-		LabelRequisitos.setBounds(0, 0, 547, 28);
-		panelDireito.add(LabelRequisitos);
-
-
-		criaJTable();
+		/******************botões panelDireito***********/
 
 
 		comboBox = new JComboBox();
 		comboBox.addItem("Selecione o projeto");
-
 		comboBox.setForeground(SystemColor.controlHighlight);
 		comboBox.setBackground(SystemColor.inactiveCaptionText);
 		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		comboBox.setBounds(5, 29, 375, 25);
-
-		RequisitoDAO dao = new RequisitoDAO();
-		ProjetoDAO pdao = new ProjetoDAO();
-
+		comboBox.setBounds(5, 3, 375, 25);
 		rodaComboBox(comboBox);
-
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				for (Projeto p: pdao.readName()){
@@ -363,9 +365,11 @@ public class MeusProjetos extends JFrame {
 				}
 			}
 		});
-
-
 		panelDireito.add(comboBox);
+		
+		JPanel panelInteressados = new JPanel();
+		tabbedPane.addTab("Interessados", null, panelInteressados, null);
+
 
 
 		////////////FIM PAINEL DIREITO 
@@ -401,7 +405,6 @@ public class MeusProjetos extends JFrame {
 	}*/
 
 	public void criaJTable(){
-
 		table_1 = new JTable();
 		table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		table_1.setColumnSelectionAllowed(false);
@@ -427,7 +430,7 @@ public class MeusProjetos extends JFrame {
 
 		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);	
 		table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(399);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(405);
 		modelo = (DefaultTableModel) table_1.getModel();
 		modelo.setNumRows(0);
 
@@ -436,9 +439,9 @@ public class MeusProjetos extends JFrame {
 		panelDireito.add(table_1);
 
 		scrollPane2 = new JScrollPane(table_1);
-		scrollPane2.setBounds(4, 55, 540, 490);
+		scrollPane2.setBounds(4, 29, 545, 490);
 		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
-		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
+		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // só mostra a barra horizontal se necessário
 		panelDireito.add(scrollPane2);
 
 	}
@@ -519,8 +522,6 @@ public class MeusProjetos extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
 		panel.add(scrollPane);
-
-
 
 		return tree;
 
