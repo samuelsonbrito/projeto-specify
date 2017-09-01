@@ -20,6 +20,9 @@ import model.dao.InteressadoDAO;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
 
 public class CadastrarInteressado extends JFrame {
 
@@ -61,7 +64,7 @@ public class CadastrarInteressado extends JFrame {
 	public CadastrarInteressado() {
 		setTitle("Cadastrar Interessado");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 534, 480);
+		setBounds(100, 100, 527, 434);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,24 +81,8 @@ public class CadastrarInteressado extends JFrame {
 			}
 		});
 		contentPane.setLayout(null);
-		btnCancelar.setBounds(342, 424, 117, 25);
+		btnCancelar.setBounds(370, 380, 110, 25);
 		contentPane.add(btnCancelar);
-		
-		/*************botão de ajuda *************&*******/
-		JButton btnAjuda = new JButton("Ajuda");
-		btnAjuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//TelaAjudaRequisito ajuda = new TelaAjudaRequisito();
-				//ajuda.setLocationRelativeTo(null);
-				//ajuda.setVisible(true);
-			}
-		});
-		btnAjuda.setForeground(SystemColor.controlHighlight);
-		btnAjuda.setBackground(SystemColor.activeCaptionText);
-		btnAjuda.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/help.png")));
-		btnAjuda.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnAjuda.setBounds(70, 424, 117, 25);
-		contentPane.add(btnAjuda);
 		
 		/*************botão salvar interessado*************/
 		JButton btnSalvar = new JButton("Salvar");
@@ -133,78 +120,115 @@ public class CadastrarInteressado extends JFrame {
 		btnSalvar.setBackground(SystemColor.activeCaptionText);
 		btnSalvar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/disk.png")));
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnSalvar.setBounds(206, 424, 117, 25);
+		btnSalvar.setBounds(245, 380, 110, 25);
 		contentPane.add(btnSalvar);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblNome.setBounds(71, 60, 60, 15);
+		lblNome.setBounds(71, 80, 60, 15);
 		contentPane.add(lblNome);
 		
 		JLabel lblSobrenome = new JLabel("Sobrenome: ");
-		lblSobrenome.setBounds(250, 60, 100, 15);
+		lblSobrenome.setBounds(250, 80, 100, 15);
 		lblSobrenome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblSobrenome);
 		
 		JLabel lblEndereco = new JLabel("Endereço: ");
-		lblEndereco.setBounds(71, 100, 100, 15);
+		lblEndereco.setBounds(50, 120, 120, 15);
 		lblEndereco.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblEndereco);
 		
 		JLabel lblRg = new JLabel("RG: ");
-		lblRg.setBounds(71, 180, 60, 15);
+		lblRg.setBounds(89, 206, 60, 15);
 		lblRg.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblRg);
 		
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(71, 216, 60, 15);
+		lblCpf.setBounds(84, 243, 60, 15);
 		lblCpf.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblCpf);
 		
 		JLabel lblTelefone = new JLabel("Telefone: ");
-		lblTelefone.setBounds(71, 140, 90, 15);
+		lblTelefone.setBounds(55, 163, 90, 15);
 		lblTelefone.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblTelefone);
 		
 		JLabel lblEmail = new JLabel("E-mail: ");
 		lblEmail.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblEmail.setBounds(71, 260, 60, 15);
+		lblEmail.setBounds(71, 280, 60, 15);
 		contentPane.add(lblEmail);
 		
 		recebeNome = new JTextField();
-		recebeNome.setBounds(120, 56, 122, 27);
+		recebeNome.setBounds(120, 75, 122, 27);
 		contentPane.add(recebeNome);
 		recebeNome.setColumns(10);
 		
 		recebeSobrenome = new JTextField();
-		recebeSobrenome.setBounds(330, 56, 122, 27);
+		recebeSobrenome.setBounds(330, 75, 122, 27);
 		contentPane.add(recebeSobrenome);
 		recebeSobrenome.setColumns(10);
 		
 		recebeEndereco = new JTextField();
-		recebeEndereco.setBounds(140, 95, 313, 27);
+		recebeEndereco.setBounds(120, 115, 332, 27);
 		contentPane.add(recebeEndereco);
 		recebeEndereco.setColumns(10);
 		
 		recebeTelefone = new JTextField();
-		recebeTelefone.setBounds(141, 135, 122, 27);
+		try {
+			javax.swing.text.MaskFormatter telefone= new javax.swing.text.MaskFormatter("(##)#####-####");
+			telefone.setPlaceholderCharacter('_');
+			recebeTelefone = new javax.swing.JFormattedTextField(telefone);
+			recebeTelefone.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeTelefone.setToolTipText("Exemplo: (67)99222-2222");
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro ao inserir CPF!");
+		}
+		recebeTelefone.setBounds(120, 158, 150, 27);
 		contentPane.add(recebeTelefone);
 		recebeTelefone.setColumns(10);
 		
 		recebeRG = new JTextField();
-		recebeRG.setBounds(100, 176, 122, 27);
+		recebeRG.setBounds(120, 200, 150, 27);
 		contentPane.add(recebeRG);
 		recebeRG.setColumns(10);
 		
 		recebeCPF = new JTextField();
-		recebeCPF.setBounds(100, 210, 122, 27);
+
+		try {
+			javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##");
+			cpf.setPlaceholderCharacter('_');
+			recebeCPF = new javax.swing.JFormattedTextField(cpf);
+			recebeCPF.setHorizontalAlignment(SwingConstants.LEFT);
+			recebeCPF.setToolTipText("AAAA/MM/DD");
+		}
+		catch (Exception e) {     
+			JOptionPane.showMessageDialog(null,"Erro ao inserir CPF!");
+		}
+		
+		recebeCPF.setBounds(120, 240, 150, 27);
 		contentPane.add(recebeCPF);
 		recebeCPF.setColumns(10);
 		
 		recebeEmail = new JTextField();
-		recebeEmail.setBounds(120, 258, 122, 27);
+		recebeEmail.setBounds(120, 276, 332, 27);
 		contentPane.add(recebeEmail);
 		recebeEmail.setColumns(10);
+		
+		JLabel lblCadastroDeInsteressados = new JLabel("");
+		lblCadastroDeInsteressados.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
+		lblCadastroDeInsteressados.setBounds(125, 25, 400, 15);
+		contentPane.add(lblCadastroDeInsteressados);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
+		panel.setBounds(35, 38, 448, 315);
+		contentPane.add(panel);
+		
+		JLabel lblCadastroDeInsteressados_1 = new JLabel("Cadastro de insteressados no sistema");
+		lblCadastroDeInsteressados_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
+		lblCadastroDeInsteressados_1.setBounds(124, 18, 300, 15);
+		contentPane.add(lblCadastroDeInsteressados_1);
 		
 		
 	}
