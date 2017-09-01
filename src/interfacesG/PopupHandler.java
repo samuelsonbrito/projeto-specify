@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -34,29 +35,32 @@ PopupMenuListener {
 	JMenuItem item2; 
 	JMenuItem item3; 
 	//JMenuItem item4; 
-	JMenuItem item5, item6; 
+	JMenuItem item5, item6, item7; 
 	JMenu menu, menu2, menu3; 
 	boolean overRoot = false;
 	boolean menuPopUpDel = false; 
 	Point loc;
+	static JTabbedPane tabbedPane;
 
 	public PopupHandler(JTree tree) {
+		
 		this.tree = tree;
 		popup = new JPopupMenu();
 		popup.setInvoker(tree);
 		menu = new JMenu("Novo");
 		menu2 = new JMenu("Deletar");
-		menu3 = new JMenu("Ver");
+		//menu3 = new JMenu("Ver");
 		popup.add(menu);
 		popup.add(menu2);
-		popup.add(menu3);
+		//popup.add(menu3);
 		menu.add(item2= getMenuItem("Novo Projeto"));
+		menu.add(item7=getMenuItem("Novo interessado"));
 		menu.add(item = getMenuItem("Novo Requisito"));
 		
 		menu2.add(item3= getMenuItem("Projeto"));
 		//menu2.add(item4= getMenuItem("Requisito"));
-		menu3.add(item5= getMenuItem("Informações Projeto"));
-		menu3.add(item6=getMenuItem("Todos os requisitos"));
+		//menu3.add(item5= getMenuItem("Informações do projeto"));
+		//menu3.add(item6=getMenuItem("Todos os requisitos"));
 		tree.addMouseListener(ma);
 		popup.addPopupMenuListener(this);
 	}
@@ -88,25 +92,38 @@ PopupMenuListener {
 			exibeRequisito(path);
 		if(ac.equals("PROJETO"))
 			deletarProjeto(recebenode);
-		if(ac.equals("INFORMAÇÕES PROJETO")){
+		if(ac.equals("NOVO INTERESSADO")){
+			exibeCadInteressado(path);
+		}
+		
+		/*if(ac.equals("INFORMAÇÕES DO PROJETO")){
 			exibeInfoProjeto(recebenode);
 		}
 		if(ac.equals("TODOS OS REQUISITOS")){
-			exibeRequisitos(recebenode);
-		}
+			/*MeusProjetos mp = new MeusProjetos();
+			ProjetoDAO dao = new ProjetoDAO();
+			for(Projeto p: dao.readName()){
+				if(recebenode.equals(p.getNome())){
+					System.out.println(recebenode+"="+ p.getNome());
+					//tabbedPane.setSelectedIndex(1);
+					mp.abrirPanel(1, tabbedPane);
+				}
+			}
+
+		}*/
 
 	}
+	
+	public void exibeCadInteressado(TreePath path){
+		CadastrarInteressadoSistema IS = new CadastrarInteressadoSistema();
+		IS.setLocationRelativeTo(null);
+		IS.setVisible(true);
+		
+	}
+	
 
-	public void exibeRequisitos(String recebenode){
-		MeusProjetos mp = new MeusProjetos();
-		ProjetoDAO dao = new ProjetoDAO();
-		for(Projeto p: dao.readName()){
-			if(recebenode.equals(p.getNome())){
-				//JOptionPane.showMessageDialog(null, "Teste: "+recebenode+" = "+ p.getNome());
-
-				mp.readJTable(p.getCodigo());	
-			}
-		}
+	public void exibeTodosRequisitos(String recebenode){
+		
 
 
 
@@ -227,11 +244,11 @@ PopupMenuListener {
 		item.setVisible(!overRoot); //novo requisito nao pode ser visivel na raiz 
 		item2.setVisible(overRoot); //novo projeto só pode ser visível na raiz 
 		item3.setVisible(!overRoot); //projeto   ============> arrumar 
-		item5.setVisible(!overRoot);   
-		item6.setVisible(!overRoot);
+		//item5.setVisible(!overRoot);   
+		//item6.setVisible(!overRoot);
 		
 		menu2.setVisible(menuPopUpDel); // não pode ser visivel na raiz e nem em requisitos      =======> arrumar 
-		menu3.setVisible(!overRoot); // não pode ser visivel na raiz 		========> arrumar 
+		//menu3.setVisible(!overRoot); // não pode ser visivel na raiz 		========> arrumar 
 	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {}

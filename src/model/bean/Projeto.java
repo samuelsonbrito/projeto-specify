@@ -10,13 +10,14 @@ public class Projeto {
 	private String descricao;
 	private double recursosFinanceiros;
 	private Date horaCriacao; 
+	private String ultimaAtualizacao; 
 
 	public Projeto() {
 		// construtor vazio
 	}
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
-			double recursosFinanceiros, Date horaCriacao) {
+			double recursosFinanceiros, Date horaCriacao, String ultimaAtualizacao) {
 		this.codigo = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
@@ -24,9 +25,18 @@ public class Projeto {
 		this.descricao = descricao;
 		this.recursosFinanceiros = recursosFinanceiros;
 		this.horaCriacao = horaCriacao; 
+		this.ultimaAtualizacao= ultimaAtualizacao;
 		
 	}
 	
+	public String getUltimaAtualizacao() {
+		return ultimaAtualizacao;
+	}
+
+	public void setUltimaAtualizacao(String date) {
+		this.ultimaAtualizacao = date;
+	}
+
 	public Date getHoraCriacao(){
 		return horaCriacao;
 	}

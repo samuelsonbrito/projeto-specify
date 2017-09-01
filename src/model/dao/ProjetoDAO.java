@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -52,6 +53,30 @@ public class ProjetoDAO {
 
 	}
 	
+	 public void update(int codigo) {
+
+	       PreparedStatement stmt = null ;
+
+	        try {
+	        	Projeto p = new Projeto();
+
+	            stmt = con.prepareStatement("UPDATE projeto SET nome=?, dataAproxTermino=?, descricao=?, recursosFinanceiros=? WHERE codigo = ?");
+	            stmt.setString(1, p.getNome());
+				stmt.setString(2, p.getDataAproxTermino());	
+				stmt.setString(3, p.getDescricao());
+				stmt.setDouble(4, p.getRecursosFinanceiros());
+				stmt.setInt(5, codigo);   
+
+	            stmt.executeUpdate();
+
+	            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
+	        } finally {
+	            ConnectionFactory.closeConnection(con, stmt);
+	        }
+
+	    }
 	
 	
 	public List<Projeto> read() {
@@ -144,33 +169,6 @@ public class ProjetoDAO {
 
     }
 	
-	 public void update(int codigo) {
-
-	        PreparedStatement stmt = null;
-
-	        try {
-	            stmt = con.prepareStatement("UPDATE projeto SET codigo = ?, nome = ?, dataInicio = ?, dataAproxTermino = ?, descricao = ?, recursosFinanceiros = ?, horaCriacao = ?,  WHERE codigo = ?");
-	            Projeto p = new Projeto();
-	            stmt.setInt(1, p.getCodigo());
-	            stmt.setString(2, p.getNome());
-	            stmt.setString(3, p.getDataInicio());
-	            stmt.setString(4, p.getDataAproxTermino());
-	            stmt.setString(5, p.getDescricao());
-	            stmt.setDouble(6, p.getRecursosFinanceiros());
-	            stmt.setDate(7, (Date) p.getHoraCriacao());
-	            stmt.setInt(8, codigo);           
-				
-
-	            stmt.executeUpdate();
-
-	            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-	        } catch (SQLException ex) {
-	            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
-	        } finally {
-	            ConnectionFactory.closeConnection(con, stmt);
-	        }
-
-	    }
 	
 
 }

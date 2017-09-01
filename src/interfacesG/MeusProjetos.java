@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
@@ -98,22 +99,35 @@ import javax.swing.JCheckBox;
 import java.awt.Toolkit;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class MeusProjetos extends JFrame {
-	private JPanel contentPane, panelDireito;
 	private JTree tree;
 	private JLabel selectedLabel;
-	private JScrollPane scrollPane, scrollPane2; 
-	Point loc;
+	private JScrollPane scrollPane, scrollPane2; 	
 	boolean overRoot = false;
 	private JTable table;
 	private JTable table_1;
+	private JTabbedPane tabbedPane; 
+	private JPanel contentPane;
+	private JPanel panelProjetos, panelInteressados, panelRequisitos;
 	private int node; 
 	private DefaultTableModel modelo;
+	DefaultMutableTreeNode node5;
 	private JComboBox comboBox;
-
-
-
+	Point loc;
+	private JTextField recebeCodigo;
+	private JTextField recebeNome;
+	private JTextField recebeDataI;
+	private JTextField recebeDataT;
+	private JTextField recebeDataC;
+	private JTextField recebeRecursoF;
+	private JTextField recebeDataUM;
+	private JTextArea recebeDescricao;
+	JLabel lblNewLabel_2;
+	private JButton btnSalvar;
+	TreePath path;
 
 	/**
 	 * Launch the application.
@@ -148,7 +162,6 @@ public class MeusProjetos extends JFrame {
 	 */
 
 
-
 	public MeusProjetos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MeusProjetos.class.getResource("/images/logoAzul.png")));
 		setTitle("Specify");
@@ -158,7 +171,6 @@ public class MeusProjetos extends JFrame {
 		contentPane.setBackground(SystemColor.controlDkShadow);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 
 		JPanel toolBar = new JPanel();
 		toolBar.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -254,7 +266,7 @@ public class MeusProjetos extends JFrame {
 		toolBar.add(btnRefresh);
 		btnRefresh.setToolTipText("Atualizar");
 		btnRefresh.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/arrow_refresh.png")));
-		
+
 		JButton btnCadInteressado = new JButton("");
 		btnCadInteressado.setToolTipText("Cadastrar Interessado");
 		btnCadInteressado.addActionListener(new ActionListener() {
@@ -270,7 +282,7 @@ public class MeusProjetos extends JFrame {
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rodaArvore(tree);
-				readJTable(node);
+				readJTableRequisito(node);
 				//atualizaComboBox(comboBox);
 			}
 		});
@@ -308,71 +320,265 @@ public class MeusProjetos extends JFrame {
 		RequisitoDAO dao = new RequisitoDAO();
 		ProjetoDAO pdao = new ProjetoDAO();
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(SystemColor.activeCaption);
 		tabbedPane.setBounds(327, 77, 552, 553);
 		contentPane.add(tabbedPane);
-		
-		JPanel panelProjetos = new JPanel();
-		tabbedPane.addTab("Projetos", null, panelProjetos, null);
 
-		panelDireito = new JPanel();
-		tabbedPane.addTab("Requisitos", null, panelDireito, null);
-		panelDireito.setBorder(new LineBorder(SystemColor.inactiveCaption));
-		panelDireito.setLayout(null);
-		criaJTable();
+
+		tabbedPane.addTab("Projetos", null, panelProjetos(), null);
+		tabbedPane.addTab("Requisitos", null, panelRequisitos(), null);
+		tabbedPane.addTab("Interessados", null, panelInteressados(), null);
+
 
 		/******************botões panelDireito***********/
 		JButton btnEditar = new JButton("");
-		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
 		btnEditar.setBounds(384, 2, 50, 27);
-		panelDireito.add(btnEditar);
+		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
+		panelRequisitos.add(btnEditar);
 
 		JButton btnImprimir = new JButton("");
-		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
 		btnImprimir.setBounds(440, 2, 50, 27);
-		panelDireito.add(btnImprimir);
+		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
+		panelRequisitos.add(btnImprimir);
 
 		JButton btnLixeira = new JButton("");
+		btnLixeira.setBounds(495, 2, 50, 27);
 		btnLixeira.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RequisitoDAO dao = new RequisitoDAO();
 				//ação p deletar linha 
 			}
 		});
-		
+
 		btnLixeira.setToolTipText("Deletar requisito");
 		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
-		btnLixeira.setBounds(495, 2, 50, 27);
-		panelDireito.add(btnLixeira);
+		panelRequisitos.add(btnLixeira);
 		/******************botões panelDireito***********/
 
 
-		comboBox = new JComboBox();
-		comboBox.addItem("Selecione o projeto");
-		comboBox.setForeground(SystemColor.controlHighlight);
-		comboBox.setBackground(SystemColor.inactiveCaptionText);
-		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		comboBox.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		comboBox.setBounds(5, 3, 375, 25);
-		rodaComboBox(comboBox);
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				for (Projeto p: pdao.readName()){
-					if(comboBox.getSelectedItem().equals(p.getNome())){
-						readJTable(p.getCodigo());
-					}
-				}
+		////////////FIM PAINEL DIREITO 
+	}
+
+	public void abrirPanel(int i){
+		tabbedPane.setSelectedIndex(i);
+	}
+
+
+
+	public JPanel panelInteressados(){
+		panelInteressados = new JPanel();
+		panelInteressados.setBorder(new LineBorder(SystemColor.inactiveCaption));
+		panelInteressados.setLayout(null);
+		return panelInteressados;
+
+	}
+	public JPanel panelProjetos(){
+		panelProjetos = new JPanel();
+		panelProjetos.setBorder(new LineBorder(SystemColor.inactiveCaption));
+		panelProjetos.setLayout(null);
+
+
+		JButton btnEditarProjeto = new JButton("");
+		btnEditarProjeto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				recebeDescricao.setEditable(true);
+				recebeDescricao.setOpaque(false);
+				recebeNome.setEditable(true);
+				recebeNome.setOpaque(false);
+				recebeDataT.setEditable(true);
+				recebeDataT.setOpaque(false);
+				recebeRecursoF.setEditable(true);
+				recebeRecursoF.setOpaque(false);
+				btnSalvar.setEnabled(true);
+
+
 			}
 		});
-		panelDireito.add(comboBox);
+		btnEditarProjeto.setToolTipText("Editar projeto");
+		btnEditarProjeto.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
+		btnEditarProjeto.setBounds(490, 15, 40, 27);
+		panelProjetos.add(btnEditarProjeto);
+
+
+
+		JLabel lblInfoProjeto = new JLabel("Informações sobre o projeto");
+		lblInfoProjeto.setBounds(44, 20, 200, 15);
+		lblInfoProjeto.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 13));
+		panelProjetos.add(lblInfoProjeto);
+
+
+		JLabel lblNome = new JLabel("Nome: ");
+		lblNome.setBounds(137, 105, 44, 15);
+		lblNome.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblNome);
+
+		JLabel lblCodigo = new JLabel("Código:");
+		lblCodigo.setBounds(131, 60, 60, 15);
+		lblCodigo.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblCodigo);
+
+		JLabel lblDataDeInicio = new JLabel("Data de inicio: ");
+		lblDataDeInicio.setBounds(95, 150, 100, 15);
+		lblDataDeInicio.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblDataDeInicio);
+
+		JLabel lblDataAproxDe = new JLabel("Data aprox. de término: ");
+		lblDataAproxDe.setBounds(40, 195, 200, 15);
+		lblDataAproxDe.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblDataAproxDe);
+
+		JLabel lblDescrio = new JLabel("Descrição: ");
+		lblDescrio.setBounds(117, 333, 100, 15);
+		lblDescrio.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblDescrio);
+
+		JLabel lblRe = new JLabel("Recursos financeiros: ");
+		lblRe.setBounds(57, 420, 200, 15);
+		lblRe.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblRe);
+
+		JLabel lblNewLabel_1 = new JLabel("Data/hora criação: ");
+		lblNewLabel_1.setBounds(71, 238, 160, 15);
+		lblNewLabel_1.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblNewLabel_1);
+
+		JLabel lblDatahoraltimaModificao = new JLabel("Última modificação: ");
+		lblDatahoraltimaModificao.setBounds(56, 285, 200, 15);
+		lblDatahoraltimaModificao.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
+		panelProjetos.add(lblDatahoraltimaModificao);
+
+		recebeCodigo = new JTextField();
+		recebeCodigo.setOpaque(true);
+		recebeCodigo.setEditable(false);
+		recebeCodigo.setBounds(203, 54, 122, 27);
+		panelProjetos.add(recebeCodigo);
+		recebeCodigo.setColumns(10);
+
+		recebeDescricao = new JTextArea();
+		recebeDescricao.setEditable(false);
+		recebeDescricao.setOpaque(true);
+		recebeDescricao.setWrapStyleWord(true);
+		recebeDescricao.setLineWrap(true);
+		JScrollPane scrollPane3 = new JScrollPane(recebeDescricao);
+		scrollPane3.setBounds(203, 330, 300, 60);
+		scrollPane3.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane3.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER); // nunca mostra a barra de rolagem horizontal
+		panelProjetos.add(scrollPane3);
+
+		recebeNome = new JTextField();
+		recebeNome.setEditable(false);
+		recebeNome.setOpaque(true);
+		recebeNome.setBounds(203, 100, 122, 27);
+		panelProjetos.add(recebeNome);
+		recebeNome.setColumns(10);
+
+		recebeDataI = new JTextField();
+		recebeDataI.setEditable(false);
+		recebeDataI.setOpaque(true);
+		recebeDataI.setBounds(203, 147, 122, 27);
+		panelProjetos.add(recebeDataI);
+		recebeDataI.setColumns(10);
+
+		recebeDataT = new JTextField();
+		recebeDataT.setEditable(false);
+		recebeDataT.setOpaque(true);
+		recebeDataT.setBounds(203, 190, 122, 27);
+		panelProjetos.add(recebeDataT);
+		recebeDataT.setColumns(10);
+
+		recebeDataC = new JTextField();
+		recebeDataC.setEditable(false);
+		recebeDataC.setOpaque(true);
+		recebeDataC.setBounds(203, 234, 122, 27);
+		panelProjetos.add(recebeDataC);
+		recebeDataC.setColumns(10);
+
+		recebeRecursoF = new JTextField();
+		recebeRecursoF.setEditable(false);
+		recebeRecursoF.setOpaque(true);
+		recebeRecursoF.setBounds(203, 414, 122, 27);
+		panelProjetos.add(recebeRecursoF);
+		recebeRecursoF.setColumns(10);
+
+		recebeDataUM = new JTextField();
+		recebeDataUM.setEditable(false);
+		recebeDataUM.setOpaque(true);
+		recebeDataUM.setText("");
+		recebeDataUM.setBounds(203, 279, 122, 27);
+		panelProjetos.add(recebeDataUM);
+		recebeDataUM.setColumns(10);
+
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setEnabled(false);
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProjetoDAO dao = new ProjetoDAO();
+				Projeto pj=new Projeto();
+				String recebeD=recebeDataI.getText();
+
+				pj.setDataAproxTermino(recebeDataT.getText());
+				int comp = recebeD.compareTo(pj.getDataAproxTermino());
+				if(comp > 0){
+					JOptionPane.showMessageDialog(null, "Data inválida!");	
+				}
+				else {
+					pj.setNome(recebeNome.getText());
+					pj.setDescricao(recebeDescricao.getText());
+					String texto = recebeRecursoF.getText();
+					texto = texto.replace(".", "");
+					texto = texto.replace(",", ".");
+					pj.setRecursosFinanceiros(Double.parseDouble(texto));	
+
+					dao.update(Integer.parseInt(recebeCodigo.getText()));
+				}
+				recebeDescricao.setEditable(false);
+				recebeDescricao.setOpaque(true);
+				recebeNome.setEditable(false);
+				recebeNome.setOpaque(true);
+				recebeDataT.setEditable(false);
+				recebeDataT.setOpaque(true);
+				recebeRecursoF.setEditable(false);
+				recebeRecursoF.setOpaque(true);
+				btnSalvar.setEnabled(false);
+
+
+				/*for(Projeto p: dao.read()){
+					if(recebeNome.getText().equals(p.getNome())){
+						String code = Integer.toString(p.getCodigo()); 
+						recebeCodigo.setText(code);
+						recebeNome.setText(p.getNome());
+						recebeDataI.setText(p.getDataInicio());
+						recebeDataT.setText(p.getDataAproxTermino());
+						recebeDataUM.setText(p.getUltimaAtualizacao().toString());
+						recebeDataC.setText(p.getHoraCriacao().toString());
+						recebeRecursoF.setText(String.valueOf(p.getRecursosFinanceiros()));
+						recebeDescricao.setText(p.getDescricao());						
+					}
+				}*/
+
+				atualizaArvore(tree);
+
+
+			}
+		});
+		btnSalvar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/disk.png")));
+		btnSalvar.setBounds(422, 478, 100, 27);
+		panelProjetos.add(btnSalvar);
+
+		return panelProjetos; 
+	}
+	public JPanel panelRequisitos(){
+		panelRequisitos = new JPanel();
+		panelRequisitos.setBorder(new LineBorder(SystemColor.inactiveCaption));
+		criaJTable();
 		
-		JPanel panelInteressados = new JPanel();
-		tabbedPane.addTab("Interessados", null, panelInteressados, null);
+		lblNewLabel_2 = new JLabel();
+		lblNewLabel_2.setBounds(10, 5, 400, 20);
+		panelRequisitos.add(lblNewLabel_2);
+		
 
-
-
-		////////////FIM PAINEL DIREITO 
+		return panelRequisitos;
 	}
 
 	public JTree getTree() {
@@ -380,32 +586,9 @@ public class MeusProjetos extends JFrame {
 	}
 
 
-	public void rodaComboBox(JComboBox comboBox){
-		RequisitoDAO dao = new RequisitoDAO();
-		ProjetoDAO pdao = new ProjetoDAO();
-
-		//comboBox.repaint();
-		for (Projeto p: pdao.readName()){
-			String nomep=p.getNome();
-			comboBox.addItem(nomep);
-
-		}
-	}
-
-	/*public void atualizaComboBox(JComboBox comboBox){
-		RequisitoDAO dao = new RequisitoDAO();
-		ProjetoDAO pdao = new ProjetoDAO();
-
-		comboBox.removeAllItems();
-		for (Projeto p: pdao.readName()){
-			String nomep=p.getNome();
-			comboBox.addItem(nomep);
-
-		}
-	}*/
-
 	public void criaJTable(){
 		table_1 = new JTable();
+		table_1.setBounds(3, 24, 540, 0);
 		table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		table_1.setColumnSelectionAllowed(false);
 		table_1.setCellSelectionEnabled(true);
@@ -415,7 +598,6 @@ public class MeusProjetos extends JFrame {
 		table_1.getTableHeader().setResizingAllowed(true);
 		table_1.getTableHeader().setReorderingAllowed(false);
 		table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
-		table_1.setBounds(6, 32, 788, 513);
 		JTableHeader header =  table_1.getTableHeader();
 		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
 		centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -433,29 +615,30 @@ public class MeusProjetos extends JFrame {
 		table_1.getColumnModel().getColumn(2).setPreferredWidth(405);
 		modelo = (DefaultTableModel) table_1.getModel();
 		modelo.setNumRows(0);
+		panelRequisitos.setLayout(null);
+		
+		
 
 		//readJTable(node);
 
-		panelDireito.add(table_1);
+		panelRequisitos.add(table_1);
 
 		scrollPane2 = new JScrollPane(table_1);
 		scrollPane2.setBounds(4, 29, 545, 490);
 		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // só mostra a barra horizontal se necessário
-		panelDireito.add(scrollPane2);
+		panelRequisitos.add(scrollPane2);
 
 	}
 
 
 
-	public void readJTable(int node) {
-
+	public void readJTableRequisito(int node) {
 		DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
 		modelo.setNumRows(0);
 		RequisitoDAO pdao = new RequisitoDAO();
 		for (Requisito r : pdao.readALL()) {
 			if(r.getProjcodigo()==node){
-				//JOptionPane.showMessageDialog(null, "Teste: "+ r.getProjcodigo() + " = "+ node);
 				modelo.addRow(new Object[]{
 						"",
 						r.getCodigo(),
@@ -468,15 +651,12 @@ public class MeusProjetos extends JFrame {
 	public void atualizaArvore(JTree tree){
 		ProjetoDAO pdao = new ProjetoDAO();
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
 			public void run() 
 			{                                                                                                                                      
 				rodaArvore(tree);			
 			}
 		});
-
 	}
-
 
 	public void rodaArvore(JTree tree){
 		ProjetoDAO pdao = new ProjetoDAO();
@@ -501,12 +681,12 @@ public class MeusProjetos extends JFrame {
 					}
 				}
 				));	
-
 	}
-
 
 	public JTree constroiArvoreBancoDados(JPanel panel){
 		tree = new JTree();
+		tree.setToggleClickCount(1);
+
 		tree.setShowsRootHandles(false);
 		tree.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		tree.setVisibleRowCount(0);
@@ -522,6 +702,56 @@ public class MeusProjetos extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // nunca mostra a barra de rolagem horizontal
 		panel.add(scrollPane);
+
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				loc = e.getPoint();
+				path  = tree.getPathForLocation(loc.x, loc.y);
+				node5 = (DefaultMutableTreeNode) path.getLastPathComponent();
+				Object nodeInf2= node5.getUserObject();
+				Object nodeInfo = node5.getParent();
+				String parente=node5.getParent().toString();
+				String noClicked=nodeInf2.toString();
+				MeusProjetos mp = new MeusProjetos();
+				ProjetoDAO dao = new ProjetoDAO();
+
+				if (e.getClickCount() == 2 && ((nodeInfo!=null) && ((nodeInf2 !="Interessados") && (nodeInf2!="Requisitos")))) {
+					abrirPanel(0);
+					for(Projeto p: dao.read()){
+						if(noClicked.equals(p.getNome())){
+							String code = Integer.toString(p.getCodigo()); 
+							recebeCodigo.setText(code);
+							recebeNome.setText(p.getNome());
+							recebeDataI.setText(p.getDataInicio());
+							recebeDataT.setText(p.getDataAproxTermino());
+							recebeDataUM.setText("null");
+							recebeDataC.setText(p.getHoraCriacao().toString());
+							recebeRecursoF.setText(String.valueOf(p.getRecursosFinanceiros()));
+							recebeDescricao.setText(p.getDescricao());						
+						}
+
+					}
+
+				}
+				if (e.getClickCount() == 2 && ((nodeInfo!=null) && ((nodeInf2 !="Interessados") && (nodeInf2=="Requisitos")))) {
+					abrirPanel(1);
+
+					for(Projeto p: dao.readName()){
+						if(parente.equals((p.getNome()))){
+							lblNewLabel_2.setText(p.getNome());
+							readJTableRequisito(p.getCodigo());
+						
+						}
+					}
+
+				}
+				if (e.getClickCount() == 2 && ((nodeInfo!=null) && ((nodeInf2 =="Interessados") && (nodeInf2!="Requisitos")))) {
+					abrirPanel(2);
+				}
+
+			}
+		});
 
 		return tree;
 
