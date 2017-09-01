@@ -53,19 +53,19 @@ public class ProjetoDAO {
 
 	}
 	
-	 public void update(int codigo) {
+	 public void update(Projeto p) {
 
 	       PreparedStatement stmt = null ;
 
 	        try {
-	        	Projeto p = new Projeto();
+	        	//Projeto p = new Projeto();
 
 	            stmt = con.prepareStatement("UPDATE projeto SET nome=?, dataAproxTermino=?, descricao=?, recursosFinanceiros=? WHERE codigo = ?");
 	            stmt.setString(1, p.getNome());
 				stmt.setString(2, p.getDataAproxTermino());	
 				stmt.setString(3, p.getDescricao());
 				stmt.setDouble(4, p.getRecursosFinanceiros());
-				stmt.setInt(5, codigo);   
+				stmt.setInt(5, p.getCodigo());   
 
 	            stmt.executeUpdate();
 

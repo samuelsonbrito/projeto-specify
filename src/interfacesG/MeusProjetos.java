@@ -469,35 +469,35 @@ public class MeusProjetos extends JFrame {
 		recebeNome = new JTextField();
 		recebeNome.setEditable(false);
 		recebeNome.setOpaque(true);
-		recebeNome.setBounds(203, 100, 122, 27);
+		recebeNome.setBounds(203, 100, 300, 27);
 		panelProjetos.add(recebeNome);
 		recebeNome.setColumns(10);
 
 		recebeDataI = new JTextField();
 		recebeDataI.setEditable(false);
 		recebeDataI.setOpaque(true);
-		recebeDataI.setBounds(203, 147, 122, 27);
+		recebeDataI.setBounds(203, 147, 150, 27);
 		panelProjetos.add(recebeDataI);
 		recebeDataI.setColumns(10);
 
 		recebeDataT = new JTextField();
 		recebeDataT.setEditable(false);
 		recebeDataT.setOpaque(true);
-		recebeDataT.setBounds(203, 190, 122, 27);
+		recebeDataT.setBounds(203, 190, 150, 27);
 		panelProjetos.add(recebeDataT);
 		recebeDataT.setColumns(10);
 
 		recebeDataC = new JTextField();
 		recebeDataC.setEditable(false);
 		recebeDataC.setOpaque(true);
-		recebeDataC.setBounds(203, 234, 122, 27);
+		recebeDataC.setBounds(203, 234, 300, 27);
 		panelProjetos.add(recebeDataC);
 		recebeDataC.setColumns(10);
 
 		recebeRecursoF = new JTextField();
 		recebeRecursoF.setEditable(false);
 		recebeRecursoF.setOpaque(true);
-		recebeRecursoF.setBounds(203, 414, 122, 27);
+		recebeRecursoF.setBounds(203, 414, 150, 27);
 		panelProjetos.add(recebeRecursoF);
 		recebeRecursoF.setColumns(10);
 
@@ -505,7 +505,7 @@ public class MeusProjetos extends JFrame {
 		recebeDataUM.setEditable(false);
 		recebeDataUM.setOpaque(true);
 		recebeDataUM.setText("");
-		recebeDataUM.setBounds(203, 279, 122, 27);
+		recebeDataUM.setBounds(203, 279, 300, 27);
 		panelProjetos.add(recebeDataUM);
 		recebeDataUM.setColumns(10);
 
@@ -523,6 +523,7 @@ public class MeusProjetos extends JFrame {
 					JOptionPane.showMessageDialog(null, "Data inválida!");	
 				}
 				else {
+					pj.setCodigo(Integer.parseInt(recebeCodigo.getText()));
 					pj.setNome(recebeNome.getText());
 					pj.setDescricao(recebeDescricao.getText());
 					String texto = recebeRecursoF.getText();
@@ -530,8 +531,10 @@ public class MeusProjetos extends JFrame {
 					texto = texto.replace(",", ".");
 					pj.setRecursosFinanceiros(Double.parseDouble(texto));	
 
-					dao.update(Integer.parseInt(recebeCodigo.getText()));
+
+					dao.update(pj);
 				}
+
 				recebeDescricao.setEditable(false);
 				recebeDescricao.setOpaque(true);
 				recebeNome.setEditable(false);
@@ -543,7 +546,7 @@ public class MeusProjetos extends JFrame {
 				btnSalvar.setEnabled(false);
 
 
-				/*for(Projeto p: dao.read()){
+				for(Projeto p: dao.read()){
 					if(recebeNome.getText().equals(p.getNome())){
 						String code = Integer.toString(p.getCodigo()); 
 						recebeCodigo.setText(code);
@@ -555,7 +558,7 @@ public class MeusProjetos extends JFrame {
 						recebeRecursoF.setText(String.valueOf(p.getRecursosFinanceiros()));
 						recebeDescricao.setText(p.getDescricao());						
 					}
-				}*/
+				}
 
 				atualizaArvore(tree);
 
@@ -572,11 +575,11 @@ public class MeusProjetos extends JFrame {
 		panelRequisitos = new JPanel();
 		panelRequisitos.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		criaJTable();
-		
+
 		lblNewLabel_2 = new JLabel();
 		lblNewLabel_2.setBounds(10, 5, 400, 20);
 		panelRequisitos.add(lblNewLabel_2);
-		
+
 
 		return panelRequisitos;
 	}
@@ -616,8 +619,8 @@ public class MeusProjetos extends JFrame {
 		modelo = (DefaultTableModel) table_1.getModel();
 		modelo.setNumRows(0);
 		panelRequisitos.setLayout(null);
-		
-		
+
+
 
 		//readJTable(node);
 
@@ -725,7 +728,7 @@ public class MeusProjetos extends JFrame {
 							recebeNome.setText(p.getNome());
 							recebeDataI.setText(p.getDataInicio());
 							recebeDataT.setText(p.getDataAproxTermino());
-							recebeDataUM.setText("null");
+							recebeDataUM.setText(p.getUltimaAtualizacao());
 							recebeDataC.setText(p.getHoraCriacao().toString());
 							recebeRecursoF.setText(String.valueOf(p.getRecursosFinanceiros()));
 							recebeDescricao.setText(p.getDescricao());						
@@ -741,7 +744,7 @@ public class MeusProjetos extends JFrame {
 						if(parente.equals((p.getNome()))){
 							lblNewLabel_2.setText(p.getNome());
 							readJTableRequisito(p.getCodigo());
-						
+
 						}
 					}
 
