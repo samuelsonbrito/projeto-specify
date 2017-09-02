@@ -3,7 +3,7 @@ create database if not exists softwareIC;
 create table if not exists projeto(
 	codigo int not null auto_increment primary key,
     diaHoraCriacao timestamp,
-    ultimaAtualizacao timestamp default null,
+    ultimaAtualizacao timestamp default null on update current_timestamp,
 	nome varchar(1000) not null unique,
     dataInicio date not null,
     dataAproxTermino date not null, 
@@ -14,6 +14,7 @@ create table if not exists projeto(
 create table if not exists requisito(
 	codigo int not null auto_increment primary key,
     diaHoraCriacao timestamp,
+	ultimaAtualizacao timestamp default null on update current_timestamp,
 	id varchar(1000) not null unique, 
     sujeito varchar(1000) not null,
     acaoRestricao varchar(5000) not null,
