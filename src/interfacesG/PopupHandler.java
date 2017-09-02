@@ -53,9 +53,9 @@ PopupMenuListener {
 		popup.add(menu);
 		popup.add(menu2);
 		//popup.add(menu3);
-		menu.add(item2= getMenuItem("Novo Projeto"));
+		menu.add(item2= getMenuItem("Novo projeto"));
 		menu.add(item7=getMenuItem("Novo interessado"));
-		menu.add(item = getMenuItem("Novo Requisito"));
+		menu.add(item = getMenuItem("Novo requisito"));
 		
 		menu2.add(item3= getMenuItem("Projeto"));
 		//menu2.add(item4= getMenuItem("Requisito"));
@@ -159,7 +159,7 @@ PopupMenuListener {
 		for(Projeto p: dao.readName()){
 
 			if(recebenode.equals(p.getNome())){
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o projeto "+recebenode+"?\nAo deletar o projeto todos os requisitos associados a ele serão deletados também.", "Confirmar deleção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente deletar o projeto "+recebenode+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION){
 					//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
 					dao.delete(p.getCodigo());
