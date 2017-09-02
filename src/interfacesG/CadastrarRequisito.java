@@ -195,6 +195,7 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
+		recebeEstimativa.setText("(em horas)");
 		recebeEstimativa.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
