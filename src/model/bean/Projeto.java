@@ -9,7 +9,7 @@ public class Projeto {
 	private String dataAproxTermino; 
 	private String descricao;
 	private double recursosFinanceiros;
-	private Date horaCriacao; 
+	private String horaCriacao; 
 	private String ultimaAtualizacao; 
 
 	public Projeto() {
@@ -17,7 +17,7 @@ public class Projeto {
 	}
 
 	public Projeto(int id, String nome, String dataInicio, String dataAproxTermino, String descricao,
-			double recursosFinanceiros, Date horaCriacao, String ultimaAtualizacao) {
+			double recursosFinanceiros, String horaCriacao, String ultimaAtualizacao) {
 		this.codigo = id;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
@@ -37,11 +37,11 @@ public class Projeto {
 		this.ultimaAtualizacao = date;
 	}
 
-	public Date getHoraCriacao(){
+	public String getHoraCriacao(){
 		return horaCriacao;
 	}
 	
-	public void setHoraCriacao(Date horaCriacao){
+	public void setHoraCriacao(String horaCriacao){
 		this.horaCriacao = horaCriacao; 
 	}
 

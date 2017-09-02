@@ -60,12 +60,13 @@ public class ProjetoDAO {
 	        try {
 	        	//Projeto p = new Projeto();
 
-	            stmt = con.prepareStatement("UPDATE projeto SET nome=?, dataAproxTermino=?, descricao=?, recursosFinanceiros=? WHERE codigo = ?");
+	            stmt = con.prepareStatement("UPDATE projeto SET nome=?, dataAproxTermino=?, descricao=?, recursosFinanceiros=?, diaHoraCriacao=? WHERE codigo = ?");
 	            stmt.setString(1, p.getNome());
 				stmt.setString(2, p.getDataAproxTermino());	
 				stmt.setString(3, p.getDescricao());
 				stmt.setDouble(4, p.getRecursosFinanceiros());
-				stmt.setInt(5, p.getCodigo());   
+				stmt.setString(5, p.getHoraCriacao());
+				stmt.setInt(6, p.getCodigo());   
 
 	            stmt.executeUpdate();
 
@@ -95,12 +96,13 @@ public class ProjetoDAO {
 				Projeto projeto = new Projeto();
 
 				projeto.setCodigo(rs.getInt("codigo"));
-				projeto.setHoraCriacao(rs.getTimestamp("diaHoraCriacao"));
+				projeto.setHoraCriacao(rs.getString("diaHoraCriacao"));
 				projeto.setNome(rs.getString("nome"));
 				projeto.setDataInicio(rs.getString("dataInicio"));
 				projeto.setDataAproxTermino(rs.getString("dataAproxTermino"));
 				projeto.setDescricao(rs.getString("descricao"));
 				projeto.setRecursosFinanceiros(rs.getDouble("recursosFinanceiros"));
+				projeto.setUltimaAtualizacao(rs.getString("ultimaAtualizacao"));
 				projetos.add(projeto);
 				
 
