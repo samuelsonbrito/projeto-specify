@@ -122,18 +122,6 @@ PopupMenuListener {
 	}
 	
 
-	public void exibeTodosRequisitos(String recebenode){
-		
-
-
-
-	}
-
-	public void exibeInfoProjeto(String recebenode){
-		//
-
-	}
-
 	/*private void deletarRequisito(String recebenode){
 		RequisitoDAO dao = new RequisitoDAO();
 		for(Requisito r: dao.readID()){
@@ -155,20 +143,31 @@ PopupMenuListener {
 	private void deletarProjeto(String recebenode){
 		//TreePath path = ((JTree) nodeInfo).getPathForLocation ( getX (), getY () );
 		ProjetoDAO dao = new ProjetoDAO();
+		RequisitoDAO rdao=new RequisitoDAO();
 		MeusProjetos mp = new MeusProjetos();
 		for(Projeto p: dao.readName()){
 
 			if(recebenode.equals(p.getNome())){
-				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente deletar o projeto "+recebenode+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente deletar o projeto "+p.getNome()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION){
-					//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
+					//deletar primeiro os requisitos ligados ao projeto
+					for(Requisito r: rdao.readID()){
+						if(p.getCodigo()==r.getProjcodigo()){							
+							rdao.delete(r.getId());
+						}	
+					}
+					//deletar os interessados
+
+
+					//deletar o projeto
 					dao.delete(p.getCodigo());
 					mp.rodaArvore(tree);
+					
 				}
-			}	else {
-				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
-
-			}
+				
+				
+				
+			}	
 		}
 
 	}
