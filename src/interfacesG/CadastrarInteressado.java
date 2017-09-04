@@ -64,7 +64,7 @@ public class CadastrarInteressado extends JFrame {
 	public CadastrarInteressado() {
 		setTitle("Cadastrar Interessado");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 527, 434);
+		setBounds(100, 100, 492, 415);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,7 +81,7 @@ public class CadastrarInteressado extends JFrame {
 			}
 		});
 		contentPane.setLayout(null);
-		btnCancelar.setBounds(370, 380, 110, 25);
+		btnCancelar.setBounds(356, 367, 110, 25);
 		contentPane.add(btnCancelar);
 		
 		/*************botão salvar interessado*************/
@@ -120,56 +120,56 @@ public class CadastrarInteressado extends JFrame {
 		btnSalvar.setBackground(SystemColor.activeCaptionText);
 		btnSalvar.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/disk.png")));
 		btnSalvar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnSalvar.setBounds(245, 380, 110, 25);
+		btnSalvar.setBounds(231, 367, 110, 25);
 		contentPane.add(btnSalvar);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblNome.setBounds(71, 80, 60, 15);
+		lblNome.setBounds(57, 77, 60, 15);
 		contentPane.add(lblNome);
 		
 		JLabel lblSobrenome = new JLabel("Sobrenome: ");
-		lblSobrenome.setBounds(250, 80, 100, 15);
+		lblSobrenome.setBounds(236, 77, 100, 15);
 		lblSobrenome.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblSobrenome);
 		
 		JLabel lblEndereco = new JLabel("Endereço: ");
-		lblEndereco.setBounds(50, 120, 120, 15);
+		lblEndereco.setBounds(36, 117, 120, 15);
 		lblEndereco.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblEndereco);
 		
 		JLabel lblRg = new JLabel("RG: ");
-		lblRg.setBounds(89, 206, 60, 15);
+		lblRg.setBounds(75, 203, 60, 15);
 		lblRg.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblRg);
 		
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(84, 243, 60, 15);
+		lblCpf.setBounds(70, 240, 60, 15);
 		lblCpf.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblCpf);
 		
 		JLabel lblTelefone = new JLabel("Telefone: ");
-		lblTelefone.setBounds(55, 163, 90, 15);
+		lblTelefone.setBounds(41, 160, 90, 15);
 		lblTelefone.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
 		contentPane.add(lblTelefone);
 		
 		JLabel lblEmail = new JLabel("E-mail: ");
 		lblEmail.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 13));
-		lblEmail.setBounds(71, 280, 60, 15);
+		lblEmail.setBounds(57, 277, 60, 15);
 		contentPane.add(lblEmail);
 		
 		recebeNome = new JTextField();
-		recebeNome.setBounds(120, 75, 122, 27);
+		recebeNome.setBounds(106, 72, 122, 27);
 		contentPane.add(recebeNome);
 		recebeNome.setColumns(10);
 		
 		recebeSobrenome = new JTextField();
-		recebeSobrenome.setBounds(330, 75, 122, 27);
+		recebeSobrenome.setBounds(316, 72, 122, 27);
 		contentPane.add(recebeSobrenome);
 		recebeSobrenome.setColumns(10);
 		
 		recebeEndereco = new JTextField();
-		recebeEndereco.setBounds(120, 115, 332, 27);
+		recebeEndereco.setBounds(106, 112, 332, 27);
 		contentPane.add(recebeEndereco);
 		recebeEndereco.setColumns(10);
 		
@@ -184,12 +184,12 @@ public class CadastrarInteressado extends JFrame {
 		catch (Exception e) {     
 			JOptionPane.showMessageDialog(null,"Erro ao inserir CPF!");
 		}
-		recebeTelefone.setBounds(120, 158, 150, 27);
+		recebeTelefone.setBounds(106, 155, 150, 27);
 		contentPane.add(recebeTelefone);
 		recebeTelefone.setColumns(10);
 		
 		recebeRG = new JTextField();
-		recebeRG.setBounds(120, 200, 150, 27);
+		recebeRG.setBounds(106, 197, 150, 27);
 		contentPane.add(recebeRG);
 		recebeRG.setColumns(10);
 		
@@ -206,28 +206,30 @@ public class CadastrarInteressado extends JFrame {
 			JOptionPane.showMessageDialog(null,"Erro ao inserir CPF!");
 		}
 		
-		recebeCPF.setBounds(120, 240, 150, 27);
+		recebeCPF.setBounds(106, 237, 150, 27);
 		contentPane.add(recebeCPF);
 		recebeCPF.setColumns(10);
 		
 		recebeEmail = new JTextField();
-		recebeEmail.setBounds(120, 276, 332, 27);
+		recebeEmail.setBounds(106, 273, 332, 27);
 		contentPane.add(recebeEmail);
 		recebeEmail.setColumns(10);
 		
-		JLabel lblCadastroDeInsteressados = new JLabel("");
-		lblCadastroDeInsteressados.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
-		lblCadastroDeInsteressados.setBounds(125, 25, 400, 15);
-		contentPane.add(lblCadastroDeInsteressados);
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
-		panel.setBounds(35, 38, 448, 315);
+		panel.setBounds(21, 35, 448, 315);
 		contentPane.add(panel);
 		
-		JLabel lblCadastroDeInsteressados_1 = new JLabel("Cadastro de insteressados no sistema");
+		JButton lblCadastroDeInsteressados_1 = new JButton(" Cadastrar novo interessado no sistema");
+		lblCadastroDeInsteressados_1.setFocusable(false);
+		lblCadastroDeInsteressados_1.setFocusTraversalKeysEnabled(false);
+		lblCadastroDeInsteressados_1.setFocusPainted(false);
+		lblCadastroDeInsteressados_1.setForeground(SystemColor.control);
+		lblCadastroDeInsteressados_1.setBackground(SystemColor.activeCaptionText);
+		lblCadastroDeInsteressados_1.setIcon(new ImageIcon(CadastrarInteressado.class.getResource("/images/group_add.png")));
+		lblCadastroDeInsteressados_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCadastroDeInsteressados_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
-		lblCadastroDeInsteressados_1.setBounds(124, 18, 300, 15);
+		lblCadastroDeInsteressados_1.setBounds(21, 6, 448, 30);
 		contentPane.add(lblCadastroDeInsteressados_1);
 		
 		

@@ -195,6 +195,7 @@ public class CadastrarRequisito extends JFrame {
 		contentPane.add(lblEstimativa);
 
 		recebeEstimativa = new JTextField();
+		recebeEstimativa.setForeground(Color.GRAY);
 		recebeEstimativa.setText("(em horas)");
 		recebeEstimativa.addFocusListener(new FocusAdapter() {
 			@Override
@@ -435,7 +436,7 @@ public class CadastrarRequisito extends JFrame {
 				
 				JLabel lblCamposCom = new JLabel("(*) Campos de preenchimento obrigatório.");
 				lblCamposCom.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 11));
-				lblCamposCom.setBounds(30, 395, 250, 15);
+				lblCamposCom.setBounds(30, 385, 250, 15);
 				contentPane.add(lblCamposCom);
 				
 				lblNewLabel = new JLabel("Tipo de requisito:*");
@@ -444,9 +445,24 @@ public class CadastrarRequisito extends JFrame {
 				contentPane.add(lblNewLabel);
 				
 				JPanel panel = new JPanel();
-				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Cadastrar novo requisito", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
-				panel.setBounds(20, 15, 490, 400);
+				panel.setBorder(new TitledBorder(null, "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(59, 59, 59)));
+				panel.setBounds(20, 50, 490, 370);
 				contentPane.add(panel);
+				panel.setLayout(null);
+				
+				JButton lblCadastrarNovoRequisito = new JButton(" Cadastrar novo requisito");
+				lblCadastrarNovoRequisito.setIcon(new ImageIcon(CadastrarRequisito.class.getResource("/images/application_form_add.png")));
+				lblCadastrarNovoRequisito.setHorizontalAlignment(SwingConstants.LEFT);
+				lblCadastrarNovoRequisito.setFocusable(false);
+				lblCadastrarNovoRequisito.setFocusTraversalKeysEnabled(false);
+				lblCadastrarNovoRequisito.setFocusPainted(false);
+				lblCadastrarNovoRequisito.setBorderPainted(false);
+				lblCadastrarNovoRequisito.setRequestFocusEnabled(false);
+				lblCadastrarNovoRequisito.setForeground(SystemColor.control);
+				lblCadastrarNovoRequisito.setBackground(SystemColor.activeCaptionText);
+				lblCadastrarNovoRequisito.setFont(new Font("Noto Sans CJK TC Medium", Font.PLAIN, 14));
+				lblCadastrarNovoRequisito.setBounds(20, 20, 490, 30);
+				contentPane.add(lblCadastrarNovoRequisito);
 				
 			
 				
