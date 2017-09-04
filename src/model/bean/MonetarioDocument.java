@@ -1,4 +1,4 @@
-package model.dao;
+package model.bean;
 
 
 //Código postado pelo Mark_Ameba no GUJ.
