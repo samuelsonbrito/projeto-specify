@@ -8,13 +8,14 @@ create table if not exists projeto(
     dataInicio date not null,
     dataAproxTermino date not null, 
     descricao varchar(5000) not null,
-    recursosFinanceiros double not null
+    recursosFinanceiros double not null,
+
 );
 
 create table if not exists requisito(
 	codigo int not null auto_increment primary key,
     diaHoraCriacao timestamp,
-	ultimaAtualizacao timestamp default null on update current_timestamp,
+	ultimaAtualizacao timestamp null on update current_timestamp,
 	id varchar(1000) not null unique, 
     sujeito varchar(1000) not null,
     acaoRestricao varchar(5000) not null,
@@ -27,7 +28,7 @@ create table if not exists requisito(
 
 alter table requisito add column pcodigo int not null;
 alter table requisito add foreign key (pcodigo) references projeto(codigo)
-			on delete cascade
+			on delete no action
             on update cascade;
 
 create table if not exists interessado(
@@ -44,11 +45,11 @@ create table if not exists interessado(
 
 create table if not exists interessadoProjeto(
 	dataEntrada timestamp  default current_timestamp on update current_timestamp,
-    dataSaida timestamp default null,
+    dataSaida timestamp null,
     papelDesempenhado varchar(1000) not null,
 	
-    projCodigo INTEGER NOT NULL references projeto(codigo) ON DELETE cascade ON UPDATE cascade,
-    intersCodigo INTEGER NOT NULL references interessado(codigo) ON DELETE cascade ON UPDATE cascade,
+    projCodigo INTEGER NOT NULL references projeto(codigo) ON DELETE no action ON UPDATE cascade,
+    intersCodigo INTEGER NOT NULL references interessado(codigo) ON DELETE no action ON UPDATE cascade,
     
     PRIMARY KEY(projCodigo, intersCodigo)
 );
