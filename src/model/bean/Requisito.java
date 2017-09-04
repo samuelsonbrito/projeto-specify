@@ -15,6 +15,7 @@ public class Requisito {
 	private TipoReq tipoRequisito;
 	private int projcodigo; 
 	private Date horaCriacao; 
+	private boolean selected; 
 	
 	
 	public Date getHoraCriacao() {
@@ -132,6 +133,14 @@ public class Requisito {
 
 	public void setEstimativa(int estimativa) {
 		this.estimativa = estimativa;
+	}
+
+	public void setSelected(boolean selected) {
+		// TODO Auto-generated method stub
+		this.selected=selected; 
+	}
+	public boolean isSelected() {
+		return selected;
 	}
 
 	

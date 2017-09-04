@@ -139,14 +139,31 @@ public class RequisitoDAO {
             stmt.setString(1, id);
             stmt.executeUpdate();
            
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+            //JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir requisito: " + ex);
         } finally {
            ConnectionFactory.closeConnection(con, stmt);
         }
 
     }
     
+    public void deleteReqTabela(String id) {
+
+        PreparedStatement stmt = null;
+	//	ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement("DELETE FROM requisito WHERE id = ?");
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+           
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir requisito: " + ex);
+        } finally {
+           ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
    
 }

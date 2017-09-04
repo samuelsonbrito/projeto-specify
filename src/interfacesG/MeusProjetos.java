@@ -103,13 +103,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 public class MeusProjetos extends JFrame {
 	private JTree tree;
 	private JLabel selectedLabel;
 	private JScrollPane scrollPane, scrollPane2; 	
 	boolean overRoot = false;
-	private JTable table;
 	private JTable table_1;
 	private JTabbedPane tabbedPane; 
 	private JPanel contentPane;
@@ -132,7 +132,7 @@ public class MeusProjetos extends JFrame {
 	private JButton btnEditarProjeto;
 	private JButton btnExcluirProjeto;
 	TreePath path;
-
+	TableRequisitos tableModel = new TableRequisitos();
 	/**
 	 * Launch the application.
 	 */
@@ -140,6 +140,8 @@ public class MeusProjetos extends JFrame {
 		//aparencia da interface: Nimbus
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.put("JTabbedPane.selected", Color.DARK_GRAY);
+
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -217,28 +219,28 @@ public class MeusProjetos extends JFrame {
 		mntmNewMenuItem.setBounds(670, 2, 80, 40);
 		stBarra.add(mntmNewMenuItem);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("");
-		mntmNewMenuItem_1.setBackground(SystemColor.inactiveCaptionText);
-		mntmNewMenuItem_1.setToolTipText("Logout");
-		mntmNewMenuItem_1.setFocusable(true);
-		mntmNewMenuItem_1.setFocusTraversalPolicyProvider(true);
-		mntmNewMenuItem_1.setFocusPainted(true);
-		mntmNewMenuItem_1.setFocusCycleRoot(true);
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem mntmLogout = new JMenuItem("");
+		mntmLogout.setBackground(SystemColor.inactiveCaptionText);
+		mntmLogout.setToolTipText("Logout");
+		mntmLogout.setFocusable(true);
+		mntmLogout.setFocusTraversalPolicyProvider(true);
+		mntmLogout.setFocusPainted(true);
+		mntmLogout.setFocusCycleRoot(true);
+		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		mntmNewMenuItem_1.setHorizontalAlignment(SwingConstants.CENTER);
-		mntmNewMenuItem_1.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/exit.png")));
-		mntmNewMenuItem_1.setBounds(810, 10, 50, 30);
-		stBarra.add(mntmNewMenuItem_1);
+		mntmLogout.setHorizontalAlignment(SwingConstants.CENTER);
+		mntmLogout.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/exit.png")));
+		mntmLogout.setBounds(807, 10, 54, 30);
+		stBarra.add(mntmLogout);
 
 		JMenuItem mntmAjuda = new JMenuItem("Ajuda");
 		mntmAjuda.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/help.png")));
 		mntmAjuda.setForeground(SystemColor.window);
 		mntmAjuda.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 14));
-		mntmAjuda.setBounds(750, 3, 70, 40);
+		mntmAjuda.setBounds(750, 3, 72, 40);
 		stBarra.add(mntmAjuda);
 
 		JLabel lblSistemaParaApoiar = new JLabel("Sistema para apoiar a especificação de Requisitos de Software");
@@ -261,7 +263,7 @@ public class MeusProjetos extends JFrame {
 				novoprojeto.setLocationRelativeTo(null);
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/layout_add.png")));
+		btnNewButton.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_add.png")));
 		btnNewButton.setToolTipText("Novo projeto");
 
 		JButton btnCadInteressado = new JButton("");
@@ -313,43 +315,17 @@ public class MeusProjetos extends JFrame {
 		ProjetoDAO pdao = new ProjetoDAO();
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBackground(SystemColor.activeCaption);
+		tabbedPane.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		tabbedPane.setBounds(310, 77, 568, 553);
 		contentPane.add(tabbedPane);
 
 
-		tabbedPane.addTab("Projetos", null, panelProjetos(), null);
-		tabbedPane.addTab("Requisitos", null, panelRequisitos(), null);
-		tabbedPane.addTab("Interessados", null, panelInteressados(), null);
+		tabbedPane.addTab("Projetos ", new ImageIcon(MeusProjetos.class.getResource("/images/application_xp.png")), panelProjetos(), null);
+		tabbedPane.addTab("Requisitos ", new ImageIcon(MeusProjetos.class.getResource("/images/application_view_list.png")), panelRequisitos(), null);
+		tabbedPane.addTab("Interessados ", new ImageIcon(MeusProjetos.class.getResource("/images/group.png")), panelInteressados(), null);
 
 
-		/******************botões panelDireito***********/
-		JButton btnEditar = new JButton("");
-		btnEditar.setBounds(384, 2, 50, 27);
-		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
-		panelRequisitos.add(btnEditar);
-
-		JButton btnImprimir = new JButton("");
-		btnImprimir.setBounds(440, 2, 50, 27);
-		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
-		panelRequisitos.add(btnImprimir);
-
-		JButton btnLixeira = new JButton("");
-		btnLixeira.setBounds(495, 2, 50, 27);
-		btnLixeira.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				RequisitoDAO dao = new RequisitoDAO();
-				//ação p deletar linha 
-			}
-		});
-
-		btnLixeira.setToolTipText("Deletar requisito");
-		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
-		panelRequisitos.add(btnLixeira);
-		/******************botões panelDireito***********/
-
-
-		////////////FIM PAINEL DIREITO 
+		
 	}
 
 	public void abrirPanel(int i){
@@ -369,8 +345,7 @@ public class MeusProjetos extends JFrame {
 		panelProjetos = new JPanel();
 		panelProjetos.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panelProjetos.setLayout(null);
-
-
+		
 		btnEditarProjeto = new JButton("");
 		btnEditarProjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -393,13 +368,10 @@ public class MeusProjetos extends JFrame {
 		btnEditarProjeto.setEnabled(false);
 		panelProjetos.add(btnEditarProjeto);
 
-
-
 		JLabel lblInfoProjeto = new JLabel("Informações sobre o projeto");
 		lblInfoProjeto.setBounds(44, 20, 200, 15);
 		lblInfoProjeto.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 13));
 		panelProjetos.add(lblInfoProjeto);
-
 
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setBounds(137, 105, 44, 15);
@@ -440,11 +412,21 @@ public class MeusProjetos extends JFrame {
 		btnExcluirProjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ProjetoDAO dao = new ProjetoDAO();
+				RequisitoDAO rdao=new RequisitoDAO(); 
 				MeusProjetos mp = new MeusProjetos();
 
 				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente deletar o projeto "+recebeNome.getText()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION){
-					//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
+					//deletar primeiro os requisitos ligados ao projeto
+					for(Requisito r: rdao.readID()){
+						if(Integer.parseInt(recebeCodigo.getText())==(r.getProjcodigo())){							
+							rdao.delete(r.getId());
+						}	
+					}
+					//deletar os interessados
+
+
+					//deletar o projeto
 					dao.delete(Integer.parseInt(recebeCodigo.getText()));
 					mp.rodaArvore(tree);
 					recebeCodigo.setText("");
@@ -593,10 +575,55 @@ public class MeusProjetos extends JFrame {
 
 		return panelProjetos; 
 	}
+
 	public JPanel panelRequisitos(){
 		panelRequisitos = new JPanel();
 		panelRequisitos.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		criaJTable();
+
+		JButton btnEditar = new JButton("");
+		btnEditar.setBounds(384, 2, 50, 27);
+		btnEditar.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/application_edit.png")));
+		panelRequisitos.add(btnEditar);
+
+		JButton btnImprimir = new JButton("");
+		btnImprimir.setBounds(440, 2, 50, 27);
+		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
+		panelRequisitos.add(btnImprimir);
+
+		JButton btnLixeira = new JButton("");
+		btnLixeira.setBounds(495, 2, 50, 27);
+		btnLixeira.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RequisitoDAO rrrdao = new RequisitoDAO();
+				Requisito r= new Requisito(); 
+				//ação p deletar linha 
+
+				if(table_1.getSelectedRow() != -1){
+
+					int i=table_1.getSelectedRow();
+					System.out.println(tableModel.getValueAt(i, 0));
+					Object valorSelecionado = tableModel.getValueAt(i, 0);
+					
+					if(valorSelecionado.equals(true)){
+						int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar este requisito? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if (resposta == JOptionPane.YES_OPTION){
+							String codigo=(String)tableModel.getValueAt(i, 2);
+							System.out.println(codigo);
+							rrrdao.deleteReqTabela(codigo);							
+						}
+						
+					}
+
+				}
+
+
+			}
+		});
+
+		btnLixeira.setToolTipText("Deletar requisito");
+		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
+		panelRequisitos.add(btnLixeira);
 
 		lblNewLabel_2 = new JLabel();
 		lblNewLabel_2.setBounds(10, 5, 400, 20);
@@ -606,71 +633,49 @@ public class MeusProjetos extends JFrame {
 		return panelRequisitos;
 	}
 
-	public JTree getTree() {
-		return tree;
-	}
-
 
 	public void criaJTable(){
 		table_1 = new JTable();
 		table_1.setBounds(3, 24, 540, 0);
-		table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
-		table_1.setColumnSelectionAllowed(false);
-		table_1.setCellSelectionEnabled(true);
+		table_1.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));		
 		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table_1.setShowVerticalLines(true);
-		table_1.setShowHorizontalLines(true);
 		table_1.getTableHeader().setResizingAllowed(true);
 		table_1.getTableHeader().setReorderingAllowed(false);
 		table_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
 		JTableHeader header =  table_1.getTableHeader();
 		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
-		centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-
-		table_1.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-						"-","C\u00F3digo", "Identificador"
-				}
-				));
-
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);	
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(95);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(405);
-		modelo = (DefaultTableModel) table_1.getModel();
-		modelo.setNumRows(0);
+		centralizado.setHorizontalAlignment(SwingConstants.CENTER);	   		
+		table_1.setModel(tableModel);
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(80);	
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(60);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(399);		
 		panelRequisitos.setLayout(null);
-
-
-
-		//readJTable(node);
-
 		panelRequisitos.add(table_1);
-
 		scrollPane2 = new JScrollPane(table_1);
 		scrollPane2.setBounds(4, 29, 545, 490);
 		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // só mostra a barra horizontal se necessário
 		panelRequisitos.add(scrollPane2);
-
 	}
 
 
 
 	public void readJTableRequisito(int node) {
-		DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
-		modelo.setNumRows(0);
-		RequisitoDAO pdao = new RequisitoDAO();
-		for (Requisito r : pdao.readALL()) {
+		RequisitoDAO rrdao = new RequisitoDAO();	
+		for (Requisito r : rrdao.readALL()) {
 			if(r.getProjcodigo()==node){
-				modelo.addRow(new Object[]{
-						"",
-						r.getCodigo(),
-						r.getId(),
-				});
+				r.isSelected();
+				r.getCodigo();
+				r.getId();
+				tableModel.addRow(r);	
 			}
+
 		}
+	}
+
+
+	public JTree getTree() {
+		return tree;
 	}
 
 	public void atualizaArvore(JTree tree){
@@ -768,6 +773,7 @@ public class MeusProjetos extends JFrame {
 					for(Projeto p: dao.readName()){
 						if(parente.equals((p.getNome()))){
 							lblNewLabel_2.setText(p.getNome());
+							tableModel.limpar();
 							readJTableRequisito(p.getCodigo());
 
 						}
