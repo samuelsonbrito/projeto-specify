@@ -21,8 +21,10 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import model.bean.InteressadoProjeto;
 import model.bean.Projeto;
 import model.bean.Requisito;
+import model.dao.InteressadoProjetoDAO;
 import model.dao.ProjetoDAO;
 import model.dao.RequisitoDAO;
 
@@ -111,6 +113,7 @@ PopupMenuListener {
 		ProjetoDAO dao = new ProjetoDAO();
 		RequisitoDAO rdao=new RequisitoDAO();
 		MeusProjetos mp = new MeusProjetos();
+		InteressadoProjetoDAO ipdao = new InteressadoProjetoDAO();
 		for(Projeto p: dao.readName()){
 
 			if(recebenode.equals(p.getNome())){
@@ -120,11 +123,18 @@ PopupMenuListener {
 					for(Requisito r: rdao.readID()){
 						if(p.getCodigo()==r.getProjcodigo()){							
 							rdao.delete(r.getId());
+							break;
 						}	
 					}
 					//deletar os interessados
-
-
+					//deletar os interessados
+					for(InteressadoProjeto ip:ipdao.buscaInteressados()){
+						if(p.getCodigo()==(ip.getCodProj())){							
+							ipdao.delete(ip.getCodProj());
+							break;
+						}
+					}
+					
 					//deletar o projeto
 					dao.delete(p.getCodigo());
 					mp.rodaArvore(tree);

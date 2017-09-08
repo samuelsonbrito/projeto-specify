@@ -292,7 +292,7 @@ public class MeusProjetos extends JFrame {
 
 
 
-		//////// LADO ESQUERDO DO PROGRAMA
+		//////// PAINEL ESQUERDO
 
 		JPanel panel = new JPanel();			
 		panel.setBorder(new LineBorder(SystemColor.inactiveCaption));
@@ -318,7 +318,7 @@ public class MeusProjetos extends JFrame {
 		///////////////////////	JTREE
 		constroiArvoreBancoDados(panel); //invoca a construção da tree no JPanel 
 
-		/////////////////////// FIM JTREE
+		////////////////////// FIM JTREE
 
 		////////////PAINEL DIREITO
 
@@ -343,23 +343,55 @@ public class MeusProjetos extends JFrame {
 		return codigo;
 	}
 
-
 	public void abrirPanel(int i){
 		tabbedPane.setSelectedIndex(i);
 	}
-
-
 
 	public JPanel panelInteressados(){
 		panelInteressados = new JPanel();
 		panelInteressados.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panelInteressados.setLayout(null);
 		criaJTableInteressado();
-		
-		
+
+		JButton btnLixeira = new JButton("");
+		btnLixeira.setBounds(495, 2, 50, 27);
+		btnLixeira.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InteressadoProjetoDAO ipdao = new InteressadoProjetoDAO();
+				//ação p deletar linha 
+				if(table_2.getSelectedRow() != -1){
+
+					int i=table_2.getSelectedRow();
+					Object valorSelecionado = iptable.getValueAt(i, 0);
+
+					if(valorSelecionado.equals(true)){
+						int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este interessado? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if (resposta == JOptionPane.YES_OPTION){
+							int code = Integer.parseInt(iptable.getValueAt(i, 1).toString());
+							for(InteressadoProjeto pp: ipdao.buscaInteressados()){
+								if(pp.getCodInteressado()==code){
+									pp.setPapelDesempenhado(iptable.getValueAt(i, 4).toString());
+									pp.setCodInteressado(code);
+									ipdao.updateDel(pp);													
+									break;
+								}
+
+							}
+						}
+					}
+				}
+			}
+		});
+
+		btnLixeira.setToolTipText("Deletar Interessado");
+		btnLixeira.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/lixeira.png")));
+		panelInteressados.add(btnLixeira);
+
+
 		return panelInteressados;
 
 	}
+
 	public JPanel panelProjetos(){
 		panelProjetos = new JPanel();
 		panelProjetos.setBorder(new LineBorder(SystemColor.inactiveCaption));
@@ -433,17 +465,24 @@ public class MeusProjetos extends JFrame {
 				ProjetoDAO dao = new ProjetoDAO();
 				RequisitoDAO rdao=new RequisitoDAO(); 
 				MeusProjetos mp = new MeusProjetos();
+				InteressadoProjetoDAO ipdao = new InteressadoProjetoDAO();
 
-				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente deletar o projeto "+recebeNome.getText()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				int resposta = JOptionPane.showConfirmDialog(null, "Ao deletar um projeto todos os requisitos e interessados associados a ele serão removidos. \nDeseja realmente remover o projeto "+recebeNome.getText()+"?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION){
 					//deletar primeiro os requisitos ligados ao projeto
 					for(Requisito r: rdao.readID()){
 						if(Integer.parseInt(recebeCodigo.getText())==(r.getProjcodigo())){							
 							rdao.delete(r.getId());
+							break;
 						}	
 					}
 					//deletar os interessados
-
+					for(InteressadoProjeto ip:ipdao.buscaInteressados()){
+						if(Integer.parseInt(recebeCodigo.getText())==(ip.getCodProj())){							
+							ipdao.delete(ip.getCodProj());
+							break;
+						}
+					}
 
 					//deletar o projeto
 					dao.delete(Integer.parseInt(recebeCodigo.getText()));
@@ -812,7 +851,7 @@ public class MeusProjetos extends JFrame {
 					Object valorSelecionado = tableModel.getValueAt(i, 0);
 
 					if(valorSelecionado.equals(true)){
-						int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar este requisito? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este requisito? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if (resposta == JOptionPane.YES_OPTION){
 							String codigo=(String)tableModel.getValueAt(i, 2);
 							System.out.println(codigo);
@@ -865,7 +904,7 @@ public class MeusProjetos extends JFrame {
 		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
 		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // só mostra a barra horizontal se necessário
 		panelInteressados.add(scrollPane2);
-		
+
 	}
 	public void criaJTable(){
 		table_1 = new JTable();
@@ -895,7 +934,7 @@ public class MeusProjetos extends JFrame {
 		InteressadoProjetoDAO ipdao = new InteressadoProjetoDAO();
 		InteressadoDAO idao = new InteressadoDAO();
 		for(InteressadoProjeto ip : ipdao.buscaInteressados()){
-			 //System.out.println("entrou no for "+ip.getCodProj() +" "+ node);
+			//System.out.println("entrou no for "+ip.getCodProj() +" "+ node);
 			if(ip.getCodProj()==node){
 				//System.out.println("entrou no if "+ip.getCodProj() +" "+ node);
 				ip.isSelected();

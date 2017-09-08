@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
 import model.bean.Interessado;
+import model.bean.InteressadoProjeto;
+import model.bean.Projeto;
 import model.bean.Requisito;
 
 public class InteressadoDAO {
@@ -116,5 +118,6 @@ public class InteressadoDAO {
 
 	}
     
+
 
 }

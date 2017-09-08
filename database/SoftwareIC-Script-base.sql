@@ -44,8 +44,8 @@ create table if not exists interessado(
 );
 
 create table if not exists interessadoProjeto(
-	dataEntrada timestamp  default current_timestamp on update current_timestamp,
-    dataSaida timestamp null,
+	dataEntrada timestamp default current_timestamp,
+	dataSaida timestamp null on update current_timestamp,
     papelDesempenhado varchar(1000) not null,
 	
     projCodigo INTEGER NOT NULL references projeto(codigo) ON DELETE no action ON UPDATE cascade,
@@ -53,5 +53,4 @@ create table if not exists interessadoProjeto(
     
     PRIMARY KEY(projCodigo, intersCodigo)
 );
-
 
