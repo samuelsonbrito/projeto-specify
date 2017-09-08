@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+import model.bean.Interessado;
 import model.bean.InteressadoProjeto;
 import model.bean.Requisito;
 
@@ -14,7 +15,7 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 	private static final int Codigo = 1;
 	private static final int Nome = 2;
 
-	private List<InteressadoProjeto> dados = new ArrayList<>();
+	private List<Interessado> dados = new ArrayList<>();
 	private String[] colunas = {"Selecionar","Código","Nome"};
 
 	@Override
@@ -39,16 +40,16 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 
 
 	public void setValueAt(Object aValue, int linha, int coluna){
-		Requisito requisito=dados.get(linha);
+		Interessado intproj=dados.get(linha);
 		switch(coluna){
 		case 0:
-			requisito.setSelected((Boolean)aValue);
+			intproj.setSelected((Boolean)aValue);
 			break;
 		case 1: 
-			requisito.setCodigo((Integer)aValue);
+			intproj.setCodigo((Integer)aValue);
 			break;
 		case 2: 
-			requisito.setId((String)aValue);
+			intproj.setNome((String)aValue);
 			break;
 
 		default:
@@ -68,7 +69,7 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 		case 1:
 			return dados.get(linha).getCodigo();
 		case 2: 
-			return dados.get(linha).getId();
+			return dados.get(linha).getNome();
 		default:
 			// Não deve ocorrer, pois só existem 3 colunas
 			throw new IndexOutOfBoundsException("columnIndex out of bounds");
@@ -82,7 +83,7 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 			return Boolean.class;
 		case Codigo:
 			return Integer.class;
-		case Identificador: 
+		case Nome: 
 			return String.class;
 
 		default:
@@ -91,8 +92,8 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 		}
 	}
 
-	public void addRow(Requisito r){
-		this.dados.add(r);
+	public void addRow(Interessado ip){
+		this.dados.add(ip);
 		this.fireTableDataChanged();
 	}
 
@@ -101,7 +102,7 @@ public class TableInteressadoProjeto extends AbstractTableModel{
 		this.fireTableRowsDeleted(linha, linha);
 	}
 
-	public Requisito getRequisito(int linha) {
+	public Interessado getInteressado(int linha) {
 		return dados.get(linha);
 	}
 	public void limpar() {

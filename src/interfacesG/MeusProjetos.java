@@ -49,8 +49,12 @@ import javax.swing.JEditorPane;
 import javax.swing.JSeparator;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import model.bean.Interessado;
+import model.bean.InteressadoProjeto;
 import model.bean.Projeto;
 import model.bean.Requisito;
+import model.dao.InteressadoDAO;
+import model.dao.InteressadoProjetoDAO;
 import model.dao.ProjetoDAO;
 import model.dao.RequisitoDAO;
 
@@ -110,9 +114,12 @@ public class MeusProjetos extends JFrame {
 	private JLabel selectedLabel;
 	private JScrollPane scrollPane, scrollPane2; 	
 	boolean overRoot = false;
-	private JTable table_1;
-	private JTabbedPane tabbedPane; 
+	private JTable table_1, table_2;
+	private JTabbedPane tabbedPane;
 	private JPanel contentPane;
+	; 
+	private JPanel contentPane2;
+
 	private JPanel panelProjetos, panelInteressados, panelRequisitos;
 	private int node; 
 	private DefaultTableModel modelo;
@@ -132,7 +139,10 @@ public class MeusProjetos extends JFrame {
 	private JButton btnEditarProjeto;
 	private JButton btnExcluirProjeto;
 	TreePath path;
-	TableRequisitos tableModel = new TableRequisitos();
+	JFrame frame2; 
+
+	TableRequisitos tableModel = new TableRequisitos(); 
+	TableExibeInteressadosP iptable = new TableExibeInteressadosP();
 	/**
 	 * Launch the application.
 	 */
@@ -291,6 +301,7 @@ public class MeusProjetos extends JFrame {
 		panel.setLayout(null);
 
 		JButton LabelProjetos = new JButton("Projetos");
+		LabelProjetos.setHorizontalAlignment(SwingConstants.LEFT);
 		LabelProjetos.setFont(new Font("Noto Sans CJK KR Medium", Font.PLAIN, 12));
 
 		LabelProjetos.setForeground(SystemColor.controlHighlight);
@@ -325,8 +336,13 @@ public class MeusProjetos extends JFrame {
 		tabbedPane.addTab("Interessados ", new ImageIcon(MeusProjetos.class.getResource("/images/group.png")), panelInteressados(), null);
 
 
-		
+
 	}
+
+	public static int recebeReqID(int codigo){
+		return codigo;
+	}
+
 
 	public void abrirPanel(int i){
 		tabbedPane.setSelectedIndex(i);
@@ -338,6 +354,9 @@ public class MeusProjetos extends JFrame {
 		panelInteressados = new JPanel();
 		panelInteressados.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panelInteressados.setLayout(null);
+		criaJTableInteressado();
+		
+		
 		return panelInteressados;
 
 	}
@@ -345,7 +364,7 @@ public class MeusProjetos extends JFrame {
 		panelProjetos = new JPanel();
 		panelProjetos.setBorder(new LineBorder(SystemColor.inactiveCaption));
 		panelProjetos.setLayout(null);
-		
+
 		btnEditarProjeto = new JButton("");
 		btnEditarProjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -576,6 +595,145 @@ public class MeusProjetos extends JFrame {
 		return panelProjetos; 
 	}
 
+	public JFrame ShowDRCE(JFrame frame2){
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ShowDocReqCartaoEstoria frame2 = new ShowDocReqCartaoEstoria();
+					frame2.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 473, 403);
+		contentPane2 = new JPanel();
+		contentPane2.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane2);
+		contentPane2.setLayout(null);
+
+		JButton btnCartoEstria = new JButton("Cartão de estória");
+		btnCartoEstria.setForeground(SystemColor.control);
+		btnCartoEstria.setBackground(SystemColor.activeCaptionText);
+		btnCartoEstria.setFont(new Font("TakaoPGothic", Font.PLAIN, 13));
+		btnCartoEstria.setBounds(12, 5, 449, 25);
+		contentPane2.add(btnCartoEstria);
+
+		JButton btnDocReq = new JButton("Doc. de Requisito");
+		btnDocReq.setForeground(SystemColor.control);
+		btnDocReq.setBackground(SystemColor.activeCaptionText);
+		btnDocReq.setFont(new Font("TakaoPGothic", Font.PLAIN, 13));
+		btnDocReq.setBounds(12, 180, 449, 25);
+		contentPane2.add(btnDocReq);
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(12, 30, 449, 148);
+		contentPane2.add(panel);
+		panel.setLayout(null);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(7, 25, 435, 4);
+		panel.add(separator);
+
+		JSeparator separator2 = new JSeparator();
+		separator2.setBounds(7, 80, 435, 4);
+		panel.add(separator2);
+
+		JSeparator separator3 = new JSeparator();
+		separator3.setBounds(7, 100, 435, 4);
+		panel.add(separator3);
+
+		JSeparator separator4 = new JSeparator();
+		separator4.setBounds(7, 120, 435, 4);
+		panel.add(separator4);
+
+		JLabel lblId = new JLabel("ID: ");
+		lblId.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+		lblId.setBounds(319, 5, 60, 15);
+		panel.add(lblId);
+
+		JLabel lblComoUm = new JLabel("Como um "+"tipoUsuario "+"eu quero "+"objetivo"+" afim de que "+"razao");
+		lblComoUm.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+		lblComoUm.setBounds(17, 10, 430, 54);
+		panel.add(lblComoUm);
+
+		JLabel lblGr = new JLabel("Prioridade: ");
+		lblGr.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		lblGr.setBounds(17, 85, 200, 15);
+		panel.add(lblGr);
+
+		JLabel lblGrauDificuldade = new JLabel("Dificuldade: ");
+		lblGrauDificuldade.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		lblGrauDificuldade.setBounds(17, 104, 200, 15);
+		panel.add(lblGrauDificuldade);
+
+		JLabel lblEstimativa = new JLabel("Estimativa: ");
+		lblEstimativa.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		lblEstimativa.setBounds(17, 124, 120, 15);
+		panel.add(lblEstimativa);
+
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel2.setBounds(12, 205, 449, 133);
+		contentPane2.add(panel2);
+		panel2.setLayout(null);
+
+		JLabel lblIdreq = new JLabel("ID: ");
+		lblIdreq.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 13));
+		lblIdreq.setBounds(319, 5, 60, 15);
+		panel2.add(lblIdreq);
+
+		JSeparator separator1 = new JSeparator();
+		separator1.setBounds(7, 25, 435, 4);
+		panel2.add(separator1);
+
+		JSeparator separator22 = new JSeparator();
+		separator22.setBounds(7, 80, 435, 4);
+		panel2.add(separator22);
+
+		JSeparator separator33 = new JSeparator();
+		separator33.setBounds(7, 100, 435, 4);
+		panel2.add(separator33);
+
+		JSeparator separator44 = new JSeparator();
+		separator44.setBounds(7, 120, 435, 4);
+		panel2.add(separator44);
+
+		JLabel lblGrReq = new JLabel("Prioridade: ");
+		lblGrReq.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		lblGrReq.setBounds(17, 85, 200, 15);
+		panel2.add(lblGrReq);
+
+		JLabel lblGrauDificuldadeReq = new JLabel("Dificuldade: ");
+		lblGrauDificuldadeReq.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
+		lblGrauDificuldadeReq.setBounds(17, 104, 200, 15);
+		panel2.add(lblGrauDificuldadeReq);
+
+		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnOk.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		btnOk.setForeground(SystemColor.control);
+		btnOk.setBackground(SystemColor.activeCaptionText);
+		btnOk.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/accept.png")));
+		btnOk.setBounds(361, 365, 100, 27);
+		contentPane2.add(btnOk);
+
+		JButton btnBaixar = new JButton("Baixar");
+		btnBaixar.setForeground(SystemColor.control);
+		btnBaixar.setBackground(SystemColor.activeCaptionText);
+		btnBaixar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
+		btnBaixar.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/page_white_acrobat.png")));
+		btnBaixar.setBounds(249, 365, 100, 27);
+		contentPane2.add(btnBaixar);
+		return frame2;
+	}
+
 	public JPanel panelRequisitos(){
 		panelRequisitos = new JPanel();
 		panelRequisitos.setBorder(new LineBorder(SystemColor.inactiveCaption));
@@ -587,8 +745,56 @@ public class MeusProjetos extends JFrame {
 		panelRequisitos.add(btnEditar);
 
 		JButton btnImprimir = new JButton("");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if(table_1.getSelectedRow() != -1){
+
+					int i=table_1.getSelectedRow();
+					Object valorSelecionado = tableModel.getValueAt(i, 1);
+					String valor=valorSelecionado.toString();
+					int codigo = Integer.parseInt(valor);
+					recebeReqID(codigo);
+					//frame2.setVisible(true);
+				}
+
+				JCheckBox chckbxNewCheckBox = new JCheckBox("Cartão estória");
+				chckbxNewCheckBox.setBounds(171, 85, 129, 23);
+				JCheckBox chckbxDocDeRequisitos = new JCheckBox("Doc. de Requisitos");
+				chckbxDocDeRequisitos.setBounds(171, 110, 200, 17);
+
+				JCheckBox checkbox = new JCheckBox("Cartão estória");
+				JCheckBox checkbox2 = new JCheckBox("Doc. de requisios");
+				String message = "Selecione os formatos para visualizar e/ou imprimir: ";
+				Object[] params = {message, checkbox, checkbox2};
+				JOptionPane.showConfirmDialog(null, params, "Visualizar/Imprimir", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+				if(checkbox.isSelected() && checkbox2==null){
+					ShowCartaoEstoria ce = new ShowCartaoEstoria();
+					ce.setVisible(true);
+					ce.setLocationRelativeTo(null);
+				}
+				if(checkbox2.isSelected() && checkbox==null){
+					ShowDocReq dr = new ShowDocReq();
+					dr.setVisible(true);
+					dr.setLocationRelativeTo(null);
+				}
+				if(checkbox.isSelected() && checkbox2.isSelected()){
+					ShowDocReqCartaoEstoria drce = new ShowDocReqCartaoEstoria();
+					//drce.setVisible(true);
+					//drce.setLocationRelativeTo(null);
+					ShowDRCE(frame2);
+				}
+
+
+
+			}
+		});
+
+
+
 		btnImprimir.setBounds(440, 2, 50, 27);
-		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer_empty.png")));
+		btnImprimir.setIcon(new ImageIcon(MeusProjetos.class.getResource("/images/printer.png")));
 		panelRequisitos.add(btnImprimir);
 
 		JButton btnLixeira = new JButton("");
@@ -604,7 +810,7 @@ public class MeusProjetos extends JFrame {
 					int i=table_1.getSelectedRow();
 					System.out.println(tableModel.getValueAt(i, 0));
 					Object valorSelecionado = tableModel.getValueAt(i, 0);
-					
+
 					if(valorSelecionado.equals(true)){
 						int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar este requisito? ", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if (resposta == JOptionPane.YES_OPTION){
@@ -612,7 +818,7 @@ public class MeusProjetos extends JFrame {
 							System.out.println(codigo);
 							rrrdao.deleteReqTabela(codigo);							
 						}
-						
+
 					}
 
 				}
@@ -633,7 +839,34 @@ public class MeusProjetos extends JFrame {
 		return panelRequisitos;
 	}
 
+	public void criaJTableInteressado(){
+		table_2 = new JTable();
+		table_2.setBounds(3, 24, 540, 0);
+		table_2.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));		
+		table_2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_2.getTableHeader().setResizingAllowed(true);
+		table_2.getTableHeader().setReorderingAllowed(false);
+		table_2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("Menu[Disabled].textForeground")));
+		JTableHeader header =  table_2.getTableHeader();
+		DefaultTableCellRenderer centralizado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+		centralizado.setHorizontalAlignment(SwingConstants.CENTER);	   		
+		table_2.setModel(iptable);
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(25);	
+		table_2.getColumnModel().getColumn(1).setPreferredWidth(60);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(164);	
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table_2.getColumnModel().getColumn(4).setPreferredWidth(140);
 
+
+		panelInteressados.setLayout(null);
+		panelInteressados.add(table_2);
+		scrollPane2 = new JScrollPane(table_2);
+		scrollPane2.setBounds(4, 29, 545, 490);
+		scrollPane2.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // só mostra a barra vertical se necessário
+		scrollPane2.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // só mostra a barra horizontal se necessário
+		panelInteressados.add(scrollPane2);
+		
+	}
 	public void criaJTable(){
 		table_1 = new JTable();
 		table_1.setBounds(3, 24, 540, 0);
@@ -658,6 +891,31 @@ public class MeusProjetos extends JFrame {
 		panelRequisitos.add(scrollPane2);
 	}
 
+	public void readJTableInteressado(int node){
+		InteressadoProjetoDAO ipdao = new InteressadoProjetoDAO();
+		InteressadoDAO idao = new InteressadoDAO();
+		for(InteressadoProjeto ip : ipdao.buscaInteressados()){
+			 //System.out.println("entrou no for "+ip.getCodProj() +" "+ node);
+			if(ip.getCodProj()==node){
+				//System.out.println("entrou no if "+ip.getCodProj() +" "+ node);
+				ip.isSelected();
+				ip.getCodInteressado();
+				for(Interessado it: idao.readNomeSobreN()){
+					//System.out.println("entrou no for de busca pelo nome"+it.getCodigo() + " "+ ip.getCodInteressado());
+					if(ip.getCodInteressado()==it.getCodigo()){
+						//System.out.println(it.getNome());
+						ip.setNome(it.getNome());
+						break;
+					}
+				}
+				ip.getDataEntrada();
+				iptable.addRow(ip);
+				break;
+			}
+
+		}
+
+	}
 
 
 	public void readJTableRequisito(int node) {
@@ -713,9 +971,8 @@ public class MeusProjetos extends JFrame {
 
 	public JTree constroiArvoreBancoDados(JPanel panel){
 		tree = new JTree();
+		tree.setRootVisible(false);
 		tree.setToggleClickCount(1);
-
-		tree.setShowsRootHandles(false);
 		tree.setFont(new Font("Noto Sans CJK SC Medium", Font.PLAIN, 12));
 		tree.setVisibleRowCount(0);
 		rodaArvore(tree);
@@ -782,6 +1039,12 @@ public class MeusProjetos extends JFrame {
 				}
 				if (e.getClickCount() == 2 && ((nodeInfo!=null) && ((nodeInf2 =="Interessados") && (nodeInf2!="Requisitos") && (nodeInf2!=null)))) {
 					abrirPanel(2);
+					for(Projeto p: dao.readName()){
+						if(parente.equals(p.getNome())){
+							iptable.limpar();
+							readJTableInteressado(p.getCodigo());
+						}
+					}
 				}
 
 			}

@@ -2,7 +2,12 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -45,6 +50,71 @@ public class InteressadoDAO {
        }
 
     }
+    
+    public List<Interessado> readForDesc(String nome) {
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Interessado> interessados = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT codigo, nome, sobrenome FROM interessado WHERE nome LIKE ? or sobrenome LIKE ?");
+            stmt.setString(1, "%"+nome+"%");
+            stmt.setString(2, "%"+nome+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+               Interessado interessado = new Interessado();
+               
+               interessado.setCodigo(rs.getInt("codigo"));
+               interessado.setNome(rs.getString("nome")+" "+rs.getString("sobrenome"));
+              // interessado.setSobrenome(rs.getString("sobrenome"));
+               
+                interessados.add(interessado);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InteressadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return interessados;
+
+    }
+    
+    public List<Interessado> readNomeSobreN() {   //para JTable
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Interessado> interessado = new ArrayList<>();
+
+		try {
+			stmt = con.prepareStatement("SELECT codigo,nome, sobrenome FROM interessado");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Interessado i = new Interessado(); 
+				i.setCodigo(rs.getInt("codigo"));
+				i.setNome(rs.getString("nome")+" "+ rs.getString("sobrenome"));
+				interessado.add(i);
+	
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ProjetoDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt, rs);
+		}
+
+		return interessado;
+
+	}
     
 
 }

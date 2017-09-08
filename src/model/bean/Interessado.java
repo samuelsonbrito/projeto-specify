@@ -11,16 +11,18 @@ public class Interessado {
 	private String cpf; 
 	private String telefone;
 	private String email; 
-	private Date dataCriacao; 
+	private String dataCriacao; 
+	private boolean selected; 
+	
 	
 	public Interessado (){
 		
 	}
 
-	public Interessado(int id, String nome, String sobrenome, String endereco, String rg, String cpf, String telefone,
-			String email, Date dataCriacao) {
+	public Interessado(int codigo, String nome, String sobrenome, String endereco, String rg, String cpf, String telefone,
+			String email, String dataCriacao) {
 		super();
-		this.codigo = id;
+		this.codigo = codigo;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.endereco = endereco;
@@ -30,13 +32,22 @@ public class Interessado {
 		this.email = email;
 		this.dataCriacao = dataCriacao;
 	}
+	
+	public void setSelected(boolean selected) {
+		// TODO Auto-generated method stub
+		this.selected=selected; 
+	}
+	public boolean isSelected() {
+		return selected;
+	}
 
-	public int getId() {
+
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setId(int id) {
-		this.codigo = id;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNome() {
@@ -95,11 +106,11 @@ public class Interessado {
 		this.email = email;
 	}
 
-	public Date getDataCriacao() {
+	public String getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 	

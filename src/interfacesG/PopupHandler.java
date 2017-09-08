@@ -39,11 +39,13 @@ PopupMenuListener {
 	JMenu menu, menu2, menu3; 
 	boolean overRoot = false;
 	boolean menuPopUpDel = false; 
+	boolean interessado = false;
+	boolean requisito = false; 
 	Point loc;
 	static JTabbedPane tabbedPane;
 
 	public PopupHandler(JTree tree) {
-		
+
 		this.tree = tree;
 		popup = new JPopupMenu();
 		popup.setInvoker(tree);
@@ -56,7 +58,7 @@ PopupMenuListener {
 		menu.add(item2= getMenuItem("Novo projeto"));
 		menu.add(item7=getMenuItem("Novo interessado"));
 		menu.add(item = getMenuItem("Novo requisito"));
-		
+
 		menu2.add(item3= getMenuItem("Projeto"));
 		//menu2.add(item4= getMenuItem("Requisito"));
 		//menu3.add(item5= getMenuItem("Informações do projeto"));
@@ -95,50 +97,14 @@ PopupMenuListener {
 		if(ac.equals("NOVO INTERESSADO")){
 			exibeCadInteressado(path);
 		}
-		
-		/*if(ac.equals("INFORMAÇÕES DO PROJETO")){
-			exibeInfoProjeto(recebenode);
-		}
-		if(ac.equals("TODOS OS REQUISITOS")){
-			/*MeusProjetos mp = new MeusProjetos();
-			ProjetoDAO dao = new ProjetoDAO();
-			for(Projeto p: dao.readName()){
-				if(recebenode.equals(p.getNome())){
-					System.out.println(recebenode+"="+ p.getNome());
-					//tabbedPane.setSelectedIndex(1);
-					mp.abrirPanel(1, tabbedPane);
-				}
-			}
-
-		}*/
-
 	}
-	
+
 	public void exibeCadInteressado(TreePath path){
-		CadastrarInteressadoSistema IS = new CadastrarInteressadoSistema();
+		CadastrarInteressadoSistema IS = new CadastrarInteressadoSistema(tree);
 		IS.setLocationRelativeTo(null);
 		IS.setVisible(true);
-		
+
 	}
-	
-
-	/*private void deletarRequisito(String recebenode){
-		RequisitoDAO dao = new RequisitoDAO();
-		for(Requisito r: dao.readID()){
-
-			if(recebenode.equals(r.getId())){
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o requisito "+recebenode+"?","Confirmar deleção",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if (resposta == JOptionPane.YES_OPTION){
-					//JOptionPane.showMessageDialog(null, "Teste .equals:  "+recebenode+"="+p.getNome()+" "+ p.getCodigo());	
-					dao.delete(r.getId());
-				}
-			}	else {
-				//JOptionPane.showMessageDialog(null, "Para deletar selecione um projeto valido.");
-
-			}
-		}
-
-	}*/
 
 	private void deletarProjeto(String recebenode){
 		//TreePath path = ((JTree) nodeInfo).getPathForLocation ( getX (), getY () );
@@ -162,11 +128,11 @@ PopupMenuListener {
 					//deletar o projeto
 					dao.delete(p.getCodigo());
 					mp.rodaArvore(tree);
-					
+
 				}
-				
-				
-				
+
+
+
 			}	
 		}
 
@@ -202,14 +168,14 @@ PopupMenuListener {
 
 				TreeNode root = (TreeNode)tree.getModel().getRoot();;
 				overRoot = path.getLastPathComponent() == root;
-				
+
 				teste(); 
-				
+
 				popup.show(tree, loc.x, loc.y);
 
 			}
 		}
-		
+
 		public void teste (){
 			/// testar 
 			TreePath path  = tree.getPathForLocation(loc.x, loc.y);
@@ -220,13 +186,26 @@ PopupMenuListener {
 			Object nodeInfo = node.getParent();
 			//String parent = tree.getSelectionPath().getParentPath().getLastPathComponent().toString();
 			//System.out.println(nodeInfo+" "+node + " "+ nodeInf2);
-			
+
 			if((node!=root) && (nodeInfo!=null) && ((nodeInf2 != "Requisitos") && (nodeInf2 !="Interessados"))){
 				menuPopUpDel=true;
 			}else{
 				menuPopUpDel=false; 
 			}
 			
+			if ((node!=root) && (nodeInfo!=null) && (nodeInf2!="Requisitos")){
+				interessado=true;
+			}
+			else{
+				interessado=false; 
+			}
+			
+			if ((node!=root) && (nodeInfo!=null) && (nodeInf2!="Interessados")){
+				requisito=true;
+			}
+			else{
+				requisito=false; 
+			}
 			popup.show(tree, loc.x, loc.y);
 
 
@@ -236,16 +215,17 @@ PopupMenuListener {
 		public void mouseReleased(MouseEvent e) { checkForPopup(e); }
 		public void mouseClicked(MouseEvent e)  { checkForPopup(e); }
 	};
-	
-	
+
+
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-		item.setVisible(!overRoot); //novo requisito nao pode ser visivel na raiz 
+		item.setVisible(requisito); //novo requisito nao pode ser visivel na raiz 
 		item2.setVisible(overRoot); //novo projeto só pode ser visível na raiz 
 		item3.setVisible(!overRoot); //projeto   ============> arrumar 
 		//item5.setVisible(!overRoot);   
 		//item6.setVisible(!overRoot);
-		
+		item7.setVisible(interessado);
+
 		menu2.setVisible(menuPopUpDel); // não pode ser visivel na raiz e nem em requisitos      =======> arrumar 
 		//menu3.setVisible(!overRoot); // não pode ser visivel na raiz 		========> arrumar 
 	}

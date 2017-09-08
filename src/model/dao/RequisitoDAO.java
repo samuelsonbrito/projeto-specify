@@ -114,7 +114,7 @@ public class RequisitoDAO {
 				requisito.setHoraCriacao(rs.getDate("diaHoraCriacao"));
 				
 				//requisito.setTipoReq((TipoReq)rs.getObject("tipoRequisito"));
-				//requisito.setGrauPrioridade((GrauP) rs.getObject("grauPrioridade"));
+				//.setGrauPrioridade((GrauP) rs.getObject("grauPrioridade"));
 				//requisito.setGrauDificuldade((GrauD) rs.getObject("grauDificuldade"));
 				
 				req.add(requisito);
