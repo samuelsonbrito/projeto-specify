@@ -13,7 +13,7 @@ public class TableRequisitos extends AbstractTableModel{
 	private static final int Identificador = 2;
 
 	private List<Requisito> dados = new ArrayList<>();
-	private String[] colunas = {"Selecionar","CÃ³digo","Identificador"};
+	private String[] colunas = {"Selecionar","Código","Identificador"};
 
 	@Override
 	public String getColumnName(int column) {

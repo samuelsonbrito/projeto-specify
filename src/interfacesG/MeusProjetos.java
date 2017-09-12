@@ -638,7 +638,7 @@ public class MeusProjetos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ShowDocReqCartaoEstoria frame2 = new ShowDocReqCartaoEstoria();
+					//ShowDocReqCartaoEstoria frame2 = new ShowDocReqCartaoEstoria();
 					frame2.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -759,7 +759,7 @@ public class MeusProjetos extends JFrame {
 		btnOk.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
 		btnOk.setForeground(SystemColor.control);
 		btnOk.setBackground(SystemColor.activeCaptionText);
-		btnOk.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/accept.png")));
+		//btnOk.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/accept.png")));
 		btnOk.setBounds(361, 365, 100, 27);
 		contentPane2.add(btnOk);
 
@@ -767,7 +767,7 @@ public class MeusProjetos extends JFrame {
 		btnBaixar.setForeground(SystemColor.control);
 		btnBaixar.setBackground(SystemColor.activeCaptionText);
 		btnBaixar.setFont(new Font("TakaoPGothic", Font.BOLD, 12));
-		btnBaixar.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/page_white_acrobat.png")));
+		//btnBaixar.setIcon(new ImageIcon(ShowDocReqCartaoEstoria.class.getResource("/images/page_white_acrobat.png")));
 		btnBaixar.setBounds(249, 365, 100, 27);
 		contentPane2.add(btnBaixar);
 		return frame2;
@@ -809,17 +809,17 @@ public class MeusProjetos extends JFrame {
 				JOptionPane.showConfirmDialog(null, params, "Visualizar/Imprimir", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
 				if(checkbox.isSelected() && checkbox2==null){
-					ShowCartaoEstoria ce = new ShowCartaoEstoria();
-					ce.setVisible(true);
-					ce.setLocationRelativeTo(null);
+					//ShowCartaoEstoria ce = new ShowCartaoEstoria();
+					//ce.setVisible(true);
+					//ce.setLocationRelativeTo(null);
 				}
 				if(checkbox2.isSelected() && checkbox==null){
-					ShowDocReq dr = new ShowDocReq();
-					dr.setVisible(true);
-					dr.setLocationRelativeTo(null);
+					//ShowDocReq dr = new ShowDocReq();
+					//dr.setVisible(true);
+					//dr.setLocationRelativeTo(null);
 				}
 				if(checkbox.isSelected() && checkbox2.isSelected()){
-					ShowDocReqCartaoEstoria drce = new ShowDocReqCartaoEstoria();
+					//ShowDocReqCartaoEstoria drce = new ShowDocReqCartaoEstoria();
 					//drce.setVisible(true);
 					//drce.setLocationRelativeTo(null);
 					ShowDRCE(frame2);
